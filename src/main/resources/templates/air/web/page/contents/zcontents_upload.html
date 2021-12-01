@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!--SCRIPTS INCLUDES-->
+		<!--CORE-->
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/metismenu"></script>
+		<script src="../assets/js/scripts-init/app.js"></script>
+		<script src="../assets/js/scripts-init/demo.js"></script>
+		
+		<style type="text/css">
+			body {
+				background: rgba(0, 0, 0, 0.9);
+			}
+			
+			#ex9 .upload-box {
+				width: 500px;
+				height: 300px;
+				border: 1px solid gray;
+				box-shadow: 2px 3px 9px hsl(0, 0%, 47%);
+				padding: 10px;
+			}
+			
+			#uploadForm {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-top: -100px;
+				margin-left: -250px;
+				width: 500px;
+				height: 200px;
+				border: 4px dashed #fff;
+			}
+			
+			#uploadForm p {
+				width: 100%;
+				height: 100%;
+				text-align: center;
+				line-height: 170px;
+				color: #ffffff;
+				font-family: Arial;
+			}
+			
+			#uploadForm input {
+				position: absolute;
+				margin: 0;
+				padding: 0;
+				width: 100%;
+				height: 100%;
+				outline: none;
+				opacity: 0;
+			}
+			
+			#uploadForm button {
+				margin: 0;
+				color: #fff;
+				background: #16a085;
+				border: none;
+				width: 508px;
+				height: 35px;
+				margin-top: -20px;
+				margin-left: -4px;
+				border-radius: 4px;
+				border-bottom: 4px solid #117A60;
+				transition: all .2s ease;
+				outline: none;
+			}
+			
+			#uploadForm button:hover {
+				background: #149174;
+				color: #0C5645;
+			}
+			
+			#uploadForm button:active {
+				border: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<form name="uploadForm" id="uploadForm" action="" method="POST" enctype="multipart/form-data">
+			<input type="file" name="files" multiple>
+			<p>Drag your files here or click in this area.</p>
+			<button type="submit">Upload</button>
+		</form>
+	</body>
+	<script>
+			
+
+		$(document).ready(function() {
+			$('form input').change(function() {
+				$('form p').text(this.files.length + " file(s) selected");
+			});
+		});
+
+		//////////////////////////////////////////////////////
+
+// 		var sec9 = document.querySelector('#ex9');
+// 		var btnUpload = sec9.querySelector('.btn-upload');
+// 		var inputFile = sec9.querySelector('input[type="file"]');
+// 		var uploadBox = sec9.querySelector('.upload-box');
+
+// 		/* 박스 안에 Drag 들어왔을 때 */
+// 		uploadBox.addEventListener('dragenter', function(e) {
+// 			console.log('dragenter');
+// 		});
+
+// 		/* 박스 안에 Drag를 하고 있을 때 */
+// 		uploadBox.addEventListener('dragover', function(e) {
+// 			e.preventDefault();
+// 			console.log('dragover');
+
+// 			var vaild = e.dataTransfer.types.indexOf('Files') >= 0;
+
+// 			if (!vaild) {
+// 				this.style.backgroundColor = 'red';
+// 			} else {
+// 				this.style.backgroundColor = 'green';
+// 			}
+// 		});
+
+// 		/* 박스 밖으로 Drag가 나갈 때 */
+// 		uploadBox.addEventListener('dragleave', function(e) {
+// 			console.log('dragleave');
+
+// 			this.style.backgroundColor = 'white';
+// 		});
+
+// 		/* 박스 안에서 Drag를 Drop했을 때 */
+// 		uploadBox.addEventListener('drop', function(e) {
+// 			e.preventDefault();
+
+// 			console.log('drop');
+// 			this.style.backgroundColor = 'white';
+// 		});
+	</script>
+</html>
+
+

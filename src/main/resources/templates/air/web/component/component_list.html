@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+	<!-- component_default  -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- component contents start -->
+						<div class="tab-content">
+							<!-- tap contents start -->
+							<!-- thumnail list start -->
+							
+							<a th:href="@{/component/default}">component default</a> <br><br>
+							
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">Thumnail List</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-12" style="margin-bottom: 15px;">
+													<button type="button" class="btn mr-2 md-2 btn-icon btn btn-success" style="float: right;" data-toggle="modal" data-target=".registModal">
+														<i class="pe-7s-note2 btn-icon-wrapper"> </i>btn 0
+													</button>
+												</div>
+												<div class="col-md-12 col-lg-6 col-xl-4">
+													<div class="card-shadow-primary profile-responsive card-border mb-3 card">
+														<div class="dropdown-menu-header">
+															<div class="dropdown-menu-header-inner bg-danger">
+																<div class="menu-header-image" style="background-image: url('../assets/images/dropdown-header/abstract2.jpg')"></div>
+																<div class="menu-header-content btn-pane-right">
+																	<div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+																		<div class="avatar-icon">
+																			<img src="../assets/images/avatars/10.jpg" alt="Avatar 5">
+																		</div>
+																	</div>
+																	<div>
+																		<h5 class="menu-header-title">main text</h5>
+																		<h6 class="menu-header-subtitle">sub text</h6>
+																	</div>
+																	<div class="menu-header-btn-pane">
+																		<div>
+																			<div role="group" class="btn-group text-center">
+																				<div class="nav">
+																					<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal">
+																						<i class="pe-7s-tools btn-icon-wrapper"> </i>btn 1
+																					</button>
+																					<button type="button" class="btn btn-icon  btn-dark" data-toggle="modal" data-target=".infoModal">
+																						<i class="pe-7s-info btn-icon-wrapper"> </i>btn 2
+																					</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<!-- 내용 스크롤 -->
+														<div class="scroll-area-sm">
+															<div class="scrollbar-container ps--active-y ps">
+																<ul class="list-group list-group-flush">
+																	<li class="list-group-item" onclick="javascript:enterBranch('1');">
+																		<div class="widget-content p-0">
+																			<div class="widget-content-wrapper">
+																				<div class="widget-content-left mr-3">
+																					<div class="icon-wrapper" style="width: 100%">
+																						<div class="avatar-icon-wrapper avatar-icon-xl">
+																							<div class="avatar-icon">
+																								<!-- 지점 사진 -->
+																								<img src="../assets/images/avatars/1.jpg" alt="Avatar 5">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="widget-content-left">
+																					<div class="widget-heading">main context</div>
+																					<div class="widget-subheading">sub context</div>
+																				</div>
+																				<div class="widget-content-right">
+																					<div class="row" style="text-align: right;">
+																						<div class="col-sm-12 text-secondary">
+																							<span style="font-size: 14px; font-weight: 700;">ALL 5</span>
+																						</div>
+																						<div class="col-sm-12 text-info">
+																							<span style="font-size: 14px; font-weight: 700;">ON 3</span>
+																						</div>
+																						<div class="col-sm-12 text-primary">
+																							<span style="font-size: 14px; font-weight: 700;">OFF 2</span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</li>
+																</ul>
+																<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+																	<div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+																</div>
+																<div class="ps__rail-y" style="top: 0px; height: 200px; right: 0px;">
+																	<div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 75px;"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<!-- thumnail list end -->
+								
+								<!-- datatable list start -->
+								<div class="col-md-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">Data Table List</div>
+										<div class="card-body">
+											<table data-toggle="table" data-url="https://api.github.com/users/wenzhixin/repos?type=owner&sort=full_name&direction=asc&per_page=10&page=1" data-sort-name="stargazers_count"
+												data-sort-order="desc">
+												<thead>
+													<tr>
+														<th data-field="name" data-sortable="true">Name</th>
+														<th data-field="stargazers_count" data-sortable="true">Stars</th>
+														<th data-field="forks_count" data-sortable="true">Forks</th>
+														<th data-field="description" data-sortable="true">Description</th>
+													</tr>
+												</thead>
+											</table>
+										</div>
+									</div>
+								</div>
+								<!-- datatable list end -->
+							</div>
+							<!-- tap contents end -->
+						</div>
+						<!-- component contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+</html>
+
+

@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+    <!-- custom style start -->
+    <th:block layout:fragment="style">
+   		<style type="text/css">
+			.thumbnail {
+				border: 2px solid gray; 
+				border-radius: 0px 20px 20px 20px;
+				margin: 10px 0 20px;
+			}
+			
+			.thumbnail .thumName{
+				margin: 10px;
+			}
+			
+			.thumbnail .caption{
+				width: 100%;
+				margin: auto;
+				background-color: ghostwhite;
+			}
+			
+			.thumbnail .caption img {
+				max-width: 80%;
+				height: 100px;
+			}
+			
+			.thumbnail p {
+				width: 90%;
+				margin: 10px;
+			}
+			
+			.thumbnail .thumBtnGroup{
+				text-align: center;
+				margin: 10px 0;
+			}
+			
+ 			.datepicker-container{ 
+ 				z-index: 9999 !important;
+ 			} 
+		</style>
+    </th:block>
+    <!-- custom style end -->
+		
+	<!-- contents영역  -->
+	<!-- 해당 부분을 가져가서 내용을 구현 -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left col-md-3">
+					<div>
+						<span>컨텐츠 업로드</span><br>
+						<a th:href="@{/main/default}">디폴트 페이지</a><br>
+						<a th:href="@{/element/list}">요소 리스트</a><br>
+					</div>
+				</div>
+				<div class="inner-bar-center col-md-8"></div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- contents start -->
+						<div  class="tab-content">
+							<div class="row" id="upload">
+								<div class="col-sm-12 col-lg-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">
+											Contents Upload
+										</div>
+										<div class="card-body" >
+											<!-- upload form start -->
+											<div id="uploadWrapper"></div>
+											<!-- upload form ent -->
+										</div>
+										
+										<div class="d-block text-right card-footer">
+											<div class="saveWrap">
+												<button type="button" class="btn-icon btn btn-info btn-lg" onclick="javascript:uploadSave();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+											</div>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+	
+							<div class="row">
+								<div class="col-sm-12 col-lg-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">
+											Contents List
+										</div>
+										<div class="card-body" >
+											<!-- upload list start -->
+											<div class="uploadList row">
+												<div class="col-sm-12 col-md-12">
+													<div class="custom-checkbox custom-control" style="float:right;">
+														<input type="checkbox" id="exampleCustomCheckbox5" class="custom-control-input">
+														<label class="custom-control-label" for="exampleCustomCheckbox5">&nbsp;
+															<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-danger"><i class="pe-7s-trash btn-icon-wrapper"> </i>전체삭제</button>
+														</label>
+													</div>
+												</div>
+												<div class="col-sm-12 col-md-2">
+													<div class="thumbnail" >
+														<div class="thumName custom-checkbox custom-control">
+															<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+															<label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;contents name</label>
+														</div>
+														<div class="caption" align="center" >
+															<img src="../assets/images/avatars/15.png" alt="">
+														</div>
+														<p>
+															<span>해상도 : </span><br/>
+															<span>타입 : </span><br/>
+															<span>시간(초): </span><br/>
+															<span>기간: </span><br/>
+														</p>
+														<div class="thumBtnGroup">
+															<button type="button" class="btn mr-1 mb-1 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" ><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+															<button type="button" class="btn mr-1 mb-1 btn-icon btn btn-danger" ><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+														</div>
+													</div>
+												</div>
+												
+												<!-- <div class="col-sm-12 col-md-2">
+													<div class="thumbnail" >
+														<div class="thumName custom-checkbox custom-control">
+															<input type="checkbox" id="exampleCustomCheckbox4" class="custom-control-input">
+															<label class="custom-control-label" for="exampleCustomCheckbox4">&nbsp;contents name</label>
+														</div>
+														<div class="caption" align="center" >
+															<img src="../assets/images/avatars/14.png" alt="">
+														</div>
+														<p>
+															<span>해상도 : </span><br/>
+															<span>타입 : </span><br/>
+															<span>시간(초): </span><br/>
+															<span>기간: </span><br/>
+														</p>
+														<div class="thumBtnGroup">
+															<button type="button" class="btn mr-1 mb-1 btn-warning" data-toggle="modal" data-target=".updateModal">수정</button>
+															<button type="button" class="btn mr-1 mb-1 btn-danger">삭제</button>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-sm-12 col-md-2">
+													<div class="thumbnail" >
+														<div class="thumName custom-checkbox custom-control">
+															<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+															<label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;contents name</label>
+														</div>
+														<div class="caption" align="center" >
+															<img src="../assets/images/avatars/16.jpg" alt="">
+														</div>
+														<p>
+															<span>해상도 : </span><br/>
+															<span>타입 : </span><br/>
+															<span>시간(초): </span><br/>
+															<span>기간: </span><br/>
+														</p>
+														<div class="thumBtnGroup">
+															<button type="button" class="btn mr-1 mb-1 btn-warning" data-toggle="modal" data-target=".updateModal">수정</button>
+															<button type="button" class="btn mr-1 mb-1 btn-danger">삭제</button>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-sm-12 col-md-2">
+													<div class="thumbnail" >
+														<div class="thumName custom-checkbox custom-control">
+															<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+															<label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;contents name</label>
+														</div>
+														<div class="caption" align="center" >
+															<img src="../assets/images/avatars/9.jpg" alt="">
+														</div>
+														<p>
+															<span>해상도 : </span><br/>
+															<span>타입 : </span><br/>
+															<span>시간(초): </span><br/>
+															<span>기간: </span><br/>
+														</p>
+														<div class="thumBtnGroup">
+															<button type="button" class="btn mr-1 mb-1 btn-warning" data-toggle="modal" data-target=".updateModal">수정</button>
+															<button type="button" class="btn mr-1 mb-1 btn-danger">삭제</button>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-sm-12 col-md-2">
+													<div class="thumbnail" >
+														<div class="thumName custom-checkbox custom-control">
+															<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+															<label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;contents name</label>
+														</div>
+														<div class="caption" align="center" >
+															<img src="../assets/images/avatars/5.jpg" alt="">
+														</div>
+														<p>
+															<span>해상도 : </span><br/>
+															<span>타입 : </span><br/>
+															<span>시간(초): </span><br/>
+															<span>기간: </span><br/>
+														</p>
+														<div class="thumBtnGroup">
+															<button type="button" class="btn mr-1 mb-1 btn-warning" data-toggle="modal" data-target=".updateModal">수정</button>
+															<button type="button" class="btn mr-1 mb-1 btn-danger">삭제</button>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-sm-12 col-md-2">
+													<div class="thumbnail" >
+														<div class="thumName custom-checkbox custom-control">
+															<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+															<label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;contents name</label>
+														</div>
+														<div class="caption" align="center" >
+															<img src="../assets/images/avatars/6.jpg" alt="">
+														</div>
+														<p>
+															<span>해상도 : </span><br/>
+															<span>타입 : </span><br/>
+															<span>시간(초): </span><br/>
+															<span>기간: </span><br/>
+														</p>
+														<div class="thumBtnGroup">
+															<button type="button" class="btn mr-1 mb-1 btn-warning" data-toggle="modal" data-target=".updateModal">수정</button>
+															<button type="button" class="btn mr-1 mb-1 btn-danger">삭제</button>
+														</div>
+													</div>
+												</div>
+													
+												<div class="col-sm-12 col-md-2">
+													<div class="thumbnail" >
+														<div class="thumName custom-checkbox custom-control">
+															<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+															<label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;contents name</label>
+														</div>
+														<div class="caption" align="center" >
+															<img src="../assets/images/avatars/8.jpg" alt="">
+														</div>
+														<p>
+															<span>해상도 : </span><br/>
+															<span>타입 : </span><br/>
+															<span>시간(초): </span><br/>
+															<span>기간: </span><br/>
+														</p>
+														<div class="thumBtnGroup">
+															<button type="button" class="btn mr-1 mb-1 btn-warning" data-toggle="modal" data-target=".updateModal">수정</button>
+															<button type="button" class="btn mr-1 mb-1 btn-danger">삭제</button>
+														</div>
+													</div>
+												</div> -->
+											</div>
+											<!-- upload list end -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					<!-- contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <!-- sub start -->
+    <th:block layout:fragment="sub">
+<!--    		<div class="modal fade" id="MoaModal" tabindex="-1" role="dialog" aria-labelledby="contentsUpdModal" aria-hidden="true">
+			<div class="modal-dialog modal-xl" role="document">
+				<div class="modal-content"></div>
+			</div>
+		</div> -->
+		
+		<!-- modal contents 영역 -->
+		<!-- Large modal -->
+		<div class="modal fade updateModal" id="contentsUpdModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">컨텐츠 수정</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="updateForm" action="" method="post">
+											<div class="row">
+												<div class="col-md-5">
+													<div style="width:90%;height:270px;margin:auto;">
+														<img src="../assets/images/avatars/14.png" alt="" style="width:100%;height:100%;">
+													</div>
+													<div style="font-size:x-large;text-align:center;margin-top:10px;">
+														<span>content image name</span>
+													</div>
+												</div>
+												<div class="col-md-7">
+													<div class="position-relative row form-group">
+														<label for="" class="col-sm-3 col-form-label">컨텐츠명</label>
+														<div class="col-sm-9">
+															<input name="conName" id="conName" type="text" class="form-control">
+														</div>
+													</div>
+													
+													<div class="position-relative row form-group">
+														<label for="" class="col-sm-3 col-form-label">타입</label>
+														<div class="col-sm-9">
+															<input name="conName" id="conName" type="radio"> 타입1
+														</div>
+													</div>
+													
+													<div class="position-relative row form-group">
+														<label for="" class="col-sm-3 col-form-label">시간(초)</label>
+														<div class="col-sm-9">
+															<input name="conName" id="conName" type="text" class="form-control">
+														</div>
+													</div>
+													
+													<div class="position-relative row form-group">
+														<label for="" class="col-sm-3 col-form-label">기간</label>
+														<div class="col-sm-9 ">
+															<div class="input-group date">
+																<input type="text" name="schSday" value="" class="form-control" readonly="readonly" style="cursor: pointer; background-color: #ffffff; width:30%;" id="schSday"> 
+																<span class="input-group-addon" style="background: #1FB5AD;width:10%;"> 
+																	<span class="fa fa-minus" style="color: white"></span>
+																</span> 
+																<input type="text" name="schEday" value="" class="form-control" readonly="readonly" style="cursor: pointer; background-color: #ffffff; width:30%;" id="schEday">
+															</div>
+														</div>
+													</div>
+													
+													<div class="position-relative row form-group">
+														<label for="exampleFile" class="col-sm-3 col-form-label">이미지</label>
+														<div class="col-sm-9">
+															<input name="conFile" id="conFile" type="file" class="form-control-file"> 
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- <div class="modal fade show branch_update" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">지점 수정</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="registForm" action="" method="post" enctype="multipart/form-data">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">지점명</label>
+												<div class="col-sm-10">
+													<input name="brnName" id="id_brn_name" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">지점코드</label>
+												<div class="col-sm-10">
+													<input name="brnCode" id="id_brn_code" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">지점번호</label>
+												<div class="col-sm-10">
+													<input name="brnPhone" id="id_brn_phone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="brnDesc" id="id_brn_desc" class="form-control"></textarea>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleFile" class="col-sm-2 col-form-label">이미지</label>
+												<div class="col-sm-10">
+													<input name="brnFile" id="id_brn_file" type="file" class="form-control-file"> 
+												</div>
+											</div>
+											<fieldset class="position-relative row form-group">
+												<legend class="col-form-label col-sm-2">Radio Buttons </legend>
+												<div class="col-sm-10">
+													<div class="position-relative form-check">
+														<label class="form-check-label"><input name="radio2" type="radio" class="form-check-input"> Option one is this and that—be sure to include why it's great</label>
+													</div>
+													<div class="position-relative form-check">
+														<label class="form-check-label"><input name="radio2" type="radio" class="form-check-input"> Option two can be something else and selecting it will deselect option
+															one</label>
+													</div>
+													<div class="position-relative form-check disabled">
+														<label class="form-check-label"><input name="radio2" disabled="" type="radio" class="form-check-input"> Option three is disabled</label>
+													</div>
+												</div>
+											</fieldset>
+											<div class="position-relative row form-group">
+												<label for="checkbox2" class="col-sm-2 col-form-label">Checkbox</label>
+												<div class="col-sm-10">
+													<div class="position-relative form-check">
+														<label class="form-check-label"><input id="checkbox2" type="checkbox" class="form-check-input"> Check me out</label>
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-check">
+												<div class="col-sm-10 offset-sm-2">
+													<button class="btn btn-secondary">Submit</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+						<button type="button" class="btn btn-info">저장</button>
+					</div>
+				</div>
+			</div>
+		</div> -->
+	</th:block> 
+    <!-- sub end -->
+    
+     <!-- script start -->
+    <th:block layout:fragment="script">
+    	<script defer src="../assets/eltov/upload/eltov_upload.js"></script>
+    	<link rel="stylesheet" type="text/css" href="../assets/eltov/upload/eltov_upload.css">
+    	<script th:inline="javascript">
+			
+    		window.onload = function(){
+    			// 전송 할 파일 정보는 globalFileList객체에 담겨 있습니다.
+    			// upload 초기 함수 호출
+    			uploadHtmlInit();
+	    		uploadAddEventInit();
+	    	}
+    	
+//     		function selectDate(){
+//     			console.log(this);
+//     			var date = document.getElementById('id_sch_sday');
+//     			console.log(date);
+//     			date.datepicker({format:'yyyy-mm-dd',autoclose:true});
+// //     			this.datepicker({format:'yyyy-mm-dd',autoclose:true});
+//     		}
+    		
+//     		$(document).on('#id_sch_sday','click', function(){
+//     			$(this).datepicker({format:'yyyy-mm-dd',autoclose:true});
+//     		})
+    		
+    		/*모달*/
+// 			function fnModuleInfo(){
+// 			   $('#MoaModal .modal-content').load("/contents/modal");
+// 			   $('#MoaModal').modal();
+// 			}
+    		
+//     		function uploadSave(){
+//     			console.log(globalFileList);
+//     			if(confirm('저장 하시겠습니까?') == true){
+// 					$.ajax({
+// 						type : 'POST',
+// 						url : '/contents/upload_save',
+// 						processData : false,
+// 						contentType : false,
+// 						data : formData,
+// 						success : function(result){reqSucc(result)},
+// 						error : function(){reqErr()}
+// 					})
+// 				}else{
+// 			        return;
+// 			    }
+    			
+//     		}
+// 	    	var glovalFileConfig = {
+// 	    			totalCnt: 5,
+// 	    			imgFileMaxSize: 10 * 1024 * 1024,
+// 	    			movFileMaxSize: 500 * 1024 * 1024,
+// 	    			excpetFileMaxSize: 100 * 1024 * 1024,
+// 	    			fileExt: ['jpg', 'png', 'mp4'],
+// 	    			excpetFileExt: ['pdf', 'pptx'],
+// 	    			excpetFileExtStatus: 'Y'
+// 	    	}
+	        
+	    	$(document).ready(function() {
+	    		$("#schSday").datepicker({format:'yyyy-mm-dd',autoclose:true});
+    	        $("#schEday").datepicker({format:'yyyy-mm-dd',autoclose:true});
+				$('.uploadBox input').change(function() {
+				
+	
+				});
+			});
+
+    	</script>
+    </th:block>
+    <!-- script end -->
+</html>
+
+

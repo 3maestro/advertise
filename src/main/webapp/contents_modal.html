@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+    <!-- custom style start -->
+    <th:block layout:fragment="style"></th:block>
+    <!-- custom style end -->
+		
+	<!-- contents영역  -->
+	<!-- 해당 부분을 가져가서 내용을 구현 -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left">
+					<ul class="nav">
+						<li class="nav-item"><a href="#" class="nav-link show-menu-btn"> <i class="fa fa-align-left mr-2"></i> <span class="hide-text-md">Show page menu</span>
+						</a> <a href="#" class="nav-link close-menu-btn"> <i class="fa fa-align-right mr-2"></i> <span class="hide-text-md">Close page menu</span>
+						</a></li>
+					</ul>
+				</div>
+				<div class="inner-bar-center">
+					<ul class="nav">
+						<li class="nav-item"><a role="tab" data-toggle="tab" class="nav-link active" href="#tab-content-0"> <span>Overview</span>
+						</a></li>
+						<li class="nav-item"><a role="tab" data-toggle="tab" class="nav-link" href="#tab-content-1"> <span>Audiences</span>
+						</a></li>
+						<li class="nav-item"><a role="tab" data-toggle="tab" class="nav-link" href="#tab-content-2"> <span>Demographics</span>
+						</a></li>
+						<li class="nav-item dropdown"><a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="nav-link opacity-8"> <span>More</span> <i
+								class="fa fa-angle-down ml-1 opacity-6"></i>
+						</a>
+							<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-right rm-pointers dropdown-menu-shadow dropdown-menu-hover-link dropdown-menu">
+								<h6 tabindex="-1" class="dropdown-header">Header</h6>
+								<button type="button" tabindex="0" class="dropdown-item">
+									<i class="dropdown-icon lnr-inbox"> </i><span>Menus</span>
+								</button>
+								<button type="button" tabindex="0" class="dropdown-item">
+									<i class="dropdown-icon lnr-file-empty"> </i><span>Settings</span>
+								</button>
+								<button type="button" tabindex="0" class="dropdown-item">
+									<i class="dropdown-icon lnr-book"> </i><span>Actions</span>
+								</button>
+								<div tabindex="-1" class="dropdown-divider"></div>
+								<div class="p-3 text-right">
+									<button class="mr-2 btn-shadow btn-sm btn btn-link">View Details</button>
+									<button class="mr-2 btn-shadow btn-sm btn btn-primary">Action</button>
+								</div>
+							</div></li>
+					</ul>
+				</div>
+				<!-- <div class="inner-bar-right">
+					<ul class="nav">
+						<li class="nav-item"><a href="javascript:void(0);" class="nav-link open-right-drawer"> <span class="hide-text-md">Show right drawer</span> <i class="fa fa-align-right ml-2"></i>
+						</a></li>
+					</ul>
+				</div> -->
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__sidebar">
+					<div class="app-layout__sidebar-inner dropdown-menu-rounded">
+						<div class="nav flex-column">
+							<div class="nav-item-header text-primary nav-item">Dashboards Examples</div>
+							<a class="dropdown-item active" href="analytics-dashboard.html">Analytics</a> <a class="dropdown-item" href="management-dashboard.html">Management</a> <a class="dropdown-item"
+								href="advertisement-dashboard.html">Advertisement</a> <a class="dropdown-item" href="index.html">Helpdesk</a> <a class="dropdown-item" href="monitoring-dashboard.html">Monitoring</a> <a
+								class="dropdown-item" href="crypto-dashboard.html">Cryptocurrency</a> <a class="dropdown-item" href="pm-dashboard.html">Project Management</a> <a class="dropdown-item"
+								href="product-dashboard.html">Product</a> <a class="dropdown-item" href="statistics-dashboard.html">Statistics</a>
+						</div>
+					</div>
+				</div>
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- contents start -->
+						<div  class="tab-content">
+							<div class="modal fade updateModal" id="contentsUpdModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">컨텐츠 수정</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="updateForm" action="" method="post">
+											<div class="row">
+												<div class="col-md-5">
+													<div style="width:90%;height:270px;margin:auto;">
+														<img src="../assets/images/avatars/14.png" alt="" style="width:100%;height:100%;">
+													</div>
+													<div style="font-size:x-large;text-align:center;margin-top:10px;">
+														<span>content image name</span>
+													</div>
+												</div>
+												<div class="col-md-7">
+													<div class="position-relative row form-group">
+														<label for="" class="col-sm-3 col-form-label">컨텐츠명</label>
+														<div class="col-sm-9">
+															<input name="conName" id="conName" type="text" class="form-control">
+														</div>
+													</div>
+													
+													<div class="position-relative row form-group">
+														<label for="" class="col-sm-3 col-form-label">타입</label>
+														<div class="col-sm-9">
+															<input name="conName" id="conName" type="radio"> 타입1
+														</div>
+													</div>
+													
+													<div class="position-relative row form-group">
+														<label for="" class="col-sm-3 col-form-label">시간(초)</label>
+														<div class="col-sm-9">
+															<input name="conName" id="conName" type="text" class="form-control">
+														</div>
+													</div>
+													
+													<div class="position-relative row form-group">
+														<label for="" class="col-sm-3 col-form-label">기간</label>
+														<div class="col-sm-9 date">
+															<input type="text" name="sch_sday" value="2021-10-22" class="form-control" readonly="readonly" style="cursor: pointer; background-color: #ffffff; text-align: center; width:40%;" id="id_sch_sday">
+															<input type="text" name="sch_eday" value="2021-11-30" class="form-control" readonly="readonly" style="cursor: pointer; background-color: #ffffff; text-align: center; width:40%;" id="id_sch_eday">
+														</div>
+													</div>
+													
+													<div class="position-relative row form-group">
+														<label for="exampleFile" class="col-sm-3 col-form-label">이미지</label>
+														<div class="col-sm-9">
+															<input name="conFile" id="conFile" type="file" class="form-control-file"> 
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" id="closeModal">닫기</button>
+						<button type="button" class="btn btn-info" id="id_save_btn" onclick="saveBtn();">저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+						</div>
+						<!-- contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <!-- sub start -->
+    <th:block layout:fragment="sub"></th:block>
+    <!-- sub end -->
+    
+     <!-- script start -->
+    <th:block layout:fragment="script">
+    	<script th:inline="javascript">
+    	
+    	</script>
+    </th:block>
+    <!-- script end -->
+</html>
+
+
+
+		

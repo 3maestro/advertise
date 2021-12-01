@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+    <!-- custom style start -->
+    <th:block layout:fragment="style"></th:block>
+    <!-- custom style end -->
+		
+	<!-- contents영역  -->
+	<!-- 해당 부분을 가져가서 내용을 구현 -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left">
+					<div>
+						<span>장치 리스트</span><br>
+						<a th:href="@{/main/dashboard}">대쉬보드</a><br>
+						<a th:href="@{/main/default}">디폴트 페이지</a><br>
+						<a th:href="@{/element/list}">요소 리스트</a><br>
+					</div>
+				</div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- contents start -->
+						<div  class="tab-content">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">Device Search</div>
+										<div class="card-body">
+											<!-- deveice search start -->
+											<div class="deviceSearch row">
+												<div class="col-sm-8" >
+													<form class="searchForm" action="" >
+														<div class="position-relative row form-group">
+															
+															<label for="" class="col-sm-1 col-form-label">상태</label>
+															<div class="col-sm-4">
+																<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+																	<label class="btn btn-pill btn-outline-secondary active"> 
+																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value=""> ALL
+																	</label>
+																	<label class="btn btn-pill btn-outline-info"> 
+																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value="ON"> ON
+																	</label>
+																	<label class="btn btn-pill btn-outline-primary"> 
+																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value="OFF"> OFF
+																	</label>
+																</div>
+															</div>
+														
+															<label for="" class="col-sm-1 col-form-label">이름</label>
+															<div class="col-sm-4">
+																<input name="searchName" id="searchName" type="text" class="form-control">
+															</div>
+														</div>
+													</form>
+												</div>
+												
+												<div class="col-sm-4" >
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-focus" onclick="javascript:deviceSearchBtn();" ><i class="pe-7s-search btn-icon-wrapper"> </i>검색</button>
+												</div>
+											</div>
+											<!-- deveice search end -->
+										</div>
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">
+											Device List
+										</div>
+										<div class="card-body">
+											<!-- deveice list start -->
+											<div class="deviceList row">
+												<div class="col-sm-12 col-md-12" >
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-success" style="float:right;" data-toggle="modal" data-target=".registModal" onclick="javascript:deviceControlBtn('');" ><i class="pe-7s-note2 btn-icon-wrapper" > </i>등록</button>
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-link" style="float:right;" data-toggle="modal" data-target=".settingModal" ><i class="pe-7s-config btn-icon-wrapper"> </i>설정</button>
+												</div>
+												<div class="col-sm-12 col-md-12" >
+													<table style="width: 100%; text-align:center;" id="example" class="table table-hover table-striped table-bordered">
+														<thead>
+															<tr>
+																<th>No</th>
+																<th>상태</th>
+																<th>디바이스명</th>
+																<th>디바이스 코드</th>
+																<th>해상도</th>
+																<th>IP</th>
+																<th>최종 연결 일자</th>
+																<th>제어</th>
+																<th>스크린샷</th>
+																<th>관리</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>1</td>
+																<td><button type="button" class="btn btn btn-info" >ON</button></td>
+																<td>MAIN PC</td>
+																<td>MAIN001</td>
+																<td>UHD (3840 * 2160)</td>
+																<td>192.168.0.154</td>
+																<td>2011/04/25</td>
+																<td style="width:22%;">
+																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>														
+																</td>
+																<td style="width:7%;">
+																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".screenshotModal" onclick="javascript:showScreenShot('');">스크린샷</button>
+																</td>
+																<td style="width:14%;">
+																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:deviceControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:deviceDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td><button type="button" class="btn btn btn-primary" >OFF</button></td>
+																<td>SUB1 PC</td>
+																<td>SUB001</td>
+																<td>FHD (1920 * 1080)</td>
+																<td>192.168.0.155</td>
+																<td>2011/07/25</td>
+																<td style="width:22%;">
+																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>														
+																</td>
+																<td style="width:7%;">
+																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".screenshotModal" onclick="javascript:showScreenShot('');">스크린샷</button>
+																</td>
+																<td style="width:14%;">
+																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:deviceControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:deviceDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																</td>
+															</tr>
+															<tr>
+																<td>3</td>
+																<td><button type="button" class="btn btn btn-primary" >OFF</button></td>
+																<td>SUB2 PC</td>
+																<td>SUB002</td>
+																<td>FHD (1080 * 1920)</td>
+																<td>192.168.0.156</td>
+																<td>2009/01/12</td>
+																<td style="width:22%;">
+																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>														
+																</td>
+																<td style="width:7%;">
+																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".screenshotModal" onclick="javascript:showScreenShot('');">스크린샷</button>
+																</td>
+																<td style="width:14%;">
+																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:deviceControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:deviceDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<!-- deveice list end -->
+										</div>
+										<!-- <div class="col-sm-12 col-md-12">
+											<nav class="pagination-rounded" aria-label="Page navigation example" style="float:right;">
+												<ul class="pagination">
+													<li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link">1</a></li>
+													<li class="page-item active"><a href="javascript:void(0);" class="page-link">2</a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link">3</a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link">4</a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link">5</a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+												</ul>
+											</nav>
+										</div> -->
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <!-- sub start -->
+    <th:block layout:fragment="sub">
+    	<!-- regist start -->
+   		<div class="modal fade registModal" id="deviceRegModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">디바이스 등록</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="registForm" action="" method="post" >
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">디바이스명</label>
+												<div class="col-sm-10">
+													<input name="deviceName" id="deviceName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">제어 스케줄</label>
+												<div class="col-sm-10">
+													<!-- id="deviceControl" 안에 device control form이 만들어 진다 -->
+													<div class="" id="deviceControl1"></div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="brnDesc" id="id_brn_desc" class="form-control"></textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- regist end -->
+		
+		<!-- update start -->
+		<div class="modal fade updateModal" id="deviceUpdModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">디바이스 수정</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="updateForm" action="" method="post" >
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">디바이스명</label>
+												<div class="col-sm-10">
+													<input name="deviceName" id="deviceName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">제어 스케줄</label>
+												<div class="col-sm-10">
+													<!-- id="deviceControl" 안에 device control form이 만들어 진다 -->
+													<div class="" id="deviceControl2"></div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="brnDesc" id="id_brn_desc" class="form-control"></textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- update end -->
+		
+		<!-- all device control -->
+		<div class="modal fade settingModal" id="allDeviceControlModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">전체 디바이스 설정</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="settingForm" action="" method="post">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">전체 제어 명령</label>
+												<div class="col-sm-10">
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-link" style="float:center;"><i class="pe-7s-refresh btn-icon-wrapper"> </i>전체 새로고침</button>
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-link" style="float:center;"><i class="pe-7s-repeat btn-icon-wrapper"> </i>전체 재시작</button>
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-link" style="float:center;"><i class="pe-7s-plug btn-icon-wrapper"> </i>전체 종료</button>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">전체 스케줄</label>
+												<div class="col-sm-10">
+													<!-- id="deviceControl" 안에 device control form이 만들어 진다 -->
+													<div class="" id="deviceAllControl">
+														<table class="mb-0 table table-bordered">
+															<thead>
+																<tr style="text-align:center;">
+																	<th></th>
+																	<th>사용여부</th>
+																	<th>제어명령</th>
+																	<th>적용시간</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<th scope="row" style="text-align:center;">All</th>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-info active"> 
+																				<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+																			</label> 
+																			<label class="btn btn-pill btn-outline-primary"> 
+																				<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+																			</label>
+																		</div>
+																	</td>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-secondary active"> 
+																				<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+																			</label> 
+																			<label class="btn btn-pill btn-outline-warning"> 
+																				<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+																			</label> 
+																		</div>
+																	</td>
+																	<td style="text-align:center;width:25%;">
+																		<div class="input-group bootstrap-timepicker">
+																			<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+																			<span class="input-group-btn">
+																				<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+																					<i class="pe-7s-clock"></i>
+																				</button>
+																			</span>
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- screen shot start -->
+		<div class="modal fade screenshotModal" id="deviceScreenShotModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">디바이스 스크린샷</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<img alt="" src="../assets/images/originals/abstract6.jpg" style="width:100%;">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- screen shot end -->
+    </th:block>
+    <!-- sub end -->
+    
+     <!-- script start -->
+    <th:block layout:fragment="script">
+    	<script defer src="../assets/eltov/device/device_control.js"></script>
+    	<script th:inline="javascript">
+    		function deviceControlBtn(id){
+    			var schUse = [];
+    			var schControl = [];
+    			var schTime = [];
+    			
+    			// form check
+    			// ...
+    			
+    			// 수정일때
+    			if(id !== ''){
+    				// id에 맞는 디바이스 제어 스케줄 가져오기 (using ajax)
+    				schUse = ['Y','N','Y','N','Y','N','Y'];
+    				schControl = ['D','R','R','D','D','R','D'];
+    				schTime = ['2300','2300','2300','2300','2300','2300','2300'];
+    			}
+    			
+    			// device form created using lib
+    			makeDeviceControlForm(id, schUse, schControl, schTime);
+    		}
+    		
+			// device delete
+			// ...
+			function deviceDelBtn(id){
+				console.log(id);
+			}
+    		
+			// transfer to server 
+			// ...
+			function saveBtn(){
+				
+			}
+			
+			function showScreenShot(id){
+				
+			}
+			
+    		$(document).ready(function(){
+    		})
+    	</script>
+    </th:block>
+    <!-- script end -->
+</html>
+
+

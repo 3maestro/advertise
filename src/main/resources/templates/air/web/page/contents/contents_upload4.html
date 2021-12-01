@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+    <!-- custom style start -->
+    <th:block layout:fragment="style">
+   		<!-- <style type="text/css">
+
+			.uploadBox {
+ 				width: 100%;
+				height: 150px;
+				border: 5px dashed #aaa;
+			}
+			
+			.uploadBox #uploadTxt1 {
+				width: 100%;
+				text-align: center;
+				color: ##1c1b1b;
+				font-family: Arial;
+				margin-top: 10px;
+				font-size: x-large;
+				font-weight: bold;
+    			color: cadetblue;
+			}
+			
+			.uploadBox #uploadTxt2 {
+				text-align: center;
+			    font-size: smaller;
+			    color: black;
+			}
+			
+			.uploadBox input {
+ 				position: absolute;
+				margin: 0;
+				padding: 0;
+				width: 100%;
+ 				height: 150px;
+				outline: none;
+				opacity: 0;
+			}
+			
+			.saveWrap {
+				width: 50%;
+				margin: auto;
+			}
+			
+			.saveWrap button {
+				width:40%;
+				margin: auto;
+				display: block;
+			}
+			
+			.uploadTemp {
+				margin-top: 30px;
+			}
+			
+			.thumDiv {
+				text-align: center; 
+				display: inline-block; 
+				width: 120px; 
+				background-color: #e4f1fd;
+			}
+			
+			.delThumImg {
+				display: inline-block; 
+				width: 20px; 
+				vertical-align: top; 
+				text-align: left; 
+				cursor: pointer;
+			}
+			
+			.delThumImg i {
+				font-size: 20px;
+				font-weight: bold;
+				color: #e35858;
+			}
+		</style> -->
+    </th:block>
+    <!-- custom style end -->
+		
+	<!-- contents영역  -->
+	<!-- 해당 부분을 가져가서 내용을 구현 -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left col-md-3">
+					<div>
+						<span>컨텐츠 업로드</span><br>
+						<a th:href="@{/main/default}">디폴트 페이지</a><br>
+						<a th:href="@{/component/list}">컴포넌트 리스트 페이지</a><br>
+					</div>
+				</div>
+				<div class="inner-bar-center col-md-8"></div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- contents start -->
+						<div  class="tab-content">
+							<div class="row" id="upload">
+								<div class="col-lg-12">
+									<div class="main-card mb-12 card">
+										<div class="card-header">
+											Contents Upload
+										</div>
+										<div class="card-body" >
+											<div id="uploadWrapper">
+												<!-- <div class="uploadBox" id="uploadBox">
+													<input type="file" name="files" id="uploadInput" multiple>
+													<p id="uploadTxt1">Drag & Drop or Click in here.</p>
+													<p id="uploadTxt2">
+														파일 업로드 최대 갯수 : <span style="color:chocolate;">5개</span><br/>
+														파일 업로드 최대 사이즈 : <span style="color:chocolate;">이미지 10MB / 동영상 500MB</span><br/>
+														파일 업로드 확장자 : <span style="color:chocolate;"> JPG, PNG, MP4 </span><br/>
+														<span style="color:chocolate;">** 각 하나의 컨텐츠에 해당합니다.**</span><br/>
+													</p>
+												</div>
+												<div class="uploadTemp" id="uploadTempZone"></div> -->
+											</div>
+										</div>
+										
+										<div class="d-block text-right card-footer">
+											<div class="saveWrap">
+	                                            <button class="btn btn-info btn-lg">저장</button>
+											</div>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+						</div>
+						<!-- contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <!-- sub start -->
+    <th:block layout:fragment="sub"></th:block>
+    <!-- sub end -->
+    
+     <!-- script start -->
+    <th:block layout:fragment="script">
+    	<script defer src="../assets/eltov/upload/eltov_upload.js"></script>
+    	<link rel="stylesheet" type="text/css" href="../assets/eltov/upload/eltov_upload.css">
+    	<script th:inline="javascript">
+			
+    		window.onload = function(){
+    			uploadHtmlInit();
+	    		uploadAddEventInit();
+	    	}
+    	
+// 	    	var glovalFileConfig = {
+// 	    			totalCnt: 5,
+// 	    			imgFileMaxSize: 10 * 1024 * 1024,
+// 	    			movFileMaxSize: 500 * 1024 * 1024,
+// 	    			excpetFileMaxSize: 100 * 1024 * 1024,
+// 	    			fileExt: ['jpg', 'png', 'mp4'],
+// 	    			excpetFileExt: ['pdf', 'pptx'],
+// 	    			excpetFileExtStatus: 'Y'
+// 	    	}
+	        
+// 	    	$(document).ready(function() {
+// 				$('.uploadBox input').change(function() {
+				
+	
+// 				});
+// 			});
+    	</script>
+    </th:block>
+    <!-- script end -->
+</html>
+
+

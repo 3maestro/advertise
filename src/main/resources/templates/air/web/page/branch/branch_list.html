@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+	
+	<!-- custom style start -->	
+	<th:block layout:fragment="style">
+   		<style type="text/css">
+			.todo-list-wrapper li{
+				cursor:pointer;
+				display: inline-block;
+			}
+			
+			.todo-list-wrapper li:hover{
+                background-color: #dfdfdf;
+            }
+            .scroll-area-sm {
+			    height: 600px;
+			    overflow-x: hidden;
+			}
+		</style>
+    </th:block>
+    <!-- custom style end -->
+		
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left col-md-3">
+					<div>
+						<span>지점 선택</span><br>
+						<a th:href="@{/main/dashboard}">대쉬보드</a><br>
+						<a th:href="@{/main/default}">디폴트 페이지</a><br>
+					</div>
+				</div>
+				<div class="inner-bar-center col-md-8"></div>
+				<div class="inner-bar-right col-md-1">
+				
+				</div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<!-- contents start -->
+					<div class="container-fluid">
+						<div  class="tab-content">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">
+											Branch List
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-12" style="margin-bottom: 15px;">
+													<button type="button" class="btn mr-2 md-2 btn-icon btn-success" style="float:right;" data-toggle="modal" data-target=".registModal" ><i class="pe-7s-note2 btn-icon-wrapper"> </i>등록</button>
+													<button type="button" class="btn mr-2 btn-icon btn btn-alternate" style="float:right;" onclick="javascript:getCompanyList();"><i class="pe-7s-menu btn-icon-wrapper"> </i>업체목록</button>
+												</div>
+												<div class="col-md-4 col-lg-6 col-xl-4">
+													<div class="card-shadow-primary profile-responsive card-border mb-3 card">
+														<div class="dropdown-menu-header">
+															<div class="dropdown-menu-header-inner bg-info">
+																<div class="menu-header-image opacity-2" style="background-image: url('../assets/images/dropdown-header/abstract1.jpg')"></div>
+																<div class="menu-header-content btn-pane-right">
+																	<!-- <div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+																		<div class="avatar-icon rounded">
+																			<img src="../assets/images/avatars/7.jpg" alt="Avatar 5">
+																		</div>
+																	</div> -->
+																	<div>
+																		<h5 class="menu-header-title">롯데마트-강남점 (FHD 가로형)</h5>
+																	</div>
+																	<div class="menu-header-btn-pane">
+																		<div>
+																			<div role="group" class="btn-group text-center">
+																				<div class="nav">
+																					<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" ><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																					<button type="button" class="btn btn-icon  btn-dark" data-toggle="modal" data-target=".infoModal"><i class="pe-7s-info btn-icon-wrapper"> </i>정보</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<ul class="list-group list-group-flush">
+															<li class="list-group-item">
+																<div class="widget-content">
+																	<div class="text-center">
+																		<h5 class="widget-heading opacity-4">디바이스 현황</h5>
+																		<h5>
+																			<span class="pr-2">
+																				<b class="text-secondary">All 12</b>
+																			</span>
+																			<span class="pr-2">
+																				<b class="text-info">ON 6</b>
+																			</span>
+																			<span class="pr-2">
+																				<b class="text-primary">OFF 6</b> 
+																			</span>
+																		</h5>
+																	</div>
+																</div>
+															</li>
+															<li class="p-0 list-group-item">
+																<div class="grid-menu grid-menu-2col">
+																	<div class="no-gutters row">
+																		<div class="col-sm-6">
+																			<button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link" data-toggle="modal" data-target=".deviceInfoModal">
+																				<i class="lnr-screen btn-icon-wrapper btn-icon-lg mb-3"> </i>디바이스 정보
+																			</button>
+																		</div>
+																		<div class="col-sm-6">
+																			<button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link" data-toggle="modal" data-target=".contentsInfoModal">
+																				<i class="lnr-picture btn-icon-wrapper btn-icon-lg mb-3"> </i>컨텐츠 정보
+																			</button>
+																		</div>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+												
+												<div class="col-md-4 col-lg-6 col-xl-4">
+													<div class="card-shadow-primary profile-responsive card-border mb-3 card">
+														<div class="dropdown-menu-header">
+															<div class="dropdown-menu-header-inner bg-info">
+																<div class="menu-header-image opacity-2" style="background-image: url('../assets/images/dropdown-header/abstract1.jpg')"></div>
+																<div class="menu-header-content btn-pane-right">
+																	<!-- <div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+																		<div class="avatar-icon rounded">
+																			<img src="../assets/images/avatars/7.jpg" alt="Avatar 5">
+																		</div>
+																	</div> -->
+																	<div>
+																		<h5 class="menu-header-title">롯데마트-강남점 (FHD 가로형)</h5>
+																	</div>
+																	<div class="menu-header-btn-pane">
+																		<div>
+																			<div role="group" class="btn-group text-center">
+																				<div class="nav">
+																					<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" ><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																					<button type="button" class="btn btn-icon  btn-dark" data-toggle="modal" data-target=".infoModal"><i class="pe-7s-info btn-icon-wrapper"> </i>정보</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<ul class="list-group list-group-flush">
+															<li class="list-group-item">
+																<div class="widget-content">
+																	<div class="text-center">
+																		<h5 class="widget-heading opacity-4">디바이스 현황</h5>
+																		<h5>
+																			<span class="pr-2">
+																				<b class="text-secondary">All 12</b>
+																			</span>
+																			<span class="pr-2">
+																				<b class="text-info">ON 6</b>
+																			</span>
+																			<span class="pr-2">
+																				<b class="text-primary">OFF 6</b> 
+																			</span>
+																		</h5>
+																	</div>
+																</div>
+															</li>
+															<li class="p-0 list-group-item">
+																<div class="grid-menu grid-menu-2col">
+																	<div class="no-gutters row">
+																		<div class="col-sm-6">
+																			<button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link" data-toggle="modal" data-target=".deviceInfoModal">
+																				<i class="lnr-screen btn-icon-wrapper btn-icon-lg mb-3"> </i>디바이스 정보
+																			</button>
+																		</div>
+																		<div class="col-sm-6">
+																			<button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link" data-toggle="modal" data-target=".contentsInfoModal">
+																				<i class="lnr-picture btn-icon-wrapper btn-icon-lg mb-3"> </i>컨텐츠 정보
+																			</button>
+																		</div>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+												
+												<div class="col-md-4 col-lg-6 col-xl-4">
+													<div class="card-shadow-primary profile-responsive card-border mb-3 card">
+														<div class="dropdown-menu-header">
+															<div class="dropdown-menu-header-inner bg-info">
+																<div class="menu-header-image opacity-2" style="background-image: url('../assets/images/dropdown-header/abstract1.jpg')"></div>
+																<div class="menu-header-content btn-pane-right">
+																	<!-- <div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+																		<div class="avatar-icon rounded">
+																			<img src="../assets/images/avatars/7.jpg" alt="Avatar 5">
+																		</div>
+																	</div> -->
+																	<div>
+																		<h5 class="menu-header-title">롯데마트-강남점 (UHD 가로형)</h5>
+																	</div>
+																	<div class="menu-header-btn-pane">
+																		<div>
+																			<div role="group" class="btn-group text-center">
+																				<div class="nav">
+																					<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" ><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																					<button type="button" class="btn btn-icon  btn-dark" data-toggle="modal" data-target=".infoModal"><i class="pe-7s-info btn-icon-wrapper"> </i>정보</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<ul class="list-group list-group-flush">
+															<li class="list-group-item">
+																<div class="widget-content">
+																	<div class="text-center">
+																		<h5 class="widget-heading opacity-4">디바이스 현황</h5>
+																		<h5>
+																			<span class="pr-2">
+																				<b class="text-secondary">All 12</b>
+																			</span>
+																			<span class="pr-2">
+																				<b class="text-info">ON 6</b>
+																			</span>
+																			<span class="pr-2">
+																				<b class="text-primary">OFF 6</b> 
+																			</span>
+																		</h5>
+																	</div>
+																</div>
+															</li>
+															<li class="p-0 list-group-item">
+																<div class="grid-menu grid-menu-2col">
+																	<div class="no-gutters row">
+																		<div class="col-sm-6">
+																			<button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link" data-toggle="modal" data-target=".deviceInfoModal">
+																				<i class="lnr-screen btn-icon-wrapper btn-icon-lg mb-3"> </i>디바이스 정보
+																			</button>
+																		</div>
+																		<div class="col-sm-6">
+																			<button class="btn-icon-vertical btn-square btn-transition btn btn-outline-link" data-toggle="modal" data-target=".contentsInfoModal">
+																				<i class="lnr-picture btn-icon-wrapper btn-icon-lg mb-3"> </i>컨텐츠 정보
+																			</button>
+																		</div>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- contents end -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <th:block layout:fragment="sub">
+		<!-- modal contents 영역 -->
+		<!-- Large modal -->
+		<div class="modal fade registModal" id="branchRegModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">지점 등록</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="registForm" action="" method="post">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">업체명</label>
+												<div class="col-sm-10">
+													<select class="multiselect-dropdown form-control">
+	                                                    <optgroup label="업체를 선택하세요.">
+	                                                        <option value="AK">Alaska</option>
+	                                                        <option value="HI">Hawaii</option>
+	                                                        <option value="CA">California</option>
+	                                                        <option value="NV">Nevada</option>
+	                                                        <option value="OR">Oregon</option>
+	                                                        <option value="WA">Washington</option>
+	                                                    </optgroup>
+	                                                </select>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">지점명</label>
+												<div class="col-sm-10">
+													<input name="brnName" id="brnName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">지점코드</label>
+												<div class="col-sm-10">
+													<input name="brnCode" id="brnCode" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">해상도</label>
+												<div class="col-sm-10">
+													<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width: 50%;">
+														<label class="btn btn-shadow btn-outline-primary active" style="width: 100%;"> 
+															<input type="radio" name=resolution id="fhdResolution" value="FHD" autocomplete="off" > FHD
+														</label> 
+														<label class="btn btn-shadow btn-outline-primary" style="width: 100%;">  
+															<input type="radio" name="resolution" id="uhdResolution" value="UHD" autocomplete="off" > UHD
+														</label> 
+														<label class="btn btn-shadow btn-outline-primary" style="width: 100%;"> 
+															<input type="radio" name="resolution" id="4kResolution" value="4K" autocomplete="off" > 4K
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">행열</label>
+												<div class="col-sm-10">
+													<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width: 50%;">
+														<label class="btn btn-shadow btn-outline-info active" style="width: 100%;"> 
+															<input type="radio" name=matrix id="wMatrix" value="W" autocomplete="off" > 가로형
+														</label> 
+														<label class="btn btn-shadow btn-outline-info" style="width: 100%;">  
+															<input type="radio" name="matrix" id="hMatrix" value="H" autocomplete="off" > 세로형
+														</label> 
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">전화번호</label>
+												<div class="col-sm-10">
+													<input name="brnPhone" id="brnPhone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="brnDesc" id="brnDesc" class="form-control"></textarea>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleFile" class="col-sm-2 col-form-label">이미지</label>
+												<div class="col-sm-10">
+													<input name="brnFile" id="brnFile" type="file" class="form-control-file"> 
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade show updateModal" id="branchUpdModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">지점 수정</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="updateForm" action="" method="post" enctype="multipart/form-data">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">업체명</label>
+												<div class="col-sm-10">
+													<select class="multiselect-dropdown form-control">
+	                                                    <optgroup label="업체를 선택하세요.">
+	                                                        <option value="AK">Alaska</option>
+	                                                        <option value="HI">Hawaii</option>
+	                                                        <option value="CA">California</option>
+	                                                        <option value="NV">Nevada</option>
+	                                                        <option value="OR">Oregon</option>
+	                                                        <option value="WA">Washington</option>
+	                                                    </optgroup>
+	                                                </select>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">지점명</label>
+												<div class="col-sm-10">
+													<input name="brnName" id="id_brn_name" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">지점코드</label>
+												<div class="col-sm-10">
+													<input name="brnCode" id="id_brn_code" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">해상도</label>
+												<div class="col-sm-10">
+													<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width: 50%;">
+														<label class="btn btn-shadow btn-outline-primary active" style="width: 100%;"> 
+															<input type="radio" name=resolution id="fhdResolution" value="FHD" autocomplete="off" > FHD
+														</label> 
+														<label class="btn btn-shadow btn-outline-primary" style="width: 100%;">  
+															<input type="radio" name="resolution" id="uhdResolution" value="UHD" autocomplete="off" > UHD
+														</label> 
+														<label class="btn btn-shadow btn-outline-primary" style="width: 100%;"> 
+															<input type="radio" name="resolution" id="4kResolution" value="4K" autocomplete="off" > 4K
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">행열</label>
+												<div class="col-sm-10">
+													<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width: 50%;">
+														<label class="btn btn-shadow btn-outline-info active" style="width: 100%;"> 
+															<input type="radio" name=matrix id="wMatrix" value="W" autocomplete="off" > 가로형
+														</label> 
+														<label class="btn btn-shadow btn-outline-info" style="width: 100%;">  
+															<input type="radio" name="matrix" id="hMatrix" value="H" autocomplete="off" > 세로형
+														</label> 
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">전화번호</label>
+												<div class="col-sm-10">
+													<input name="brnPhone" id="id_brn_phone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="brnDesc" id="id_brn_desc" class="form-control"></textarea>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleFile" class="col-sm-2 col-form-label">이미지</label>
+												<div class="col-sm-10">
+													<input name="brnFile" id="id_brn_file" type="file" class="form-control-file"> 
+												</div>
+											</div>
+											<fieldset class="position-relative row form-group">
+												<legend class="col-form-label col-sm-2">Radio Buttons </legend>
+												<div class="col-sm-10">
+													<div class="position-relative form-check">
+														<label class="form-check-label"><input name="radio2" type="radio" class="form-check-input"> Option one is this and that—be sure to include why it's great</label>
+													</div>
+													<div class="position-relative form-check">
+														<label class="form-check-label"><input name="radio2" type="radio" class="form-check-input"> Option two can be something else and selecting it will deselect option
+															one</label>
+													</div>
+													<div class="position-relative form-check disabled">
+														<label class="form-check-label"><input name="radio2" disabled="" type="radio" class="form-check-input"> Option three is disabled</label>
+													</div>
+												</div>
+											</fieldset>
+											<div class="position-relative row form-group">
+												<label for="checkbox2" class="col-sm-2 col-form-label">Checkbox</label>
+												<div class="col-sm-10">
+													<div class="position-relative form-check">
+														<label class="form-check-label"><input id="checkbox2" type="checkbox" class="form-check-input"> Check me out</label>
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-check">
+												<div class="col-sm-10 offset-sm-2">
+													<button class="btn btn-secondary">Submit</button>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade show infoModal" id="branchInfoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header" >
+						<h5 class="modal-title" id="exampleModalLongTitle">지점 정보</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="infoForm" action="" >
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">업체명</label>
+												<div class="col-sm-10">
+													<input name="companyName" id="companyName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">지점명</label>
+												<div class="col-sm-10">
+													<input name="companyCode" id="companyCode" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">해상도 목록</label>
+												<div class="col-sm-10">
+													<input name="companyPhone" id="companyPhone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">디바이스 목록</label>
+												<div class="col-sm-10">
+													<input name="companyPhone" id="companyPhone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">담당자 정보</label>
+												<div class="col-sm-10">
+													<input name="companyPhone" id="companyPhone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="companyDesc" id="companyDesc" class="form-control"></textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn-dark" style="float:right;" onclick="enterMainDashboard(1);"><i class="lnr-enter btn-icon-wrapper" ></i>접속</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade deviceInfoModal" id="deviceInfoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">디바이스 정보</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-header">롯데마트-강남점 (FHD 가로형)</div>
+									<div class="scroll-area-sm">
+										<div class="scrollbar-container ps--active-y ps">
+											<ul class="todo-list-wrapper list-group list-group-flush">
+												<li class="list-group-item">
+													<div class="todo-indicator bg-secondary"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="badge badge-primary mr-2">OFF</div>
+															</div>
+															<div class="widget-content-left flex2">
+																<div class="widget-heading">디바이스 이름</div>
+																<div class="widget-subheading">디바이스 코드</div>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark"><i class="fa fa-check"></i></button>
+															</div>
+														</div>
+													</div>
+												</li>
+												
+												<li class="list-group-item">
+													<div class="todo-indicator bg-secondary"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="badge badge-info mr-2">ON</div>
+															</div>
+															<div class="widget-content-left flex2">
+																<div class="widget-heading">디바이스 이름</div>
+																<div class="widget-subheading">디바이스 코드</div>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark"><i class="fa fa-check"></i></button>
+															</div>
+														</div>
+													</div>
+												</li>
+												
+												<li class="list-group-item">
+													<div class="todo-indicator bg-secondary"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+																	<label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="badge badge-info mr-2">ON</div>
+															</div>
+															<div class="widget-content-left flex2">
+																<div class="widget-heading">디바이스 이름</div>
+																<div class="widget-subheading">디바이스 코드</div>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark"><i class="fa fa-check"></i></button>
+															</div>
+														</div>
+													</div>
+												</li>
+												
+												<li class="list-group-item">
+													<div class="todo-indicator bg-secondary"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="badge badge-primary mr-2">OFF</div>
+															</div>
+															<div class="widget-content-left flex2">
+																<div class="widget-heading">디바이스 이름</div>
+																<div class="widget-subheading">디바이스 코드</div>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark"><i class="fa fa-check"></i></button>
+															</div>
+														</div>
+													</div>
+												</li>
+												
+												<li class="list-group-item">
+													<div class="todo-indicator bg-secondary"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="badge badge-info mr-2">ON</div>
+															</div>
+															<div class="widget-content-left flex2">
+																<div class="widget-heading">디바이스 이름</div>
+																<div class="widget-subheading">디바이스 코드</div>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark"><i class="fa fa-check"></i></button>
+															</div>
+														</div>
+													</div>
+												</li>
+												
+												<li class="list-group-item">
+													<div class="todo-indicator bg-secondary"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox3">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="badge badge-primary mr-2">OFF</div>
+															</div>
+															<div class="widget-content-left flex2">
+																<div class="widget-heading">디바이스 이름</div>
+																<div class="widget-subheading">디바이스 코드</div>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+															</div>
+															<div class="widget-content-right">
+																<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark"><i class="fa fa-check"></i></button>
+															</div>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div class="widget-content-right">
+							<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>전체 새로고침</button>
+						</div>
+						<div class="widget-content-right">
+							<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>전체 재시작</button>
+						</div>
+						<div class="widget-content-right">
+							<button type="button" class="btn btn-icon btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>전체 종료</button>
+						</div>
+						<div class="widget-content-right">
+							<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade contentsInfoModal" id="contentsInfoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">컨텐츠 정보</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-header">롯데마트-강남점 (FHD 가로형)</div>
+									<div class="scroll-area-sm">
+										<div class="scrollbar-container ps--active-y ps">
+											<ul class="todo-list-wrapper list-group list-group-flush">
+												<li class="list-group-item" style="background-color:beige">스케줄 1번 (폴더?)</li>
+												<li class="list-group-item">
+													<div class="todo-indicator bg-warning"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox2">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-left mr-3">
+																<div class="widget-content-left">
+																	<img width="42" class="rounded" src="../assets/images/avatars/1.jpg" alt="">
+																</div>
+															</div>
+															<div class="widget-content-left">
+																<div class="widget-heading">컨텐츠 이름</div>
+																<div class="widget-subheading">기간</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="widget-heading">스케줄명</div>
+																<div class="widget-subheading">스케줄 할당 정보</div>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark">
+																	<i class="fa fa-check"></i>
+																</button>
+																<button class="border-0 btn-transition btn btn-outline-danger">
+																	<i class="fa fa-trash-alt"></i>
+																</button>
+															</div>
+														</div>
+													</div>
+												</li>
+												<li class="list-group-item">
+													<div class="todo-indicator bg-warning"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox2">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-left mr-3">
+																<div class="widget-content-left">
+																	<img width="42" class="rounded" src="../assets/images/avatars/2.jpg" alt="">
+																</div>
+															</div>
+															<div class="widget-content-left">
+																<div class="widget-heading">컨텐츠 이름</div>
+																<div class="widget-subheading">기간</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="widget-heading">스케줄명</div>
+																<div class="widget-subheading">스케줄 할당 정보</div>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark">
+																	<i class="fa fa-check"></i>
+																</button>
+																<button class="border-0 btn-transition btn btn-outline-danger">
+																	<i class="fa fa-trash-alt"></i>
+																</button>
+															</div>
+														</div>
+													</div>
+												</li>
+												<li class="list-group-item">
+													<div class="todo-indicator bg-warning"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox2">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-left mr-3">
+																<div class="widget-content-left">
+																	<img width="42" class="rounded" src="../assets/images/avatars/3.jpg" alt="">
+																</div>
+															</div>
+															<div class="widget-content-left">
+																<div class="widget-heading">컨텐츠 이름</div>
+																<div class="widget-subheading">기간</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="widget-heading">스케줄명</div>
+																<div class="widget-subheading">스케줄 할당 정보</div>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark">
+																	<i class="fa fa-check"></i>
+																</button>
+																<button class="border-0 btn-transition btn btn-outline-danger">
+																	<i class="fa fa-trash-alt"></i>
+																</button>
+															</div>
+														</div>
+													</div>
+												</li>
+												<li class="list-group-item" style="background-color:coral;">스케줄 2번 (폴더2?)</li>
+												<li class="list-group-item">
+													<div class="todo-indicator bg-warning"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox2">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-left mr-3">
+																<div class="widget-content-left">
+																	<img width="42" class="rounded" src="../assets/images/avatars/4.jpg" alt="">
+																</div>
+															</div>
+															<div class="widget-content-left">
+																<div class="widget-heading">컨텐츠 이름</div>
+																<div class="widget-subheading">기간</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="widget-heading">스케줄명</div>
+																<div class="widget-subheading">스케줄 할당 정보</div>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark">
+																	<i class="fa fa-check"></i>
+																</button>
+																<button class="border-0 btn-transition btn btn-outline-danger">
+																	<i class="fa fa-trash-alt"></i>
+																</button>
+															</div>
+														</div>
+													</div>
+												</li>
+												<li class="list-group-item">
+													<div class="todo-indicator bg-warning"></div>
+													<div class="widget-content p-0">
+														<div class="widget-content-wrapper">
+															<div class="widget-content-left mr-2">
+																<div class="custom-checkbox custom-control">
+																	<input type="checkbox" id="exampleCustomCheckbox2" class="custom-control-input"><label class="custom-control-label" for="exampleCustomCheckbox2">&nbsp;</label>
+																</div>
+															</div>
+															<div class="widget-content-left mr-3">
+																<div class="widget-content-left">
+																	<img width="42" class="rounded" src="../assets/images/avatars/5.jpg" alt="">
+																</div>
+															</div>
+															<div class="widget-content-left">
+																<div class="widget-heading">컨텐츠 이름</div>
+																<div class="widget-subheading">기간</div>
+															</div>
+															<div class="widget-content-right">
+																<div class="widget-heading">스케줄명</div>
+																<div class="widget-subheading">스케줄 할당 정보</div>
+															</div>
+															<div class="widget-content-right">
+																<button class="border-0 btn-transition btn btn-outline-dark">
+																	<i class="fa fa-check"></i>
+																</button>
+																<button class="border-0 btn-transition btn btn-outline-danger">
+																	<i class="fa fa-trash-alt"></i>
+																</button>
+															</div>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn btn-danger" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>전체 삭제</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block> 
+	
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+
+			function saveBtn() {
+				const uploadFile = $('#brnFile')[0];
+				// 파일을 여러개 선택할 수 있으므로 files 라는 객체에 담긴다.
+				console.log('uploadFile: ', uploadFile.files)
+
+				if (uploadFile.files.length === 0) {
+					alert('파일은 선택해주세요');
+					return;
+				}
+
+				const formData = new FormData();
+				formData.append('brnName', $('#brnName').val());
+				formData.append('brnCode', $('#brnCode').val());
+				formData.append('brnPhome', $('#brnPhome').val());
+				formData.append('brnDesc', $('#brnDesc').val());
+				formData.append('file', uploadFile.files[0]);
+				
+				if(confirm('등록 하시겠습니까?') == true){
+					$.ajax({
+						type : 'POST',
+						url : '/branch/regist',
+						processData : false,
+						contentType : false,
+						data : formData,
+						success : function(result){reqSucc(result)},
+						error : function(){reqErr()}
+					})
+				}else{
+			        return;
+			    }
+			}
+
+			function getCompanyList(){
+				window.location.href = '/company/list';
+			}
+			
+			function reqSucc(result){
+				console.log('message: ', result);
+				if(result.result === 'success'){
+					alert(result.result);
+					window.location.href = '/branch/list';
+				}
+			}
+			
+			function reqErr(){
+				console.log('err:', err);
+			}
+			
+			$(document).ready(function() {
+
+			});
+			
+			function enterMainDashboard(brnId){
+// 				window.location.href = '/main/dashboard?brnId=' + brnId;
+				window.location.href = '/main/dashboard';
+			}
+			
+			function getDeviceInfo(id){
+				console.log();
+				
+				
+			}
+			
+			function getContentsInfo(id){
+				var contentsInfoForm = document.getElementById('contentsInfoForm');
+				contentsInfoForm.brnName.value = id;
+			}
+			
+		</script>
+	</th:block> 
+</html>
+
+
+    
+	
+
+
+
+
+
+	

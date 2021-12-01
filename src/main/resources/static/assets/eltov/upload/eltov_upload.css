@@ -1,0 +1,69 @@
+@charset "UTF-8";
+.uploadBox {
+		width: 100%;
+	height: 150px;
+	border: 5px dashed #aaa;
+}
+
+.uploadBox #uploadTxt1 {
+	width: 100%;
+	text-align: center;
+	color: ##1c1b1b;
+	font-family: Arial;
+	margin-top: 10px;
+	font-size: x-large;
+	font-weight: bold;
+ 			color: cadetblue;
+}
+
+.uploadBox #uploadTxt2 {
+	text-align: center;
+    font-size: smaller;
+    color: black;
+}
+
+.uploadBox input {
+		position: absolute;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+		height: 150px;
+	outline: none;
+	opacity: 0;
+}
+
+.saveWrap {
+	width: 50%;
+	margin: auto;
+}
+
+.saveWrap button {
+	width:40%;
+	margin: auto;
+	display: block;
+}
+
+.uploadTemp {
+	margin-top: 30px;
+}
+
+.thumDiv {
+	text-align: center; 
+	display: inline-block; 
+	width: 120px; 
+	background-color: #e4f1fd;
+}
+
+.delThumImg {
+	display: inline-block; 
+	width: 20px; 
+	vertical-align: top; 
+	text-align: left; 
+	cursor: pointer;
+}
+
+.delThumImg i {
+	font-size: 20px;
+	font-weight: bold;
+	color: #e35858;
+}

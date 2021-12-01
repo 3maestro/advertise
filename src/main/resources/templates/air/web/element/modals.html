@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+	<!-- component_default  -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<div  class="tab-content">
+						<!-- component contents start -->
+							<div class="row">
+								<div class="col-md-12">
+									<div class="main-card mb-3 card">
+										<div class="card-body">
+											<div class="card-title">Basic Examples</div>
+												<!-- Button trigger modal -->
+												<button type="button" class="btn mr-2 btn-success" style="float:right;" data-toggle="modal" data-target=".registModal" >등록</button>
+												<button type="button" class="btn mr-2 btn-warning" style="float:right;" data-toggle="modal" data-target=".updateModal" >수정</button>
+												<button type="button" class="btn mr-2 btn-danger" style="float:right;" data-toggle="modal" data-target=".deleteModal" >삭제</button>
+												<button type="button" class="btn mr-2 btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal" >저장</button>
+												<button type="button" class="btn mr-2 btn-alternate" style="float:right;" data-toggle="modal" data-target=".listModal" >목록</button>
+												<button type="button" class="btn mr-2 btn-secondary" style="float:right;" data-toggle="modal" data-target=".closeModal" >닫기</button>
+												<button type="button" class="btn mr-2 btn-dark" style="float:right;" data-toggle="modal" data-target=".enterModal" >접속</button>
+												<button type="button" class="btn mr-2 btn-primary" style="float:right;" data-toggle="modal" data-target=".submitModal" >전송</button>
+												<button type="button" class="btn mr-2 btn-light" style="float:right;" data-toggle="modal" data-target=".downModal" >다운로드</button>
+												<button type="button" class="btn mr-2 btn-focus" style="float:right;" data-toggle="modal" data-target=".excepModal" >기타</button>
+												<button type="button" class="btn mr-2 btn-link" style="float:right;" data-toggle="modal" data-target=".linkModal" >링크</button>
+												
+												<button type="button" class="btn mr-2 btn-icon btn btn-success" style="float:right;" data-toggle="modal" data-target=".registModal" ><i class="pe-7s-note2 btn-icon-wrapper"> </i>등록</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-warning" style="float:right;" data-toggle="modal" data-target=".updateModal" ><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-danger" style="float:right;" data-toggle="modal" data-target=".deleteModal" ><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal" ><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-alternate" style="float:right;" data-toggle="modal" data-target=".listModal" ><i class="pe-7s-menu btn-icon-wrapper"> </i>목록</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-secondary" style="float:right;" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-dark" style="float:right;" data-toggle="modal" data-target=".enterModal" ><i class="lnr-enter btn-icon-wrapper"> </i>접속</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-primary" style="float:right;" data-toggle="modal" data-target=".submitModal" ><i class="pe-7s-next-2 btn-icon-wrapper"> </i>전송</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-light" style="float:right;" data-toggle="modal" data-target=".downModal" ><i class="pe-7s-download btn-icon-wrapper"> </i>다운로드</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-focus" style="float:right;" data-toggle="modal" data-target=".searchModal" ><i class="pe-7s-search btn-icon-wrapper"> </i>검색</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-link" style="float:right;" data-toggle="modal" data-target=".linkModal" ><i class="pe-7s-info btn-icon-wrapper"> </i>링크</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-link" style="float:right;" data-toggle="modal" data-target=".repeattModal" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-link" style="float:right;" data-toggle="modal" data-target=".refreshModal" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-link" style="float:right;" data-toggle="modal" data-target=".shutModal" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>
+												<button type="button" class="btn mr-2 btn-icon btn btn-link" style="float:right;" data-toggle="modal" data-target=".settingModal" ><i class="pe-7s-config btn-icon-wrapper"> </i>설정</button>
+												<!-- Button trigger modal -->
+												
+												
+												<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModal">Basic Modal</button>
+												<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target="#exampleModalLong">Long Content</button>
+												<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Large modal</button>
+												<button type="button" class="btn mr-2 mb-2 btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						<!-- component contents end -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block>
+</html>
+
+<!-- CMS Img Modal -->
+<div class="modal fade registModal" id="moduleRegModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">등록 모달</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="main-card mb-3 card">
+							<div class="card-body">
+								<form class="registForm" action="" method="post">
+									<div class="position-relative row form-group">
+										<label for="" class="col-sm-2 col-form-label">지점명</label>
+										<div class="col-sm-10">
+											<input name="brnName" id="brnName" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="position-relative row form-group">
+										<label for="" class="col-sm-2 col-form-label">지점코드</label>
+										<div class="col-sm-10">
+											<input name="brnCode" id="brnCode" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="position-relative row form-group">
+										<label for="" class="col-sm-2 col-form-label">지점번호</label>
+										<div class="col-sm-10">
+											<input name="brnPhone" id="brnPhone" type="tel" class="form-control"></input>
+										</div>
+									</div>
+									<div class="position-relative row form-group">
+										<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+										<div class="col-sm-10">
+											<textarea name="brnDesc" id="brnDesc" class="form-control"></textarea>
+										</div>
+									</div>
+									<div class="position-relative row form-group">
+										<label for="exampleFile" class="col-sm-2 col-form-label">이미지</label>
+										<div class="col-sm-10">
+											<input name="brnFile" id="brnFile" type="file" class="form-control-file"> 
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+				<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- CMS Modal -->
+<div class="modal fade updateModal" id="moduleUpdModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">지점 수정</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="main-card mb-3 card">
+							<div class="card-body">
+								<form class="updateForm" action="" method="post" enctype="multipart/form-data">
+									<div class="position-relative row form-group">
+										<label for="" class="col-sm-2 col-form-label">지점명</label>
+										<div class="col-sm-10">
+											<input name="brnName" id="id_brn_name" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="position-relative row form-group">
+										<label for="" class="col-sm-2 col-form-label">지점코드</label>
+										<div class="col-sm-10">
+											<input name="brnCode" id="id_brn_code" type="text" class="form-control">
+										</div>
+									</div>
+									<div class="position-relative row form-group">
+										<label for="" class="col-sm-2 col-form-label">지점번호</label>
+										<div class="col-sm-10">
+											<input name="brnPhone" id="id_brn_phone" type="tel" class="form-control"></input>
+										</div>
+									</div>
+									<div class="position-relative row form-group">
+										<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+										<div class="col-sm-10">
+											<textarea name="brnDesc" id="id_brn_desc" class="form-control"></textarea>
+										</div>
+									</div>
+									<div class="position-relative row form-group">
+										<label for="exampleFile" class="col-sm-2 col-form-label">이미지</label>
+										<div class="col-sm-10">
+											<input name="brnFile" id="id_brn_file" type="file" class="form-control-file"> 
+										</div>
+									</div>
+									<fieldset class="position-relative row form-group">
+										<legend class="col-form-label col-sm-2">Radio Buttons </legend>
+										<div class="col-sm-10">
+											<div class="position-relative form-check">
+												<label class="form-check-label"><input name="radio2" type="radio" class="form-check-input"> Option one is this and that—be sure to include why it's great</label>
+											</div>
+											<div class="position-relative form-check">
+												<label class="form-check-label"><input name="radio2" type="radio" class="form-check-input"> Option two can be something else and selecting it will deselect option
+													one</label>
+											</div>
+											<div class="position-relative form-check disabled">
+												<label class="form-check-label"><input name="radio2" disabled="" type="radio" class="form-check-input"> Option three is disabled</label>
+											</div>
+										</div>
+									</fieldset>
+									<div class="position-relative row form-group">
+										<label for="checkbox2" class="col-sm-2 col-form-label">Checkbox</label>
+										<div class="col-sm-10">
+											<div class="position-relative form-check">
+												<label class="form-check-label"><input id="checkbox2" type="checkbox" class="form-check-input"> Check me out</label>
+											</div>
+										</div>
+									</div>
+									<div class="position-relative row form-check">
+										<div class="col-sm-10 offset-sm-2">
+											<button class="btn btn-secondary">Submit</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+				<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+
+<!-- modal contents 영역 -->
+<!-- Large modal -->
+<div class="modal fade show bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+				<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Small modal -->
+
+<div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+				<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+				<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+				<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+				<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+				<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+				<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+				<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+				<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+				<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+				<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+				<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+				<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+				<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+				<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+				<p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+				<p>Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</p>
+				<p>Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus auctor fringilla.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p class="mb-0">Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled.</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+

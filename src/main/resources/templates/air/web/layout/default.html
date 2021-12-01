@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+	<!-- head flagment start -->
+	<th:block th:replace="../fragments/head :: fragment-head"></th:block>
+	<!-- leftnav flagment end -->
+</head>
+<body>
+	<div class="app-container app-theme-gray">
+		<div class="app-main">
+			<!-- sidebar flagment start -->
+			<th:block th:replace="../fragments/sidebar :: fragment-sidebar"></th:block>
+			<!-- sidebar flagment end -->
+			
+			<!-- outer flagment start -->
+			<th:block th:replace="../fragments/outer :: fragment-outer"></th:block>
+			<!-- outer flagment end -->
+		</div>
+		
+		<!-- option flagment start -->
+		<th:block th:replace="../fragments/option :: fragment-option"></th:block>
+		<!-- option flagment end -->
+	</div>
+	<!-- drawer flagment start -->
+	<th:block th:replace="../fragments/drawer :: fragment-drawer"></th:block>
+	<!-- drawer flagment end -->
+	
+	<!-- config flagment start -->
+	<th:block th:replace="../fragments/config :: fragment-config"></th:block>
+	<!-- config flagment end -->
+	
+	<!-- sub start -->
+	<th:block layout:fragment="sub"></th:block>
+	<!-- sub end -->
+	
+	<!-- script start -->
+	<th:block layout:fragment="script"></th:block>
+	<!-- script end -->
+</body>
+</html>
+
+
+

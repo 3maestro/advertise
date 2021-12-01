@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eltov.air.module.inside.system.user.mapper.UserMapper">
+	<sql id="searchWhere">
+		<if test='sch.search_auth != ""'>
+		    AND #{sch.search_auth} = A.USER_AUTH
+		</if>
+		<if test='sch.search_name != ""'>
+		    AND ( A.USER_IDNAME LIKE '%'+#{sch.search_name}+'%' OR A.USER_NAME LIKE '%'+#{sch.search_name}+'%' )
+		</if>
+	</sql>
+	
+	<select id="getUserIdCheck" resultType="int">
+		SELECT
+			COUNT(*) CNT
+		FROM
+			TB_USER
+		WHERE
+			USER_IDNAME = #{user_idname}
+			AND DB_STATUS='A'
+	</select>
+	
+	<insert id="setUserInsert">
+		<selectKey keyProperty="user.user_id" resultType="int" order="AFTER">
+			SELECT @@IDENTITY AS USER_ID
+		</selectKey>
+		INSERT INTO TB_USER (
+		    BRN_ID, USER_SECT, USER_TYPE, USER_IDNAME, USER_NAME, USER_PASSWD, USER_AUTH, USER_PHONE, USER_DESC, REG_ID,
+		    UPD_ID, DB_STATUS, REG_DATE, UPD_DATE
+		    )
+		VALUES(
+		    #{user.brn_id}, #{user.user_sect}, #{user.user_type}, #{user.user_idname}, #{user.user_name},
+		    #{user.user_passwd}, #{user.user_auth}, #{user.user_phone}, #{user.user_desc}, #{user.reg_id}, #{user.reg_id},
+		    'A', GETDATE(), GETDATE()
+		    )
+	</insert>
+	
+
+	
+
+	
+	<select id="getUserInfoByUserId" resultMap="userMap">
+		SELECT
+			USER_ID,BRN_ID,USER_SECT,USER_TYPE,USER_IDNAME,USER_PASSWD,USER_AUTH,USER_NAME,USER_PHONE,USER_DESC,
+			CONVERT(CHAR(19),A.UPD_DATE,120) AS UPD_DATE,CONVERT(CHAR(19),LOGIN_DATE,120) AS LOGIN_DATE,
+			(SELECT B.USER_NAME FROM TB_USER B WHERE A.UPD_ID = B.USER_ID) AS LAST_UPDATER
+		FROM
+			TB_USER A
+		WHERE
+			DB_STATUS = 'A'
+			AND USER_ID = #{user_id}
+	</select>
+	
+	<select id="getUserInfoByResId" resultMap="userMap">
+		SELECT
+			TOP 1 USER_ID,BRN_ID,USER_SECT,USER_TYPE,USER_IDNAME,USER_PASSWD,USER_AUTH,USER_NAME,USER_PHONE,USER_DESC,
+			CONVERT(CHAR(19),A.UPD_DATE,120) AS UPD_DATE,CONVERT(CHAR(19),LOGIN_DATE,120) AS LOGIN_DATE,
+			(SELECT B.USER_NAME FROM TB_USER B WHERE A.UPD_ID = B.USER_ID) AS LAST_UPDATER
+		FROM
+			TB_USER A
+		WHERE
+			DB_STATUS = 'A'
+	</select>
+	
+	<update id="setUserInfoEdit">
+		UPDATE
+			TB_USER
+		SET
+			USER_SECT = #{user.user_sect},
+			USER_TYPE = #{user.user_type},
+			USER_NAME = #{user.user_name},
+			USER_PHONE = #{user.user_phone},
+			USER_DESC = #{user.user_desc},
+			UPD_ID = #{user.upd_id},
+			UPD_DATE = GETDATE()
+		WHERE
+			USER_ID = #{user.user_id}
+	</update>
+	
+	<update id="setUserPwdChange">
+		UPDATE
+			TB_USER
+		SET
+<!-- 			USER_NAME = #{user.user_name}, -->
+			USER_PASSWD = #{pwd},
+			PW_CHG_DATE = GETDATE()
+		WHERE
+			USER_ID = #{user_id}
+	</update>
+	
+	<update id="setUserDelete">
+		UPDATE
+			TB_USER
+		SET
+			DB_STATUS = 'D',
+			DEL_DATE = GETDATE(),
+			DEL_ID = #{user.del_id}
+		WHERE
+			USER_ID = #{user.user_id}
+	</update>
+	
+	<select id="getUserByIdname" resultMap="userMap">
+		SELECT
+			A.USER_ID, B.BRN_ID, B.BRN_CODE,
+			A.USER_SECT, A.USER_TYPE, A.USER_IDNAME, A.USER_NAME, A.USER_PASSWD, A.USER_AUTH, 
+			A.USER_PHONE, A.USER_DESC, CONVERT(CHAR(19), A.REG_DATE,120) AS REG_DATE, A.UPD_DATE,
+			CONVERT(CHAR(19), A.LOGIN_DATE,120) AS LOGIN_DATE
+<!-- 			, CONVERT(CHAR(19), A.PW_CHG_DATE,120) AS PW_CHG_DATE -->
+		FROM
+			TB_USER AS A, 
+			TB_BRANCH AS B
+		WHERE
+			A.DB_STATUS = 'A'
+			AND A.USER_IDNAME = #{user_name}
+			AND A.BRN_ID = B.BRN_ID
+			
+		<!-- SELECT * FROM 
+         (SELECT A.USER_ID,A.BRN_ID,A.STORE_ID,A.USER_NAME,A.USER_PASSWD,A.USER_AUTH,A.PW_FST_STATUS,B.FILE_NAME AS USER_FILE_NAME,B.FILE_PATH AS USER_FILE_PATH, 
+          CONVERT(CHAR(19),A.PW_CHG_DATE,120) AS PW_CHG_DATE,CONVERT(CHAR(19),A.LOGIN_DATE,120) AS LOGIN_DATE 
+         FROM TB_USER A LEFT OUTER JOIN TB_USER_FILE B ON A.USER_ID = B.USER_ID WHERE A.DB_STATUS = 'A' AND A.USER_IDNAME = ?) TBL_USER, 
+         (SELECT C.BRN_ID,C.BRN_SECT,C.BRN_CODE,C.BRN_NAME, 
+           (SELECT FILE_NAME FROM TB_BRANCH_FILE WHERE BRN_ID = C.BRN_ID AND FILE_SECT = 'LOGO') AS LOGO_FILE_NAME, 
+           (SELECT FILE_PATH FROM TB_BRANCH_FILE WHERE BRN_ID = C.BRN_ID AND FILE_SECT = 'LOGO') AS LOGO_FILE_PATH, 
+           (SELECT FILE_NAME FROM TB_BRANCH_FILE WHERE BRN_ID = C.BRN_ID AND FILE_SECT = 'MAIN') AS MAIN_FILE_NAME, 
+           (SELECT FILE_PATH FROM TB_BRANCH_FILE WHERE BRN_ID = C.BRN_ID AND FILE_SECT = 'MAIN') AS MAIN_FILE_PATH 
+         FROM TB_BRANCH C WHERE C.DB_STATUS = 'A') TBL_BRANCH 
+       WHERE TBL_USER.BRN_ID = TBL_BRANCH.BRN_ID  -->
+	</select>
+	
+	<update id="setUserLoginDate">
+		UPDATE
+			TB_USER
+		SET
+			LOGIN_DATE = GETDATE()
+		WHERE
+			USER_ID = #{user_id}
+	</update>
+	
+	<select id="getUserCnt" resultType="int">
+		SELECT
+			COUNT(*) CNT
+		FROM
+			TB_USER A
+		WHERE
+			DB_STATUS = 'A'
+			<include refid="searchWhere"/>
+	</select>
+	
+	<select id="getUsers" resultMap="userMap">
+		SELECT 
+			ROWNUM, USER_ID, BRN_ID, USER_SECT, USER_TYPE, USER_IDNAME, USER_NAME, USER_AUTH, USER_PHONE, LOGIN_DATE, UPD_DATE, UPD_ID, LAST_UPDATER
+		FROM(
+			SELECT
+				(ROW_NUMBER() OVER(ORDER BY A.USER_AUTH,A.REG_DATE DESC)
+				) AS ROWNUM, 
+				A.USER_ID, A.BRN_ID, A.USER_SECT, A.USER_TYPE, A.USER_IDNAME, A.USER_NAME, A.USER_AUTH, A.USER_PHONE, 
+				CONVERT(CHAR(19),A.LOGIN_DATE,120) AS LOGIN_DATE,CONVERT(CHAR(19),A.UPD_DATE,120) AS UPD_DATE, A.UPD_ID, 
+				(SELECT USER_NAME FROM TB_USER WHERE A.UPD_ID = USER_ID) AS LAST_UPDATER 
+			FROM
+				TB_USER A
+			WHERE
+				A.DB_STATUS = 'A'
+				<include refid="searchWhere"/>
+				) AS B
+		WHERE B.ROWNUM BETWEEN #{page.pageStart} AND #{page.pageEnd};
+	</select>
+	
+	<select id="getUsersTmp"  resultMap="userMap">
+		SELECT 
+			USER_ID, BRN_ID, USER_SECT, USER_TYPE, USER_IDNAME, USER_NAME, USER_AUTH, USER_PHONE, LOGIN_DATE
+		FROM 
+			TB_USER
+		WHERE
+			USER_ID = #{user_id}
+	</select>
+	
+	<resultMap type="com.eltov.air.module.inside.system.user.DTO.UserDTO"  id="userMap">
+		<id 	property="user_id" column="USER_ID" />
+		<result property="brn_id" column="BRN_ID" />
+		<result property="user_sect" column="USER_SECT" />
+		<result property="user_type" column="USER_TYPE" />
+		<result property="user_idname" column="USER_IDNAME" />
+		<result property="user_name" column="USER_NAME" />
+		<result property="user_passwd" column="USER_PASSWD" />
+		<result property="user_auth" column="USER_AUTH" />
+		<result property="user_phone" column="USER_PHONE" />
+		<result property="user_desc" column="USER_DESC" />
+		<result property="db_status" column="DB_STATUS" />
+		<result property="reg_id" column="REG_ID" />
+		<result property="upd_id" column="UPD_ID" />
+		<result property="del_id" column="DEL_ID" />
+		<result property="reg_date" column="REG_DATE" />
+		<result property="upd_date" column="UPD_DATE" />
+		<result property="del_date" column="DEL_DATE" />
+		<result property="login_date" column="LOGIN_DATE" />
+<!-- 		<result property="pw_fst_status" column="PW_FST_STATUS" /> -->
+		<result property="pw_chg_date" column="PW_CHG_DATE" />
+<!-- 		<result property="last_updater" column="LAST_UPDATER" /> -->
+	</resultMap>
+
+</mapper>

@@ -1,0 +1,24 @@
+<html lang="ko" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <!--fragment-head 선언-->
+    <th:block th:fragment="fragment-head">
+	    <meta charset="utf-8">
+	    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	    <meta http-equiv="Content-Language" content="ko">
+	    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	    <title>Eltov DID Solution</title>
+	    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+	
+	    <!-- Disable tap highlight on IE -->
+	    <meta name="msapplication-tap-highlight" content="no">
+	
+	    <link rel="stylesheet" href="../assets/css/base.min.css">
+	    
+	    <!-- custom style start -->
+	    <th:block layout:fragment="style"></th:block>
+	    <!-- custom style end -->
+	    
+    </th:block>
+</html>

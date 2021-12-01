@@ -1,0 +1,18 @@
+<html lang="ko" 
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+    <!--fragment-outer 선언-->
+    <th:block th:fragment="fragment-outer">
+	    <div class="app-main__outer">
+			
+			<!-- inner flagment start -->
+			<th:block th:replace="../fragments/inner :: fragment-inner"></th:block>
+			<!-- inner flagment end -->
+			
+			<!-- footer flagment start -->
+			<th:block th:replace="../fragments/footer :: fragment-footer"></th:block>
+			<!-- footer flagment end -->
+		</div>
+    </th:block>
+</html>

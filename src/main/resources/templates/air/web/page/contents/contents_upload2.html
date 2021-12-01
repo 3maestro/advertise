@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+    <!-- custom style start -->
+    <th:block layout:fragment="style">
+   		<style type="text/css">
+
+			.uploadBox {
+ 				width: 100%;
+				height: 150px;
+				border: 5px dashed #aaa;
+			}
+			
+			.uploadBox #uploadTxt1 {
+				width: 100%;
+				text-align: center;
+				color: ##1c1b1b;
+				font-family: Arial;
+				margin-top: 10px;
+				font-size: x-large;
+				font-weight: bold;
+    			color: cadetblue;
+			}
+			
+			.uploadBox #uploadTxt2 {
+				text-align: center;
+			    font-size: smaller;
+			    color: black;
+			}
+			
+			.uploadBox input {
+ 				position: absolute;
+				margin: 0;
+				padding: 0;
+				width: 100%;
+ 				height: 150px;
+				outline: none;
+				opacity: 0;
+			}
+			
+			.saveWrap {
+				width: 50%;
+				margin: auto;
+			}
+			
+			.saveWrap button {
+				width:40%;
+				margin: auto;
+				display: block;
+			}
+			
+			.uploadTemp {
+				margin-top: 30px;
+			}
+			
+			.thumDiv {
+				text-align: center; 
+				display: inline-block; 
+				width: 120px; 
+				background-color: #e4f1fd;
+			}
+			
+			.delThumImg {
+				display: inline-block; 
+				width: 20px; 
+				vertical-align: top; 
+				text-align: left; 
+				cursor: pointer;
+			}
+			
+			.delThumImg i {
+				font-size: 20px;
+				font-weight: bold;
+				color: #e35858;
+			}
+		</style>
+    </th:block>
+    <!-- custom style end -->
+		
+	<!-- contents영역  -->
+	<!-- 해당 부분을 가져가서 내용을 구현 -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left col-md-3">
+					<div>
+						<span>컨텐츠 업로드</span><br>
+						<a th:href="@{/main/default}">디폴트 페이지</a><br>
+						<a th:href="@{/component/list}">컴포넌트 리스트 페이지</a><br>
+					</div>
+				</div>
+				<div class="inner-bar-center col-md-8"></div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- contents start -->
+						<div  class="tab-content">
+							<div class="row" id="upload">
+								<div class="col-lg-12">
+									<div class="main-card mb-12 card">
+										<div class="card-header">
+											Contents Upload
+										</div>
+										<div class="card-body" id="uploadWrapper">
+											<div class="uploadBox">
+												<input type="file" name="files" id="fileInput" multiple>
+												<p id="uploadTxt1">Drag & Drop or Click in here.</p>
+												<p id="uploadTxt2">
+													파일 업로드 최대 갯수 : <span style="color:chocolate;">5개</span><br/>
+													파일 업로드 최대 사이즈 : <span style="color:chocolate;">이미지 10MB / 동영상 500MB</span><br/>
+													파일 업로드 확장자 : <span style="color:chocolate;"> JPG, PNG, MP4 </span><br/>
+													<span style="color:chocolate;">** 각 하나의 컨텐츠에 해당합니다.**</span><br/>
+												</p>
+											</div>
+											<div class="uploadTemp" id="uploadTempZone">
+												<div class="" id="" style="float: left;">
+													<div style="padding: 5px;">
+														<span class="thumDiv"> 
+<!-- 															<img class="thumImg" id="" style="max-height: 80px; max-width: 110px;">  -->
+															<img src="../assets/images/avatars/1.jpg" style="height: 80px;"><br>
+															<span class="thumInfo">파일 사이즈</span>
+														</span> 
+														<span class="delThumImg"><i class="pe-7s-close"></i></span>
+													</div>
+												</div>
+												
+												<div class="" id="" style="float: left;">
+													<div style="padding: 5px;">
+														<span class="thumDiv"> 
+															<img src="../assets/images/avatars/1.jpg" style="height: 80px;"><br>
+															<span class="thumInfo">파일 사이즈</span>
+														</span> 
+														<span class="delThumImg"><i class="pe-7s-close"></i></span>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+										
+										<div class="d-block text-right card-footer">
+											<div class="saveWrap">
+	                                            <button class="btn btn-info btn-lg">저장</button>
+											</div>
+                                        </div>
+                                    </div>
+								</div>
+							</div>
+						</div>
+						<!-- contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <!-- sub start -->
+    <th:block layout:fragment="sub"></th:block>
+    <!-- sub end -->
+    
+     <!-- script start -->
+    <th:block layout:fragment="script">
+    	<script th:inline="javascript">
+    		
+    		var totalFileLength = 0;
+    	
+    		var uploadWrapper = document.querySelector('#uploadWrapper');
+    		var uploadBox = uploadWrapper.querySelector('.uploadBox');
+    		
+    		//input file 태그.
+    		var fileInput = document.getElementById('fileInput');
+    		var fileTxt = document.getElementById('uploadTxt1');
+    		
+    	    /* 박스 안에서 Drag를 Drop했을 때 */
+    	    uploadBox.addEventListener('drop', function(e) {
+    	        e.preventDefault();
+    	        console.log('drop');
+    	        console.dir(e.dataTransfer);
+
+    	        this.style.backgroundColor = 'white';
+    	        
+    	        var html = '';
+    	        
+				var file;
+				var files = e.dataTransfer.files;
+				var fileLength = files.length;
+
+				// file 유효성 검사
+				if(!isValid(files)) return;
+				// cnt
+				countTotalFile(fileLength);
+				
+    	    
+				for(var i=0; i<fileLength; i++){
+					file = files[i];
+					console.log(file);
+					html += makeTempThumHtml(file, i);
+				}
+				
+				$("#uploadTempZone").append(html);
+    	    });
+    	    
+    	    function makeTempThumHtml(file, seq){
+    	    	
+    	    	//파일 경로.
+				var filePath = fileInput.value;
+    	    	
+    	    	var html = '';
+    	    	html += '<div class="" id="thumImg' + seq + '" style="float: left;">';
+    	    	html += 	'<div style="padding: 5px;">';
+    	    	html += 		'<span class="thumDiv">';
+    	    	html += 			'<img src="' + filePath + file.name + '" style="height: 80px;"><br>';
+   	    		html += 			'<span class="thumInfo">' + file.size + '</span>';
+    	    	html += 		'</span> ';
+    	    	html += 		'<span class="delThumImg" onclick="javascript:delThumImg(' + seq + ');"><i class="pe-7s-close"></i></span>';
+    	    	html += 	'</div>';
+    	    	html += '</div>';
+    	    	
+    	    	return html;
+    	    }
+    	    
+    	    function delThumImg(seq){
+    	    	var thumImg = document.getElementById('thumImg'+seq);
+    	    	thumImg.remove();
+    	    	countTotalFile(-1);
+    	    	//파일 리스트 제거
+    	    }
+    	    
+    	    function uploadFileProcess(){
+    	    	
+    	    }
+    	    
+    	    /* 박스 안에 Drag 들어왔을 때 */
+    	    uploadBox.addEventListener('dragenter', function(e) {
+    	        console.log('dragenter');
+    	    });
+    	    
+    	    /* 박스 안에 Drag를 하고 있을 때 */
+    	    uploadBox.addEventListener('dragover', function(e) {
+    	        e.preventDefault();
+    	        console.log('dragover');
+
+    	        var vaild = e.dataTransfer.types.indexOf('Files') >= 0;
+
+    	        if(!vaild){
+    	            this.style.backgroundColor = 'red';
+    	        }
+    	        else{
+    	            this.style.backgroundColor = '#fbffc0';
+    	        }
+    	    });
+    	    
+    	    /* 박스 밖으로 Drag가 나갈 때 */
+    	    uploadBox.addEventListener('dragleave', function(e) {
+    	        console.log('dragleave');
+
+    	        this.style.backgroundColor = 'white';
+    	    });
+    	    
+    	    
+    	    ///////////////////////////////
+    	    // File Util
+    	    ///////////////////////////////
+    	    
+    	    function countTotalFile(fileLength){
+    	    	
+    	    	// gobal total file cnt
+   	    		totalFileLength += fileLength;
+   				fileTxt.textContent = totalFileLength + ' file(s) selected';
+   				
+   				if(totalFileLength > 5){
+   					alert('파일은 5개 까지 전송이 가능합니다.');
+   					return;
+   				}
+    	    }
+    	    
+    		function isValid(files){
+    			
+    			var fileLength = files.length;
+    			for(var i=0; i<fileLength; i++){
+					var file = files[i];
+					
+					//파일인지 유효성 검사
+// 	    			if(file.types.indexOf('File') < 0){
+// 	    				return false;
+// 	    			}
+	    			
+	    			//이미지인지 유효성 검사
+	    			if(file.type.indexOf('image') < 0){
+	    				alert('이미지 파일만 업로드 가능합니다.');
+	    				return false;
+	    			}
+	    			
+	    			//파일의 개수는 5개씩만 가능하도록 유효성 검사
+	    			if(fileLength > 5){
+	    				alert('파일은 5개 까지 전송이 가능합니다.');
+	    				return false;
+	    			}
+	    			
+	    			//파일의 사이즈는 50MB 미만
+	    			if(file.size >= 1024 * 1024 * 50){
+	    				alert('50MB 이상인 파일은 업로드할 수 없습니다.');
+	    				return false;
+	    			}
+    			}
+    			
+    			return true;
+    		}
+    	    
+	    	$(document).ready(function() {
+// 				$('.uploadBox input').change(function() {
+					
+// 					console.log(this.files.length + " file(s) selected");
+					
+// 					$('.uploadBox p').text(this.files.length + " file(s) selected");
+// 				});
+			});
+    	</script>
+    </th:block>
+    <!-- script end -->
+</html>
+
+

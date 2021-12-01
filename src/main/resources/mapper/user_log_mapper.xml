@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eltov.air.module.inside.system.user.mapper.UserLogMapper">
+
+	
+	<insert id="registUserLog">
+		INSERT INTO TB_USER_LOG(
+			BRN_ID, USER_ID, LOG_SECT, LOG_TYPE, LOG_CODE, LOG_MSG, CODE_ID, LOG_ACT, REMOTE_IP, REG_DATE
+			)
+		VALUES(
+			#{log.brn_id}, #{log.user_id}, #{log.log_sect}, #{log.log_type}, #{log.log_code}, #{log.log_msg}, #{log.code_id},
+			#{log.log_act}, #{log.remote_ip}, GETDATE()
+		)
+	</insert>
+	<select id="getLogListUser" resultMap="userLogMap">
+		SELECT TOP 5
+			A.BRN_NAME, B.LOG_CODE, B.LOG_MSG, B.CODE_ID ,B.LOG_ACT, CONVERT(char(19),B.REG_DATE,120) AS REG_DATE
+		FROM
+			TB_BRANCH A, TB_USER_LOG B
+		WHERE
+			A.BRN_ID = B.BRN_ID
+			AND A.DB_STATUS = 'A'
+		<if test="user_id != null and user_id != ''">
+			AND B.USER_ID = #{user_id}
+		</if>
+		ORDER BY B.REG_DATE DESC
+	</select>
+	
+	<resultMap type="com.eltov.air.module.inside.system.user.DTO.UserLogDTO" id="userLogMap">
+		<id		property="log_id" column="LOG_ID" />
+		<result property="brn_id" column="BRN_ID" />
+		<result property="user_id" column="USER_ID" />
+		<result property="log_sect" column="LOG_SECT" />
+		<result property="log_type" column="LOG_TYPE" />
+		<result property="log_code" column="LOG_CODE" />
+		<result property="log_msg" column="LOG_MSG" />
+		<result property="code_id" column="CODE_ID" />
+		<result property="log_act" column="LOG_ACT" />
+		<result property="remote_ip" column="REMOTE_IP" />
+		<result property="reg_date" column="REG_DATE" />
+		<result property="brn_name" column="BRN_NAME" />
+	</resultMap>
+	
+</mapper>

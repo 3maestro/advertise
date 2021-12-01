@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+    <!-- custom style start -->
+    <th:block layout:fragment="style"></th:block>
+    <!-- custom style end -->
+		
+	<!-- contents영역  -->
+	<!-- 해당 부분을 가져가서 내용을 구현 -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left">
+					<div>
+						<span>장치 리스트</span><br>
+						<a th:href="@{/main/dashboard}">대쉬보드</a><br>
+						<a th:href="@{/main/default}">디폴트 페이지</a><br>
+						<a th:href="@{/component/list}">컴포넌트 리스트 페이지</a><br>
+					</div>
+				</div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- contents start -->
+						<div  class="tab-content">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">Device List</div>
+										<div class="card-body">
+											<!-- deveice list start -->
+											<div class="deviceList row">
+												<div class="col-sm-12 col-md-12" >
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-success" style="float:right;" data-toggle="modal" data-target=".registModal" ><i class="pe-7s-note2 btn-icon-wrapper" onclick="javascript:deviceRegBtn('')"> </i>등록</button>
+												</div>
+												<table style="width: 100%;" id="example" class="table table-hover table-striped table-bordered">
+													<thead>
+														<tr>
+															<th>Name</th>
+															<th>Position</th>
+															<th>Office</th>
+															<th>Age</th>
+															<th>Start date</th>
+															<th>Salary</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Tiger Nixon</td>
+															<td>System Architect</td>
+															<td>Edinburgh</td>
+															<td>61</td>
+															<td>2011/04/25</td>
+															<td>$320,800</td>
+														</tr>
+														<tr>
+															<td>Garrett Winters</td>
+															<td>Accountant</td>
+															<td>Tokyo</td>
+															<td>63</td>
+															<td>2011/07/25</td>
+															<td>$170,750</td>
+														</tr>
+														<tr>
+															<td>Ashton Cox</td>
+															<td>Junior Technical Author</td>
+															<td>San Francisco</td>
+															<td>66</td>
+															<td>2009/01/12</td>
+															<td><button type="button" class="btn mr-2 mb-2 btn-icon btn btn-warning" style="float:right;" data-toggle="modal" data-target=".updateModal" ><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button></td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+											<!-- deveice list end -->
+										</div>
+										<div class="col-sm-12 col-md-12">
+											<nav class="pagination-rounded" aria-label="Page navigation example" style="float:right;">
+												<ul class="pagination">
+													<li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Previous"><span aria-hidden="true">«</span><span class="sr-only">Previous</span></a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link">1</a></li>
+													<li class="page-item active"><a href="javascript:void(0);" class="page-link">2</a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link">3</a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link">4</a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link">5</a></li>
+													<li class="page-item"><a href="javascript:void(0);" class="page-link" aria-label="Next"><span aria-hidden="true">»</span><span class="sr-only">Next</span></a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <!-- sub start -->
+    <th:block layout:fragment="sub">
+   		<div class="modal fade registModal" id="devicesRegModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">디바이스 등록</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="updateForm" action="" method="post" enctype="multipart/form-data">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">디바이스명</label>
+												<div class="col-sm-10">
+													<input name="deviceName" id="deviceName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">제어</label>
+												<div class="col-sm-10">
+													<div class="" id="deviceControl">
+														<!-- <table class="mb-0 table table-bordered">
+															<thead>
+																<tr style="text-align:center;">
+																	<th></th>
+																	<th>사용여부</th>
+																	<th>제어명령</th>
+																	<th>적용시간</th>
+																</tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<th scope="row" style="text-align:center;">All</th>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-info active"> 
+																				<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+																			</label> 
+																			<label class="btn btn-pill btn-outline-primary"> 
+																				<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+																			</label>
+																		</div>
+																	</td>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-secondary"> 
+																				<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+																			</label> 
+																			<label class="btn btn-pill btn-outline-warning active"> 
+																				<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+																			</label> 
+																		</div>
+																	</td>
+																	<td style="text-align:center;width:25%;">
+																		<div class="input-group bootstrap-timepicker">
+																			<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+																			<span class="input-group-btn">
+																				<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+																					<i class="pe-7s-clock"></i>
+																				</button>
+																			</span>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<th scope="row" style="text-align:center;">SUN</th>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-info active"> 
+																				<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+																			</label> 
+																			<label class="btn btn-pill btn-outline-primary"> 
+																				<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+																			</label>
+																		</div>
+																	</td>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-secondary"> 
+																				<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+																			</label> 
+																			<label class="btn btn-pill btn-outline-warning active"> 
+																				<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+																			</label> 
+																		</div>
+																	</td>
+																	<td style="text-align:center;width:25%;">
+																		<div class="input-group bootstrap-timepicker">
+																			<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+																			<span class="input-group-btn">
+																				<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+																					<i class="pe-7s-clock"></i>
+																				</button>
+																			</span>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<th scope="row" style="text-align:center;">MON</th>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-info active"> 
+																				<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+																			</label> 
+																			<label class="btn btn-pill btn-outline-primary"> 
+																				<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+																			</label>
+																		</div>
+																	</td>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-secondary"> 
+																				<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+																			</label> 
+																			<label class="btn btn-pill btn-outline-warning active"> 
+																				<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+																			</label> 
+																		</div>
+																	</td>
+																	<td style="text-align:center;width:25%;">
+																		<div class="input-group bootstrap-timepicker">
+																			<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+																			<span class="input-group-btn">
+																				<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+																					<i class="pe-7s-clock"></i>
+																				</button>
+																			</span>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<th scope="row" style="text-align:center;">TUE</th>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-info active"> 
+																				<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+																			</label> 
+																			<label class="btn btn-pill btn-outline-primary"> 
+																				<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+																			</label>
+																		</div>
+																	</td>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-secondary"> 
+																				<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+																			</label> 
+																			<label class="btn btn-pill btn-outline-warning active"> 
+																				<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+																			</label> 
+																		</div>
+																	</td>
+																	<td style="text-align:center;width:25%;">
+																		<div class="input-group bootstrap-timepicker">
+																			<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+																			<span class="input-group-btn">
+																				<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+																					<i class="pe-7s-clock"></i>
+																				</button>
+																			</span>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<th scope="row" style="text-align:center;">WED</th>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-info active"> 
+																				<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+																			</label> 
+																			<label class="btn btn-pill btn-outline-primary"> 
+																				<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+																			</label>
+																		</div>
+																	</td>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-secondary"> 
+																				<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+																			</label> 
+																			<label class="btn btn-pill btn-outline-warning active"> 
+																				<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+																			</label> 
+																		</div>
+																	</td>
+																	<td style="text-align:center;width:25%;">
+																		<div class="input-group bootstrap-timepicker">
+																			<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+																			<span class="input-group-btn">
+																				<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+																					<i class="pe-7s-clock"></i>
+																				</button>
+																			</span>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<th scope="row" style="text-align:center;">THU</th>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-info active"> 
+																				<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+																			</label> 
+																			<label class="btn btn-pill btn-outline-primary"> 
+																				<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+																			</label>
+																		</div>
+																	</td>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-secondary"> 
+																				<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+																			</label> 
+																			<label class="btn btn-pill btn-outline-warning active"> 
+																				<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+																			</label> 
+																		</div>
+																	</td>
+																	<td style="text-align:center;width:25%;">
+																		<div class="input-group bootstrap-timepicker">
+																			<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+																			<span class="input-group-btn">
+																				<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+																					<i class="pe-7s-clock"></i>
+																				</button>
+																			</span>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<th scope="row" style="text-align:center;">FRI</th>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-info active"> 
+																				<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+																			</label> 
+																			<label class="btn btn-pill btn-outline-primary"> 
+																				<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+																			</label>
+																		</div>
+																	</td>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-secondary"> 
+																				<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+																			</label> 
+																			<label class="btn btn-pill btn-outline-warning active"> 
+																				<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+																			</label> 
+																		</div>
+																	</td>
+																	<td style="text-align:center;width:25%;">
+																		<div class="input-group bootstrap-timepicker">
+																			<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+																			<span class="input-group-btn">
+																				<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+																					<i class="pe-7s-clock"></i>
+																				</button>
+																			</span>
+																		</div>
+																	</td>
+																</tr>
+																<tr>
+																	<th scope="row" style="text-align:center;">SAT</th>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-info active"> 
+																				<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+																			</label> 
+																			<label class="btn btn-pill btn-outline-primary"> 
+																				<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+																			</label>
+																		</div>
+																	</td>
+																	<td style="text-align:center;">
+																		<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+																			<label class="btn btn-pill btn-outline-secondary"> 
+																				<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+																			</label> 
+																			<label class="btn btn-pill btn-outline-warning active"> 
+																				<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+																			</label> 
+																		</div>
+																	</td>
+																	<td style="text-align:center;width:25%;">
+																		<div class="input-group bootstrap-timepicker">
+																			<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+																			<span class="input-group-btn">
+																				<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+																					<i class="pe-7s-clock"></i>
+																				</button>
+																			</span>
+																		</div>
+																	</td>
+																</tr>
+															</tbody>
+														</table> -->
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="brnDesc" id="id_brn_desc" class="form-control"></textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    <!-- sub end -->
+    
+     <!-- script start -->
+    <th:block layout:fragment="script">
+    	<script th:inline="javascript">
+    		window.onload = function(){
+    			deviceControlInit('');
+    		}
+    		
+    		function deviceUpdBtn(id){
+    			deviceControlInit(id);
+    		}
+    		
+    		function deviceControlInit(id){
+    			var schUse = [];
+    			var schControl = [];
+    			var schTime = [];
+    			
+    			if(id === ''){
+   				 	schUse = ['Y','Y','Y','Y','Y','Y','Y'];
+   				 	schControl = ['D','D','D','D','D','D','D'];
+   					schTime = ['2300','2300','2300','2300','2300','2300','2300'];
+    			}else{
+    				// id에 맞는 디바이스 제어 스케줄 가져오기
+    				schUse = ['Y','N','Y','N','Y','N','Y'];
+    				schControl = ['D','R','R','D','D','R','D'];
+    				schTime = ['2300','2300','2300','2300','2300','2300','2300'];
+    			}
+    			
+    			makeDeviceControlForm(schUse, schControl, schTime);
+    		}
+    	
+    		function makeDeviceControlForm(schUse, schControl, schTime){
+				var schWeek = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
+    			var deviceControl = document.getElementById('deviceControl');
+    			
+    			var html = '';
+    			html += '<table class="mb-0 table table-bordered">';
+    			html += 	'<thead>';
+    			html += 		'<tr style="text-align:center;">';
+    			html += 			'<th></th>';
+    			html += 			'<th>사용여부</th>';
+    			html += 			'<th>제어명령</th>';
+    			html += 			'<th>적용시간</th>';
+    			html += 	'</thead>';
+    			html += 	'<tbody>';
+    			html +=			'<tr>';
+    			html +=				'<th scope="row" style="text-align:center;">All</th>';
+    			html +=				'<td style="text-align:center;">';
+    			html +=					'<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">';
+    			html +=						'<label class="btn btn-pill btn-outline-info active"> ';
+    			html +=							'<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용';
+    			html +=						'</label>';
+    			html +=						'<label class="btn btn-pill btn-outline-primary">';
+    			html +=							'<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용';
+    			html +=						'</label>';
+   				html +=					'</div>';
+    			html +=				'</td>';
+    			html +=				'<td style="text-align:center;">';
+    			html +=					'<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">';
+    			html +=						'<label class="btn btn-pill btn-outline-secondary">';
+    			html +=							'<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료';
+    			html +=						'</label>';
+    			html +=						'<label class="btn btn-pill btn-outline-warning active"> ';
+    			html +=							'<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅';
+    			html +=						'</label>';
+   				html +=					'</div>';
+    			html +=				'</td>';
+    			html +=				'<td style="text-align:center;width:25%;">';
+    			html +=					'<div class="input-group bootstrap-timepicker">';
+    			html +=						'<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> ';
+    			html +=						'<span class="input-group-btn">';
+    			html +=							'<button class="btn btn-focus" type="button" style="font-size: 1rem;">';
+    			html +=								'<i class="pe-7s-clock"></i>';
+    			html +=							'</button>';
+    			html +=						'</span>';
+   				html +=					'</div>';
+    			html +=				'</td>';
+    			html +=			'</tr>';
+    			for(var i=0; i<schWeek.length; i++){
+    				var week = schWeek[i];
+    				var use = schUse[i];
+    				var control = schControl[i];
+    				var time = schTime[i];
+    				
+    				console.log(week);
+    				html +=			'<tr>';
+        			html +=				'<th scope="row" style="text-align:center;">' + week + '</th>';
+        			html +=				'<td style="text-align:center;">';
+        			html +=					'<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">';
+        			html +=						'<label class="btn btn-pill btn-outline-info  ' + checkUseY(use) + '"> ';
+        			html +=							'<input type="radio" name="schUse" id="schUseYes" valeu="Y" autocomplete="off" > 사용';
+        			html +=						'</label>';
+        			html +=						'<label class="btn btn-pill btn-outline-primary  ' + checkUseN(use) + '">';
+        			html +=							'<input type="radio" name="schUse" id="schUseNo" valeu="N" autocomplete="off" > 미사용';
+        			html +=						'</label>';
+       				html +=					'</div>';
+        			html +=				'</td>';
+        			html +=				'<td style="text-align:center;">';
+        			html +=					'<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">';
+        			html +=						'<label class="btn btn-pill btn-outline-secondary ' + checkControlD(control) + '">';
+        			html +=							'<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료';
+        			html +=						'</label>';
+        			html +=						'<label class="btn btn-pill btn-outline-warning  ' + checkControlR(control) + '"> ';
+        			html +=							'<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅';
+        			html +=						'</label>';
+       				html +=					'</div>';
+        			html +=				'</td>';
+        			html +=				'<td style="text-align:center;width:25%;">';
+        			html +=					'<div class="input-group bootstrap-timepicker">';
+        			html +=						'<input type="text" id="id_sch_time" value="' + makeFormatTime(time) + '" class="form-control timepicker-default" readonly /> ';
+        			html +=						'<span class="input-group-btn">';
+        			html +=							'<button class="btn btn-focus" type="button" style="font-size: 1rem;">';
+        			html +=								'<i class="pe-7s-clock"></i>';
+        			html +=							'</button>';
+        			html +=						'</span>';
+       				html +=					'</div>';
+        			html +=				'</td>';
+        			html +=			'</tr>';
+    			}
+    			html +=		'</tbody>';
+    			html += '</table>';
+    			
+    			deviceControl.innerHTML = html;
+    		}
+    		
+    		////////////////////////////
+    		// Device Control Schedule Util
+    		////////////////////////////
+    		function checkUseY(use){
+   	        	if(use === 'Y'){
+       				return 'active';
+       			}else{
+       				return '';
+       			}
+    		}
+    		
+    		function checkUseN(use){
+   	        	if(use === 'N'){
+       				return 'active';
+       			}else{
+       				return '';
+       			}
+    		}
+    		
+    		function checkControlD(control){
+    			if(control === 'D'){
+    				return 'active';
+    			}else{
+    				return '';
+    			}
+    		}
+    		
+    		function checkControlR(control){
+    			if(control === 'R'){
+    				return 'active';
+    			}else{
+    				return '';
+    			}
+    		}
+    		
+    		function makeFormatTime(time){
+    			var h = time.substring(0,2);
+    			var m = time.substring(2);
+    			time = h + ':' + m;
+    			return time;
+    		}
+    		
+//     		function checkUseY(use){
+// 	        var schUseLength = document.getElementsByName("schUse").length;
+	        
+// 	        for (var i=0; i<schUseLength; i++) {
+// 	        	var useValue = document.getElementsByName("schUse")[i].value;
+// 	        	if(use === useValue){
+//     				return 'checked';
+//     			}else{
+//     				return '';
+//     			}
+// 	        }
+// 		}
+    		
+//     		<table class="mb-0 table table-bordered">
+// 				<thead>
+// 					<tr style="text-align:center;">
+// 						<th></th>
+// 						<th>사용여부</th>
+// 						<th>제어명령</th>
+// 						<th>적용시간</th>
+// 					</tr>
+// 				</thead>
+// 				<tbody>
+// 					<tr>
+// 						<th scope="row" style="text-align:center;">All</th>
+// 						<td style="text-align:center;">
+// 							<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+// 								<label class="btn btn-pill btn-outline-info active"> 
+// 									<input type="radio" name="options1" id="option111" autocomplete="off" checked=""> 사용
+// 								</label> 
+// 								<label class="btn btn-pill btn-outline-primary"> 
+// 									<input type="radio" name="options1" id="option133" autocomplete="off" > 미사용
+// 								</label>
+// 							</div>
+// 						</td>
+// 						<td style="text-align:center;">
+// 							<div role="group" class="btn-group-sm btn-group btn-group-toggle" data-toggle="buttons" style="width:90%">
+// 								<label class="btn btn-pill btn-outline-secondary"> 
+// 									<input type="radio" name="options" id="option177" autocomplete="off" checked=""> 종료
+// 								</label> 
+// 								<label class="btn btn-pill btn-outline-warning active"> 
+// 									<input type="radio" name="options" id="option188" autocomplete="off" > 재부팅
+// 								</label> 
+// 							</div>
+// 						</td>
+// 						<td style="text-align:center;width:25%;">
+// 							<div class="input-group bootstrap-timepicker">
+// 								<input type="text" id="id_sch_time" value="23:00" class="form-control timepicker-default" readonly /> 
+// 								<span class="input-group-btn">
+// 									<button class="btn btn-focus" type="button" style="font-size: 1rem;">
+// 										<i class="pe-7s-clock"></i>
+// 									</button>
+// 								</span>
+// 							</div>
+// 						</td>
+// 					</tr> 
+// 				</tbody>
+// 			</table>
+
+    		$(document).ready(function(){
+    		})
+    	</script>
+    </th:block>
+    <!-- script end -->
+</html>
+
+

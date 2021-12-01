@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+    <!-- custom style start -->
+    <th:block layout:fragment="style">
+   		<style type="text/css">
+			.list-group li {
+				cursor: pointer;
+				display: inline-block;
+			}
+			
+			.list-group li:hover {
+				background-color: #dfdfdf;
+			}
+			
+			.scroll-area-sm {
+				height: 600px;
+				overflow-x: hidden;
+			}
+		</style>
+    </th:block>
+    <!-- custom style end -->
+		
+	<!-- contents영역  -->
+	<!-- 해당 부분을 가져가서 내용을 구현 -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left col-md-3">
+					<div>
+						<span>컨텐츠 스케줄</span><br>
+						<a th:href="@{/company/list}">업체 리스트</a><br>
+						<a th:href="@{/branch/list}">지점 리스트</a><br>
+						<a th:href="@{/main/default}">디폴트 페이지</a><br>
+						<a th:href="@{/element/list}">요소 리스트</a><br>
+					</div>
+				</div>
+				<div class="inner-bar-center"></div>
+				<div class="inner-bar-right"></div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- contents start -->
+						<div  class="tab-content">
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="main-card mb-3 card">
+										<div class="card-header">광고 리스트</div>
+										<div class="scroll-area-sm">
+											<div class="scrollbar-container ps--active-y ps">
+												<ul class="list-group list-group-flush">
+													<li class="list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left mr-3">
+																	<img width="42" class="rounded-circle" src="../assets/images/avatars/1.jpg" alt="">
+																</div>
+																<div class="widget-content-left">
+																	<div class="widget-heading">Alina Mcloughlin</div>
+																	<div class="widget-subheading">A short profile description</div>
+																</div>
+																<div class="widget-content-right">
+																	<div role="group" class="btn-group-sm btn-group">
+																		<button type="button" class="btn-shadow btn btn-primary">Hire</button>
+																		<button type="button" class="btn-shadow btn btn-primary">Fire</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left mr-3">
+																	<img width="42" class="rounded" src="../assets/images/avatars/2.jpg" alt="">
+																</div>
+																<div class="widget-content-left">
+																	<div class="widget-heading">Ruben Tillman</div>
+																	<div class="widget-subheading">Etiam sit amet orci eget eros faucibus</div>
+																</div>
+																<div class="widget-content-right">
+																	<div class="badge badge-danger">NEW</div>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left mr-3">
+																	<img width="42" class="rounded-circle" src="../assets/images/avatars/3.jpg" alt="">
+																</div>
+																<div class="widget-content-left">
+																	<div class="widget-heading">Vinnie Wagstaff</div>
+																</div>
+																<div class="widget-content-right">
+																	<button class="btn-pill btn-hover-shine btn btn-focus btn-sm">Details</button>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left mr-3">
+																	<img width="42" class="rounded-circle" src="../assets/images/avatars/4.jpg" alt="">
+																</div>
+																<div class="widget-content-left">
+																	<div class="widget-heading">Ella-Rose Henry</div>
+																	<div class="widget-subheading">Lorem ipsum dolor sit amet, consectetuer</div>
+																</div>
+																<div class="widget-content-right">
+																	<div class="widget-numbers text-primary">
+																		<span class="count-up-wrapper">$249</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left mr-3">
+																	<img width="42" class="rounded-circle" src="../assets/images/avatars/5.jpg" alt="">
+																</div>
+																<div class="widget-content-left">
+																	<div class="widget-heading">Eliot Huber</div>
+																</div>
+																<div class="widget-content-right">
+																	<div class="ml-auto badge badge-pill badge-warning">43</div>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left mr-3">
+																	<div class="widget-content-left">
+																		<img width="42" class="rounded" src="../assets/images/avatars/9.jpg" alt="">
+																	</div>
+																</div>
+																<div class="widget-content-left flex2">
+																	<div class="widget-heading">Product Sales</div>
+																	<div class="widget-subheading opacity-10">
+																		<span class="pr-2"> <b>43</b> Sales
+																		</span> <span> <b class="text-success">$156,24</b> Totals
+																		</span>
+																	</div>
+																</div>
+																<div class="widget-content-right text-right mr-3">
+																	<div>
+																		<b>52,5%</b>
+																	</div>
+																	YoY Growth
+																</div>
+																<div class="widget-content-right">
+																	<div class="progress-circle-wrapper">
+																		<div class="circle-progress circle-progress-gradient"><canvas width="52" height="52"></canvas>
+																			<small><span>72%<span></span></span></small>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left">
+																	<div class="widget-heading">Product Sales</div>
+																</div>
+																<div class="widget-content-right">
+																	<div class="progress-circle-wrapper">
+																		<div class="circle-progress circle-progress-success"><canvas width="52" height="52"></canvas>
+																			<small><span>81%<span></span></span></small>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left mr-3">
+																	<div class="icon-wrapper border-light rounded m-0">
+																		<div class="icon-wrapper-bg bg-light"></div>
+																		<i class="lnr-cog icon-gradient bg-happy-itmeo"></i>
+																	</div>
+																</div>
+																<div class="widget-content-left">
+																	<div class="widget-heading">Hidden Actions Pane</div>
+																</div>
+																<div class="widget-content-right widget-content-actions">
+																	<button class="btn-pill btn btn-outline-primary">Follow</button>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li class="list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left center-elem mr-2">
+																	<i class="pe-7s-file text-muted fsize-2"></i>
+																</div>
+																<div class="widget-content-left">
+																	<div class="widget-heading">Example file 1</div>
+																</div>
+																<div class="widget-content-right">
+																	<button class="btn-icon btn-icon-only btn btn-link">
+																		<i class="pe-7s-download fsize-2 btn-icon-wrapper"> </i>
+																	</button>
+																</div>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="d-block text-right card-footer">
+											<button class="mr-2 btn btn-link btn-sm">Cancel</button>
+											<button class="btn btn-success btn-lg">Save</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-8">
+									<div class="main-card mb-3 card">
+										<div class="card-header">스케줄 리스트</div>
+										<div class="scroll-area-sm">
+											<div class="scrollbar-container ps ps--active-y">
+												<!-- schedule start -->
+												<!-- schedule end -->
+											<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 200px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 74px;"></div></div></div>
+										</div>
+										<div class="card-footer">
+											<input placeholder="Write here and hit enter to send..." type="text" class="form-control-lg form-control">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <!-- sub start -->
+    <th:block layout:fragment="sub"></th:block>
+    <!-- sub end -->
+    
+     <!-- script start -->
+    <th:block layout:fragment="script">
+    	<script th:inline="javascript">
+    	
+    	</script>
+    </th:block>
+    <!-- script end -->
+</html>
+
+

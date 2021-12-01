@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+    <!-- custom style start -->
+    <th:block layout:fragment="style">
+   		<style type="text/css">
+			
+			/* frame */
+			#frameList li {
+				cursor: pointer;
+				display: inline-block;
+			}
+			
+			#frameList li:hover {
+				background-color: #dfdfdf;
+			}
+			
+			.frameContext {
+				width: 60%;
+				height: 100%;
+			}
+			
+			.frameContext :hover {
+				cursor: move;
+			}
+			
+			.frameContext div {
+				width: 100%;     			/* 너비는 변경될수 있습니다. */
+				text-overflow: ellipsis;	/* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
+				white-space  : nowrap; 		/* 줄바꿈을 하지 않습니다. */
+				overflow     : hidden;    	/* 내용이 길면 감춤니다 */
+				display      : block;     	/* ie6이상 현재요소를 블럭처리합니다. */
+				user-select:none;
+			}
+			
+			.frameBtnGroup {
+				float:right;
+				width: 26%;
+			}
+			
+			/* folder */
+			.dropZone {
+				margin-right:0;
+    			margin-left: 0;
+    			min-height: 100px;
+			}
+			
+			.folderContext {
+				padding-right: 5px;
+    			padding-left: 5px;
+    			margin-bottom: 10px;
+			}
+			
+			.folderContext > div {
+			    border: 2px solid #cccccc;
+			    border-radius: 4px;
+			    font-size: 12px;
+			    height: 45px;
+			    background: #ffffff;
+			    padding: 3px;
+			    cursor: move;
+			}
+			
+			.folderContext > div > span {
+			    display: inline-block;
+			    word-break: break-all;
+			    vertical-align: top;
+			}
+			
+			.folderContext .number {
+				width: 10%;
+			    color: #ff0000;
+			}
+			
+			.folderContext .remove {
+			    color: #ff0000;
+				width: 10%;
+			    text-align: right;
+			    cursor: pointer;
+			    cursor: pointer
+			}
+			
+			.folderContextName {
+				width: 100%;     			/* 너비는 변경될수 있습니다. */
+				text-overflow: ellipsis;	/* 위에 설정한 100px 보다 길면 말줄임표처럼 표시합니다. */
+				white-space  : nowrap; 		/* 줄바꿈을 하지 않습니다. */
+				overflow     : hidden;    	/* 내용이 길면 감춤니다 */
+				display      : block;     	/* ie6이상 현재요소를 블럭처리합니다. */
+				user-select:none;
+			}
+			
+			/* 스크롤 */
+			.outerScroll {
+				height: 600px;
+				overflow-x: hidden;
+			}
+			
+			.innerScroll {
+				overflow-x: hidden;
+			}
+			
+			/* else */
+			.divider {
+				margin-bottom: 0 !important;
+			}
+		</style>
+    </th:block>
+    <!-- custom style end -->
+		
+	<!-- contents영역  -->
+	<!-- 해당 부분을 가져가서 내용을 구현 -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left col-md-3">
+					<div>
+						<span>컨텐츠 폴더</span><br>
+<!-- 						<a th:href="@{/company/list}">업체 리스트</a><br> -->
+<!-- 						<a th:href="@{/branch/list}">지점 리스트</a><br> -->
+<!-- 						<a th:href="@{/main/default}">디폴트 페이지</a><br> -->
+<!-- 						<a th:href="@{/element/list}">요소 리스트</a><br> -->
+					</div>
+				</div>
+				<div class="inner-bar-center"></div>
+				<div class="inner-bar-right"></div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- contents start -->
+						<div class="tab-content">
+							<div class="row">
+								<div class="col-lg-4">
+									<div class="main-card mb-3 card">
+										<div class="card-header">광고 리스트</div>
+										<br>
+										<div class="text-center">
+											<div role="group" class="btn-group btn-group btn-group-toggle" data-toggle="buttons" style="width:80%;">
+												<label class="btn btn-outline btn-outline-warning active"> 
+													<input type="radio" name="options" id="option177" autocomplete="off" checked> 광고 1
+												</label> 
+												<label class="btn btn-outline btn-outline-warning "> 
+													<input type="radio" name="options" id="option188" autocomplete="off" checked> 광고 2
+												</label> 
+												<label class="btn btn-outline btn-outline-warning "> 
+													<input type="radio" name="options" id="option199" autocomplete="off" checked> 공익 광고
+												</label>
+											</div>
+										</div>
+										<div class="divider"></div>
+										<div class="outerScroll scroll-area-sm">
+											<div class="scrollbar-container ps--active-y ps">
+												<ul class="list-group list-group-flush" id="frameList">
+													<li class="frames list-group-item" id="11111" data-name="contents name" data-period="2021-11-24 ~ 2021-12-31" data-time="30">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left mr-3">
+																	<img width="42" class="rounded" src="../assets/images/avatars/1.jpg" alt="">
+																</div>
+																<div class="frameContext widget-content-left">
+																	<div class="widget-heading">contents name1ffffffffffffffffffffff</div>
+										    						<div class="widget-subheading">2021-11-24 ~ 2021-12-31</div>
+																	<div class="widget-subheading">재생시간 : 20sec</div>
+																</div>
+																<div class="frameBtnGroup widget-content-right">
+																	<button class="border-0 btn-transition btn btn-outline-success">
+																		<i class="fa fa-check"></i>
+																	</button>
+																	<button class="border-0 btn-transition btn btn-outline-warning">
+																		<i class="fa fa-tools"></i>
+																	</button>
+																	<button class="border-0 btn-transition btn btn-outline-danger">
+																		<i class="fa fa-trash-alt"></i>
+																	</button>
+																</div>
+															</div>
+														</div>
+													</li>
+													<li class="frames list-group-item">
+														<div class="widget-content p-0">
+															<div class="widget-content-wrapper">
+																<div class="widget-content-left mr-3">
+																	<img width="42" class="rounded" src="../assets/images/avatars/2.jpg" alt="">
+																</div>
+																<div class="frameContext widget-content-left">
+																	<div class="widget-heading">contents name2</div>
+										    						<div class="widget-subheading">2021-11-24 ~ 2021-12-31</div>
+																	<div class="widget-subheading">재생시간 : 20sec</div>
+																</div>
+																<div class="frameBtnGroup widget-content-right">
+																	<button class="border-0 btn-transition btn btn-outline-success">
+																		<i class="fa fa-check"></i>
+																	</button>
+																	<button class="border-0 btn-transition btn btn-outline-warning">
+																		<i class="fa fa-tools"></i>
+																	</button>
+																	<button class="border-0 btn-transition btn btn-outline-danger">
+																		<i class="fa fa-trash-alt"></i>
+																	</button>
+																</div>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</div>
+										<div class="d-block text-right card-footer">
+											<button type="button" class="btn mr-1 btn-icon btn btn-link" ><i class="pe-7s-calculator btn-icon-wrapper"> </i>차순정렬</button>
+											<button type="button" class="btn mr-1 btn-icon btn btn-link" ><i class="pe-7s-calculator btn-icon-wrapper"> </i>기간정렬</button>
+										</div>
+									</div>
+								</div>
+								<div class="col-lg-8">
+									<div class="main-card mb-3 card">
+										<div class="card-header">폴더 리스트</div>
+										<br>
+										<div class="text-right">
+											<button type="button" class="btn mr-1 btn-icon btn btn-primary" ><i class="pe-7s-calculator btn-icon-wrapper"> </i>Summary</button>
+											<button type="button" class="btn mr-1 btn-icon btn btn-success" data-toggle="modal" data-target=".registModal" ><i class="pe-7s-folder btn-icon-wrapper"> </i>추가</button>
+											<button type="button" class="btn mr-3 btn-icon btn btn-info" ><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+										</div>
+										<div class="divider"></div>
+										<div class="outerScroll scroll-area-sm">
+											<div class="scrollbar-container ps ps--active-y">
+												<!-- floder schedule start -->
+												<div class="pb-5 pl-5 pr-5 pt-3">
+													<div class="mobile-app-menu-btn mb-3">
+														<button type="button" class="hamburger hamburger--elastic">
+															<span class="hamburger-box"><span class="hamburger-inner"></span></span>
+														</button>
+													</div>
+													<div class="tab-content">
+														<div class="tab-pane show active" id="tab-faq-1">
+															<div id="folderList">
+																<!-- #1 folder start -->
+																<div class="folders card mb-1">
+																	<div id="headingOne" class="card-header">
+																		<button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+																			<h5 class="m-0 p-0">폴더 1번</h5>
+																		</button>
+																	</div>
+																	<div data-parent="#folderList" id="collapseOne1" class="collapse" style="">
+																		<div class="card-body">
+																			<!-- #1 folder frame info start -->
+																			<div class="dropZone row" id="folder1"><!-- id="id_info_1_1" data-type="NO" add-type="NO" frame_id="94" sch_id="1" con_name="강남구청 4편_1920x1080 30초" -->
+																				<div class="col-md-3 folderContext ui-sortable-handle ui-droppable" ondrag="contextDrag(event);" ondragstart="contextDragStart(event);" draggable="true" id="11111" data-name="contents name" data-period="2021-11-24 ~ 2021-12-31" data-time="30">
+																					<div>
+																						<span class="number number_sort">1</span>
+																						<span class="folderContextName" style="width: 75%;">강남구청 4편_1920x1080 30초ffffffffffffffffffffffffffffffffffffff<br/>재생시간 : 30sec</span>
+																						<span class="remove" onclick="javascript:onClickListDelete(this);">
+																							<span class="ion-android-close"></span>
+																						</span>
+																					</div>
+																				</div>
+																			</div>
+																			<!-- #1 folder frame info end -->
+																		</div>
+																	</div>
+																</div>
+																<!-- #1 folder end -->
+																<div class="folders card mb-1">
+																	<div id="headingTwo" class="b-radius-0 card-header">
+																		<button type="button" data-toggle="collapse" data-target="#collapseOne2" aria-expanded="false" aria-controls="collapseTwo" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+																			<h5 class="m-0 p-0">폴더 2번</h5>
+																		</button>
+																	</div>
+																	<div data-parent="#folderList" id="collapseOne2" class="collapse" style="">
+																		<div class="card-body">
+																			<!-- #2 folder frame info start -->
+																			<div class="dropZone row" id="folder2">
+																			
+																			</div>
+																			<!-- #2 folder frame info end -->
+																		</div>
+																	</div>
+																</div>
+																<div class="folders card mb-1">
+																	<div id="headingThree" class="card-header">
+																		<button type="button" data-toggle="collapse" data-target="#collapseOne3" aria-expanded="false" aria-controls="collapseThree" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+																			<h5 class="m-0 p-0">폴더 3번</h5>
+																		</button>
+																	</div>
+																	<div data-parent="#folderList" id="collapseOne3" class="collapse" style="">
+																		<div class="card-body">
+																			<!-- #3 folder frame info start -->
+																			<div class="dropZone row" id="folder3">
+																			
+																			</div>
+																			<!-- #3 folder frame info end -->
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- floder schedule end -->
+												<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+													<div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+												</div>
+												<div class="ps__rail-y" style="top: 0px; right: 0px;">
+													<div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 74px;"></div>
+												</div>
+											</div>
+										</div>
+										<div class="d-block text-right card-footer">
+											<button type="button" class="btn mr-1 btn-icon btn btn-link" ><i class="lnr-line-spacing btn-icon-wrapper"> </i>차순정렬</button>
+											<button type="button" class="btn mr-1 btn-icon btn btn-link" ><i class="lnr-line-spacing btn-icon-wrapper"> </i>기간정렬</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <!-- sub start -->
+    <th:block layout:fragment="sub">
+    	<!-- regist modal start -->
+    	<div class="modal fade registModal" id="companyRegModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">폴더 추가</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="registForm" action="" method="post">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">폴더명</label>
+												<div class="col-sm-10">
+													<input name="folderName" id="folderName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">색상</label>
+												<input name="folderColor" id="folderColor" type="hidden" class="form-control">
+												<div class="col-sm-10">
+													<div class="dropdown d-inline-block">
+														<button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mb-2 mr-2 dropdown-toggle btn btn-secondary" id="colorDropDownBtn">선택하세요.</button>
+														<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu-rounded dropdown-menu-lg dropdown-menu">
+															<div class="p-3">
+																<ul class="list-group">
+																	<li class="list-group-item">
+																		<h5 class="pb-2">Choose Color</h5>
+																		<div class="theme-settings-swatches">
+																			<div class="colorBtn swatch-holder bg-primary " data-class="bg-primary sidebar-text-light" data-color="#da624a"></div>
+																			<div class="colorBtn swatch-holder bg-secondary " data-class="bg-secondary sidebar-text-light" data-color="#6c757d"></div>
+																			<div class="colorBtn swatch-holder bg-success " data-class="bg-success sidebar-text-dark" data-color="#3ac47d"></div>
+																			<div class="colorBtn swatch-holder bg-info " data-class="bg-info sidebar-text-dark" data-color="#16aaff"></div>
+																			<div class="colorBtn swatch-holder bg-warning " data-class="bg-warning sidebar-text-dark" data-color="#f7b924"></div>
+																			<div class="colorBtn swatch-holder bg-danger " data-class="bg-danger sidebar-text-light" data-color="#d92550"></div>
+																			<div class="colorBtn swatch-holder bg-light " data-class="bg-light sidebar-text-dark" data-color="#eee"></div>
+																			<div class="colorBtn swatch-holder bg-dark " data-class="bg-dark sidebar-text-light" data-color="#343a40"></div>
+																			<div class="colorBtn swatch-holder bg-focus " data-class="bg-focus sidebar-text-light" data-color="#444054"></div>
+																			<div class="colorBtn swatch-holder bg-alternate " data-class="bg-alternate sidebar-text-light" data-color="#794c8a"></div>
+																		</div>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- regist modal end -->
+    </th:block>
+    <!-- sub end -->
+		
+     <!-- script start -->
+    <th:block layout:fragment="script">
+    	<script defer src="../assets/eltov/schedule/eltov_dragable.js"></script>
+		<script th:inline="javascript">
+	    	window.onload = function(){
+// 	    		console.log('2');
+	    		// 광고
+// 	    		makingFrameListHtml();
+	    		// 폴더
+// 	    		makingFolderListHtml();
+	    		// 광고 drag & drop
+// 	    		contentsAddEventInit();
+// 	        	var colorBtns = document.getElementsByClassName('colorBtn');
+	    		
+//	 	    	var colorSelect = function(){
+//	 	    		var color = this.getAttribute('data-color');
+//	 	    		console.log(color);
+//	 	    	}
+		    	
+//	 	    	for (var i = 0; i < colorBtns.length; i++) {
+//	 		    	colorBtns[i].addEventListener('click', colorSelect(), false);
+//	 	    	}
+		    	
+			    	// dropdown color selecter
+// 		    		var colorBtn = document.querySelectorAll('colorBtn');
+		    		
+//	 	    		colorBtns.onclick = function(e){
+//	 	//     			console.log(this.className);
+//	 	    			console.log(this.dataset.color);
+//	 	    			for(let elem of colorBtns){
+//	 	    				console.log(elem.dataset.color);
+//	 	        		}
+//	 	    		};
+// 		    		colorBtn.onclick = function(e){
+// 		    			console.log(this.className);
+// 		    			console.log(this.dataset.color);
+// 		    			for(let elem of colorBtn){
+// 		    				console.log(elem.dataset.color);
+// 		        		}
+// 		    		};
+	    	}
+	    	
+	
+	    	
+	    	
+	    	// ajax요청 폴더 정보 등록
+	    	// 등록 성공 확인 후 createElement
+	    	function saveBtn(){
+	    		
+	    		let accordion = document.getElementById('accordion');
+	    		
+	    		var cardDiv = document.createElement('div');
+	    		cardDiv.setAttribute('class', 'card mb-1');
+	    		var cardHeadDiv = document.createElement('div');
+	    		cardHeadDiv.setAttribute('class', 'card-header');
+	    		cardHeadDiv.setAttribute('id', 'headingOne');
+	    		var cardOpenBtn = document.createElement('button');
+	    		cardOpenBtn.setAttribute('class', 'text-left m-0 p-0 btn btn-link btn-block collapsed');
+	    		cardOpenBtn.setAttribute('type', 'button');
+	    		cardOpenBtn.setAttribute('data-toggle', 'collapse');
+	    		cardOpenBtn.setAttribute('data-target', '#collapseOne4');
+	    		cardOpenBtn.setAttribute('aria-expanded', 'false');
+	    		cardOpenBtn.setAttribute('aria-controls', 'collapseOne');
+	    		var cardText = document.createElement('h5');
+	    		cardText.setAttribute('class', 'm-0 p-0');
+	    		cardText.innerText = '폴더 n번';
+	    		
+	    		var cardBodyTapDiv = document.createElement('div');
+	    		cardBodyTapDiv.setAttribute('class', 'collapse');
+	    		cardBodyTapDiv.setAttribute('data-parent', '#accordion');
+	    		cardBodyTapDiv.setAttribute('id', 'collapseOne4');
+	    		cardBodyTapDiv.setAttribute('aria-labelledby', 'headingOne');
+	    		var cardBodyDiv = document.createElement('div');
+	    		cardBodyDiv.setAttribute('class', 'card-body');
+	    		
+	    		cardOpenBtn.appendChild(cardText);
+	    		cardHeadDiv.appendChild(cardOpenBtn);
+	    		cardBodyTapDiv.appendChild(cardBodyDiv);
+	    		cardDiv.appendChild(cardHeadDiv);
+	    		cardDiv.appendChild(cardBodyTapDiv);
+	    		accordion.appendChild(cardDiv);
+	    		
+	    		alert('폴더가 생성 되었습니다.');
+	    		
+// 	    		var registModal = $('#companyRegModal'); 
+// 	    		var modal = $('.modal-backdrop'); 
+// 	    		registModal.hide();
+// 	    		modal.hide();
+
+// 	    		<div class="card mb-1">
+// 					<div id="headingOne" class="card-header">
+// 						<button type="button" data-toggle="collapse" data-target="#collapseOne1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">
+// 							<h5 class="m-0 p-0">폴더 1번</h5>
+// 						</button>
+// 					</div>
+// 					<div data-parent="#accordion" id="collapseOne1" aria-labelledby="headingOne" class="collapse" style="">
+// 						<div class="card-body">
+// 							<!-- #1 folder frame info start -->
+							
+// 							<!-- #1 folder frame info end -->
+// 						</div>
+// 					</div>
+// 				</div>
+	    		
+	    		
+// 	    		<li class="list-group-item">
+// 					<div class="widget-content p-0">
+// 						<div class="widget-content-wrapper">
+// 							<div class="widget-content-left mr-3">
+// 								<img width="42" class="rounded" src="../assets/images/avatars/2.jpg" alt="">
+// 							</div>
+// 							<div class="widget-content-left">
+// 								<div class="widget-heading">contents name</div>
+// 								<div class="widget-subheading">contents period</div>
+// 							</div>
+// 							<div class="widget-content-right">
+// 								<button class="border-0 btn-transition btn btn-outline-success">
+// 									<i class="fa fa-check"></i>
+// 								</button>
+// 								<button class="border-0 btn-transition btn btn-outline-danger">
+// 									<i class="fa fa-trash-alt"></i>
+// 								</button>
+// 							</div>
+// 						</div>
+// 					</div>
+// 				</li>
+	    	}
+	    	
+	    	function makingFrameListHtml(){
+	    		var html = '';
+	    		let frameList = document.getElementById('frameList');
+	    		
+	    		html += '<li class="contents list-group-item" id="1">';
+	    		html += 	'<div class=" widget-content p-0">';
+	    		html += 		'<div class="contents2 widget-content-wrapper">';
+	    		html += 			'<div class="widget-content-left mr-3">';
+	    		html += 				'<img width="42" class="rounded" src="../assets/images/avatars/2.jpg" alt="">';
+	    		html += 			'</div>';
+	    		html += 			'<div class="frameContext widget-content-left">';
+	    		html += 				'<div class="widget-heading">contents name1ddddddddddddddddddddddddddddddddd</div>';
+	    		html += 				'<div class="widget-subheading">2021-11-24 ~ 2021-12-31</div>';
+	    		html += 				'<div class="widget-subheading">재생시간 : 20sec</div>';
+	    		html += 			'</div>';
+	    		html += 			'<div class="widget-content-right">';
+	    		html += 				'<button class="border-0 btn-transition btn btn-outline-success">';
+	    		html += 					'<i class="fa fa-check"></i>';
+	    		html += 				'</button>';
+	    		html += 				'<button class="border-0 btn-transition btn btn-outline-danger">';
+	    		html += 					'<i class="fa fa-trash-alt"></i>';
+	    		html += 				'</button>';
+	    		html += 			'</div>';
+	    		html += 		'</div>';
+	    		html += 	'</div>';
+	    		html += '</li>';
+	    		
+	    		html += '<li class="contents list-group-item" id="2">';
+	    		html += 	'<div class=" widget-content p-0">';
+	    		html += 		'<div class="contents2 widget-content-wrapper">';
+	    		html += 			'<div class="widget-content-left mr-3">';
+	    		html += 				'<img width="42" class="rounded" src="../assets/images/avatars/2.jpg" alt="">';
+	    		html += 			'</div>';
+	    		html += 			'<div class="frameContext widget-content-left">';
+	    		html += 				'<div class="widget-heading">contents name2</div>';
+	    		html += 				'<div class="widget-subheading">2021-11-24 ~ 2021-12-31</div>';
+	    		html += 				'<div class="widget-subheading">재생시간 : 20sec</div>';
+	    		html += 			'</div>';
+	    		html += 			'<div class="widget-content-right">';
+	    		html += 				'<button class="border-0 btn-transition btn btn-outline-success">';
+	    		html += 					'<i class="fa fa-check"></i>';
+	    		html += 				'</button>';
+	    		html += 				'<button class="border-0 btn-transition btn btn-outline-danger">';
+	    		html += 					'<i class="fa fa-trash-alt"></i>';
+	    		html += 				'</button>';
+	    		html += 			'</div>';
+	    		html += 		'</div>';
+	    		html += 	'</div>';
+	    		html += '</li>';
+	    		
+	    		frameList.innerHTML = html;
+	    	}
+	    	
+	    	function makingFolderListHtml(){
+	    		var html = '';
+	    		let accordion = document.getElementById('accordion');
+	    		
+	    		html += '<div class="card mb-1">';
+	    		html += 	'<div id="headingOne" class="card-header">';
+	    		html += 		'<button type="button" data-toggle="collapse" data-target="#folder1" aria-expanded="false" aria-controls="collapseOne" class="text-left m-0 p-0 btn btn-link btn-block collapsed">';
+	    		html += 			'<h5 class="m-0 p-0">폴더 n번</h5>';
+	    		html += 		'</button>';
+	    		html += 	'</div>';
+	    		html += 	'<div data-parent="#accordion" id="folder1" aria-labelledby="headingOne" class="collapse" style="">';
+	    		html += 		'<div class="card-body">';
+	    		html += 		'</div>';
+	    		html += 	'</div>';
+	    		html += '</div>';
+	    		
+	    		accordion.innerHTML = html;
+	    	}
+	    	
+	    	  
+			function dragHandler(ev) {
+// 				ev.preventDefault();
+				// 드래그 데이터를 추가합니다.
+				console.log(ev.target.id);
+				console.log(ev.target);
+				console.log(ev.currentTarget);
+// 				ev.dataTransfer.setData("text/plain", ev.target.id);
+// 				ev.dataTransfer.setData("text/html", "<p>Example paragraph</p>");
+// 				ev.dataTransfer.setData("text/uri-list", "http://developer.mozilla.org");
+				
+				// 드래그 이미지로 사용할 이미지를 만듭니다.
+			  	// 참고: "example.gif"를 존재하는 이미지로 바꾸지 않으면 기본 드래그 이미지를 사용합니다.
+// 				var img = new Image();
+// 			  	img.src = '../assets/images/avatars/4.jpg';
+// 			  	ev.dataTransfer.setDragImage(img, 10, 10);
+				  
+			 	// 드래그 효과를 copy로 지정합니다.
+			  	ev.dataTransfer.dropEffect = "copy";
+			}
+			
+	
+
+			window.addEventListener('DOMContentLoaded', () => {
+// 				console.log('1');
+				// 광고
+// 	    		makingFrameListHtml();
+	    		// 폴더
+// 	    		makingFolderListHtml();
+	    		// 드래그 앤 드롭
+	    		dragUseInSch();
+	    		
+	    		
+			    // id를 통해 element를 가져옵니다.
+// 			    const ulFrameList = document.querySelector('#frameList');
+// 			    const ulFrameList = document.getElementById('frameList');
+// 			    console.log(frameList);
+// 			    frameList.addEventListener("dragstart", dragHandler);
+// 			    const liFrames = ulFrameList.querySelectorAll('.frames');
+// 			    const divFrameContexts = ulFrameList.querySelectorAll('.frameContext');
+// 			    const liContents = frameList.getElementsByClassName('contents2');
+			    // 'dragstart' 이벤트 리스터를 추가합니다.
+// 			    for (var i = 0; i < divFrameContexts.length; i++) {
+// 			    	console.log(liContents[i]);
+// 			    	liFrames[i].addEventListener("dragstart", dragHandler);
+// 			    	divFrameContexts[i].addEventListener("click", clickHandler);
+// 			    }
+			    
+// 				function dragEvent(ev) {
+// 					if(!ev.target.matches('#frameList > li')) return;
+// 					Array.from(liFrames).forEach(function(frame){
+// 						frame.addEventListener("dragstart", clickHandler, {
+// 							capture: true
+// 						});
+// 					})
+// 				}
+			    
+// 				function clickHandler(ev){
+// 					ev.stopPropagation();
+// 					console.log('부모로부터 이벤트가 위임되어 발생하는 자식의 위치, 내가 클릭한 자식 요소를 반환한다.');
+// 					console.log(ev.target);
+// 					console.log('자식 선택시 그 부모 요소를 반환한다.');
+// 					console.log(ev.target.parentNode.parentNode);
+// 					console.log('이벤트가 부착된 부모의 위치를 반환한다.');
+// 					console.log(ev.currentTarget);
+// 					console.log('전파과정');
+// 					console.log(ev.currentTarget.className + " click");
+// 				}
+				
+// 			    ulFrameList.onclick = dragEvent;
+		  	});
+			
+			
+			
+// 			function dragoverHandler(ev) {
+// 				 ev.preventDefault();
+				 // dropEffect를 move로 설정.
+// 				 ev.dataTransfer.dropEffect = "copy";
+// 			}
+			
+// 			function dropHandler(ev) {
+// 				 ev.preventDefault();
+// 				 // 대상의 id를 가져와 대상 DOM에 움직인 요소를 추가합니다.
+// 				 const data = ev.dataTransfer.getData("text/plain");
+// 				 const dataHtml = ev.dataTransfer.getData("text/html");
+// 				 console.log(data);
+// 				 console.log(dataHtml);
+// 				 ev.target.appendChild(document.getElementById(data));
+// 				 ev.target.appendChild(document.getElementById(dataHtml));
+// 				 console.log(ev.target);
+// 			}
+			
+// 			function contentsAddEventInit() {
+// 				var frameList = document.querySelector('#frameList');
+// 				var contents = frameList.querySelectorAll('.contents');
+
+// 				for (var i = 0; i < contents.length; i++) {
+
+// 					// 이벤트 할당(드롭)
+// 					contents[i].addEventListener('drag', function(e) {
+// 						e.preventDefault();
+// 						console.log('drag');
+// 						this.style.backgroundColor = 'white';
+// 						// 	    		    var files = e.dataTransfer.files;
+// 						// 	    		    for(var i=0; i<files.length; i++){
+// 						// 	    		    	globalFileList.push(files[i]);
+// 						// 	    		    }
+// 						// 	    		    makeTempThumHtml();
+// 						// 	    		    console.log(globalFileList);
+// 					});
+// 				}
+// 			}
+
+			$(document).ready(function() {
+				$('.colorBtn').click(function() {
+					var color = $(this).attr('data-color');
+
+					$('#colorDropDownBtn').css('background-color', color);
+					$('#colorDropDownBtn').text(color);
+					$('#folderColor').val(color);
+				});
+
+				// 	    		$("#frameList").sortable({
+				// 	    			zIndex: 9999,
+				// 	    			cursor: "grab",
+				// 	    			connectWith: "#accordion",
+				// 	    			receive: function(event, ui){
+				// 	    				var order = $(this).sortable();
+				// 	    				console.log(order);
+				// 	    			},
+				// 	    			items: "> li",
+				// 	    			opacity: 0.5,
+				// 	    			scroll: false
+				// 	    		}).disableSelection();
+				// 	    		var connectWith = $( "#frameList" ).sortable( "option", "connectWith" );
+				// 	    		console.log(connectWith);
+				// 	    	    $("#frameList").disableSelection();
+			});
+
+			// 	    	$('#frameList').sortable({
+			// 				stop : function() {
+			// 					console.log('do');
+			// 				}
+			// 			});
+			// 			$('#frameList').disableSelection();
+			// SEARCH BINDING
+			// 		    $("#id_txt_search").each(function(){
+			// 		        $(this).bind("change paste keyup",function(){
+			// 		            setSearchList(this);
+			// 		        });
+			// 		    });
+
+			// 검색에 사용하는 리스트
+			// 	    	function setSearchList(p_obj){
+			// 	    	    var i = 0;
+			// 	    	    var str_tmp = "";
+			// 	    	    var str_val = p_obj.value;
+
+			// 	    	    str_val = str_val.toLowerCase();
+
+			// 	    	    if(str_val == ""){
+			// 	    	        var child = $("#id_search_contents").children();
+			// 	    	        for(i = 0; i < child.length; i++){
+			// 	    	            $(child[i]).show();
+			// 	    	        }
+			// 	    	    }else{
+			// 	    	        var child = $("#id_search_contents").children();
+			// 	    	        for(i = 0; i < child.length; i++){
+			// 	    	            str_tmp = $(child[i]).attr("con_name").toLowerCase() + "";
+			// 	    	            if(str_tmp.indexOf(str_val) >= 0){
+			// 	    	                $(child[i]).show();
+			// 	    	            }else{
+			// 	    	                $(child[i]).hide();
+			// 	    	            }
+			// 	    	        }
+			// 	    	    }
+			// 	    	}
+		</script>
+    </th:block>
+    <!-- script end -->
+</html>
+
+
