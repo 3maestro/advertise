@@ -7,18 +7,40 @@
     <!-- custom style start -->
     <th:block layout:fragment="style">
    		<style type="text/css">
-			.list-group li {
-				cursor: pointer;
-				display: inline-block;
+			#schedulesWrap{
+			    width:100%;
+			    height:100%;
+				/* background: #3c40c6; */
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin:auto;
+			} 
+			
+			#schedulesWrap .card-body{
+				background-color: #fff6f1;
+			}
+				
+			.nav-link {
+			    padding: 0.6rem;
+			    cursor: default;
 			}
 			
-			.list-group li:hover {
-				background-color: #dfdfdf;
-			}
-			
-			.scroll-area-sm {
-				height: 600px;
+			.outerScroll {
+				height: 700px;
 				overflow-x: hidden;
+			}	
+			
+			.modal-dialog{
+				max-width: 555px;
+			}
+			
+			.input-group-addon{
+				width: 40px;
+			}
+			
+			.input-group-addon span {
+				margin: 12px 14px;
 			}
 		</style>
     </th:block>
@@ -33,9 +55,9 @@
 					<div>
 						<span>컨텐츠 스케줄</span><br>
 						<a th:href="@{/company/list}">업체 리스트</a><br>
-						<a th:href="@{/branch/list}">지점 리스트</a><br>
-						<a th:href="@{/main/default}">디폴트 페이지</a><br>
-						<a th:href="@{/element/list}">요소 리스트</a><br>
+<!-- 						<a th:href="@{/branch/list}">지점 리스트</a><br> -->
+<!-- 						<a th:href="@{/main/default}">디폴트 페이지</a><br> -->
+<!-- 						<a th:href="@{/element/list}">요소 리스트</a><br> -->
 					</div>
 				</div>
 				<div class="inner-bar-center"></div>
@@ -47,198 +69,210 @@
 						<!-- contents start -->
 						<div  class="tab-content">
 							<div class="row">
-								<div class="col-lg-4">
-									<div class="main-card mb-3 card">
-										<div class="card-header">광고 리스트</div>
-										<div class="scroll-area-sm">
-											<div class="scrollbar-container ps--active-y ps">
-												<ul class="list-group list-group-flush">
-													<li class="list-group-item">
-														<div class="widget-content p-0">
-															<div class="widget-content-wrapper">
-																<div class="widget-content-left mr-3">
-																	<img width="42" class="rounded-circle" src="../assets/images/avatars/1.jpg" alt="">
-																</div>
-																<div class="widget-content-left">
-																	<div class="widget-heading">Alina Mcloughlin</div>
-																	<div class="widget-subheading">A short profile description</div>
-																</div>
-																<div class="widget-content-right">
-																	<div role="group" class="btn-group-sm btn-group">
-																		<button type="button" class="btn-shadow btn btn-primary">Hire</button>
-																		<button type="button" class="btn-shadow btn btn-primary">Fire</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="widget-content p-0">
-															<div class="widget-content-wrapper">
-																<div class="widget-content-left mr-3">
-																	<img width="42" class="rounded" src="../assets/images/avatars/2.jpg" alt="">
-																</div>
-																<div class="widget-content-left">
-																	<div class="widget-heading">Ruben Tillman</div>
-																	<div class="widget-subheading">Etiam sit amet orci eget eros faucibus</div>
-																</div>
-																<div class="widget-content-right">
-																	<div class="badge badge-danger">NEW</div>
-																</div>
-															</div>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="widget-content p-0">
-															<div class="widget-content-wrapper">
-																<div class="widget-content-left mr-3">
-																	<img width="42" class="rounded-circle" src="../assets/images/avatars/3.jpg" alt="">
-																</div>
-																<div class="widget-content-left">
-																	<div class="widget-heading">Vinnie Wagstaff</div>
-																</div>
-																<div class="widget-content-right">
-																	<button class="btn-pill btn-hover-shine btn btn-focus btn-sm">Details</button>
-																</div>
-															</div>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="widget-content p-0">
-															<div class="widget-content-wrapper">
-																<div class="widget-content-left mr-3">
-																	<img width="42" class="rounded-circle" src="../assets/images/avatars/4.jpg" alt="">
-																</div>
-																<div class="widget-content-left">
-																	<div class="widget-heading">Ella-Rose Henry</div>
-																	<div class="widget-subheading">Lorem ipsum dolor sit amet, consectetuer</div>
-																</div>
-																<div class="widget-content-right">
-																	<div class="widget-numbers text-primary">
-																		<span class="count-up-wrapper">$249</span>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="widget-content p-0">
-															<div class="widget-content-wrapper">
-																<div class="widget-content-left mr-3">
-																	<img width="42" class="rounded-circle" src="../assets/images/avatars/5.jpg" alt="">
-																</div>
-																<div class="widget-content-left">
-																	<div class="widget-heading">Eliot Huber</div>
-																</div>
-																<div class="widget-content-right">
-																	<div class="ml-auto badge badge-pill badge-warning">43</div>
-																</div>
-															</div>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="widget-content p-0">
-															<div class="widget-content-wrapper">
-																<div class="widget-content-left mr-3">
-																	<div class="widget-content-left">
-																		<img width="42" class="rounded" src="../assets/images/avatars/9.jpg" alt="">
-																	</div>
-																</div>
-																<div class="widget-content-left flex2">
-																	<div class="widget-heading">Product Sales</div>
-																	<div class="widget-subheading opacity-10">
-																		<span class="pr-2"> <b>43</b> Sales
-																		</span> <span> <b class="text-success">$156,24</b> Totals
-																		</span>
-																	</div>
-																</div>
-																<div class="widget-content-right text-right mr-3">
-																	<div>
-																		<b>52,5%</b>
-																	</div>
-																	YoY Growth
-																</div>
-																<div class="widget-content-right">
-																	<div class="progress-circle-wrapper">
-																		<div class="circle-progress circle-progress-gradient"><canvas width="52" height="52"></canvas>
-																			<small><span>72%<span></span></span></small>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="widget-content p-0">
-															<div class="widget-content-wrapper">
-																<div class="widget-content-left">
-																	<div class="widget-heading">Product Sales</div>
-																</div>
-																<div class="widget-content-right">
-																	<div class="progress-circle-wrapper">
-																		<div class="circle-progress circle-progress-success"><canvas width="52" height="52"></canvas>
-																			<small><span>81%<span></span></span></small>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="widget-content p-0">
-															<div class="widget-content-wrapper">
-																<div class="widget-content-left mr-3">
-																	<div class="icon-wrapper border-light rounded m-0">
-																		<div class="icon-wrapper-bg bg-light"></div>
-																		<i class="lnr-cog icon-gradient bg-happy-itmeo"></i>
-																	</div>
-																</div>
-																<div class="widget-content-left">
-																	<div class="widget-heading">Hidden Actions Pane</div>
-																</div>
-																<div class="widget-content-right widget-content-actions">
-																	<button class="btn-pill btn btn-outline-primary">Follow</button>
-																</div>
-															</div>
-														</div>
-													</li>
-													<li class="list-group-item">
-														<div class="widget-content p-0">
-															<div class="widget-content-wrapper">
-																<div class="widget-content-left center-elem mr-2">
-																	<i class="pe-7s-file text-muted fsize-2"></i>
-																</div>
-																<div class="widget-content-left">
-																	<div class="widget-heading">Example file 1</div>
-																</div>
-																<div class="widget-content-right">
-																	<button class="btn-icon btn-icon-only btn btn-link">
-																		<i class="pe-7s-download fsize-2 btn-icon-wrapper"> </i>
-																	</button>
-																</div>
-															</div>
-														</div>
-													</li>
-												</ul>
-											</div>
-										</div>
-										<div class="d-block text-right card-footer">
-											<button class="mr-2 btn btn-link btn-sm">Cancel</button>
-											<button class="btn btn-success btn-lg">Save</button>
-										</div>
-									</div>
-								</div>
-								<div class="col-lg-8">
+								<div class="col-lg-12">
 									<div class="main-card mb-3 card">
 										<div class="card-header">스케줄 리스트</div>
-										<div class="scroll-area-sm">
+										<br>
+										<div class="text-right">
+											<button type="button" class="btn mr-4 btn-icon btn btn-success" data-toggle="modal" data-target=".registModal" ><i class="pe-7s-note2 btn-icon-wrapper"> </i>등록</button>
+										</div>
+										<div class="divider"></div>
+										<div class="outerScroll scroll-area-sm">
 											<div class="scrollbar-container ps ps--active-y">
 												<!-- schedule start -->
+												<div class="schedules row" id="schedulesWrap">
+													<div class="schedule col-lg-4">
+														<div class="main-card mb-3 card">
+															<div class="card-body">
+																<h5 class="card-title">A 스케줄</h5>
+																<div class="divider"></div>
+																<div class="row">
+																	<div class="col">
+																		<ul class="nav flex-column">
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">기간
+																					<!-- 기간 만료에 따른 색상 변경 -->
+																					<div class="ml-auto badge badge-info">2021-12-07~2021-12-31</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">적용 여부
+																					<div class="ml-auto badge badge-info">적용</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">폴더 갯수
+																					<div class="ml-auto badge badge-success">3</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">컨텐츠 갯수
+																					<div class="ml-auto badge badge-alternate">128</div>
+																				</a>
+																			</li>
+																		</ul>
+																	</div>
+																	<div class="col">
+																		<ul class="nav flex-column">
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">등록자
+																					<!-- 기간 만료에 따른 색상 변경 -->
+																					<div class="ml-auto badge badge-secondary">정상혁</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">등록일
+																					<div class="ml-auto badge badge-success">2021-12-24 12:08:13</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">수정일
+																					<div class="ml-auto badge badge-warning">2021-12-31 15:18:25</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">플레이 시간
+																					<div class="ml-auto badge badge-light">2554 sec</div>
+																				</a>
+																			</li>
+																		</ul>
+																	</div>
+																	<!-- <div class="col">
+																		<ul class="nav flex-column">
+																			<li class="nav-item"><a href="javascript:void(0);" class="nav-link"><i class="nav-link-icon lnr-inbox"> </i><span>Inbox</span>
+																					<div class="ml-auto badge badge-pill badge-secondary">86</div> </a></li>
+																			<li class="nav-item"><a href="javascript:void(0);" class="nav-link"><i class="nav-link-icon lnr-book"> </i><span>Book</span>
+																					<div class="ml-auto badge badge-pill badge-danger">5</div> </a></li>
+																			<li class="nav-item"><a href="javascript:void(0);" class="nav-link"><i class="nav-link-icon lnr-picture"> </i><span>Picture</span></a></li>
+																			<li class="nav-item"><a disabled="" href="javascript:void(0);" class="nav-link disabled"><i class="nav-link-icon lnr-file-empty"> </i><span>File Disabled</span></a></li>
+																		</ul>
+																	</div> -->
+																</div>
+																<div class="divider"></div>
+																<div class="text-center">
+																	<button type="button" class="btn mr-2 btn-icon btn btn-alternate" onclick="javascript:getCompanyList();"><i class="pe-7s-menu btn-icon-wrapper"> </i>폴더관리</button>
+																	<button type="button" class="btn mr-2 md-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																	<button type="button" class="btn mr-2 md-2 btn-icon btn btn-danger" ><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																	<!-- <div class="btn-group dropdown">
+																	</div>
+																	<div class="d-inline-block dropdown">
+																		<button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mr-2 dropdown-toggle btn btn-info">스케줄 관리</button>
+																		<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+																			<ul class="nav flex-column">
+																				<li class="nav-item">
+																					<button type="button" class="btn mr-2 md-2 btn-icon btn btn-link" onclick="javascript:getCompanyList();"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																				</li>
+																				<li class="nav-item">
+																					<button type="button" class="btn mr-2 md-2 btn-icon btn btn-link" onclick="javascript:getCompanyList();"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																				</li>
+																			</ul>
+																		</div>
+																	</div> -->
+																</div>
+															</div>
+														</div>
+													</div>
+													
+													<div class="schedule col-lg-4">
+														<div class="main-card mb-3 card">
+															<div class="card-body">
+																<h5 class="card-title">B 스케줄</h5>
+																<div class="divider"></div>
+																<div class="row">
+																	<div class="col">
+																		<ul class="nav flex-column">
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">기간
+																					<!-- 기간 만료에 따른 색상 변경 -->
+																					<div class="ml-auto badge badge-primary">2021-12-07~2021-12-31</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">적용 여부
+																					<div class="ml-auto badge badge-primary">미적용</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">폴더 갯수
+																					<div class="ml-auto badge badge-success">3</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">컨텐츠 갯수
+																					<div class="ml-auto badge badge-alternate">128</div>
+																				</a>
+																			</li>
+																		</ul>
+																	</div>
+																	<div class="col">
+																		<ul class="nav flex-column">
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">등록자
+																					<!-- 기간 만료에 따른 색상 변경 -->
+																					<div class="ml-auto badge badge-secondary">정상혁</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">등록일
+																					<div class="ml-auto badge badge-success">2021-12-24 12:08:13</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">수정일
+																					<div class="ml-auto badge badge-warning">2021-12-31 15:18:25</div>
+																				</a>
+																			</li>
+																			<li class="nav-item">
+																				<a href="javascript:void(0);" class="nav-link">플레이 시간
+																					<div class="ml-auto badge badge-light">2554 sec</div>
+																				</a>
+																			</li>
+																		</ul>
+																	</div>
+																	<!-- <div class="col">
+																		<ul class="nav flex-column">
+																			<li class="nav-item"><a href="javascript:void(0);" class="nav-link"><i class="nav-link-icon lnr-inbox"> </i><span>Inbox</span>
+																					<div class="ml-auto badge badge-pill badge-secondary">86</div> </a></li>
+																			<li class="nav-item"><a href="javascript:void(0);" class="nav-link"><i class="nav-link-icon lnr-book"> </i><span>Book</span>
+																					<div class="ml-auto badge badge-pill badge-danger">5</div> </a></li>
+																			<li class="nav-item"><a href="javascript:void(0);" class="nav-link"><i class="nav-link-icon lnr-picture"> </i><span>Picture</span></a></li>
+																			<li class="nav-item"><a disabled="" href="javascript:void(0);" class="nav-link disabled"><i class="nav-link-icon lnr-file-empty"> </i><span>File Disabled</span></a></li>
+																		</ul>
+																	</div> -->
+																</div>
+																<div class="divider"></div>
+																<div class="text-center">
+																	<button type="button" class="btn mr-2 btn-icon btn btn-alternate" onclick="javascript:getCompanyList();"><i class="pe-7s-menu btn-icon-wrapper"> </i>폴더관리</button>
+																	<button type="button" class="btn mr-2 md-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																	<button type="button" class="btn mr-2 md-2 btn-icon btn btn-danger" ><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																	<!-- <div class="btn-group dropdown">
+																	</div>
+																	<div class="d-inline-block dropdown">
+																		<button type="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" class="mr-2 dropdown-toggle btn btn-info">스케줄 관리</button>
+																		<div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu">
+																			<ul class="nav flex-column">
+																				<li class="nav-item">
+																					<button type="button" class="btn mr-2 md-2 btn-icon btn btn-link" onclick="javascript:getCompanyList();"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																				</li>
+																				<li class="nav-item">
+																					<button type="button" class="btn mr-2 md-2 btn-icon btn btn-link" onclick="javascript:getCompanyList();"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																				</li>
+																			</ul>
+																		</div>
+																	</div> -->
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 												<!-- schedule end -->
-											<div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 200px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 74px;"></div></div></div>
-										</div>
-										<div class="card-footer">
-											<input placeholder="Write here and hit enter to send..." type="text" class="form-control-lg form-control">
+												<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+													<div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+												</div>
+												<div class="ps__rail-y" style="top: 0px; height: 200px; right: 0px;">
+													<div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 74px;"></div>
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -252,13 +286,113 @@
     </th:block>
     
     <!-- sub start -->
-    <th:block layout:fragment="sub"></th:block>
+    <th:block layout:fragment="sub">
+    	<!-- schedule regist modal start -->
+    	<div class="modal fade registModal" id="scheduleRegModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">스케줄 등록</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="registForm" action="" method="post">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-3 col-form-label">스케줄명</label>
+												<div class="col-sm-9">
+													<input name="schName" id="schName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-3 col-form-label">기간</label>
+												<div class="col-md-9">
+													<div class="input-group date">
+														<input name="schSday" id="schSday" type="date" class="form-control">
+														<span class="input-group-addon" style="background: #1FB5AD;width: 40px;"> 
+															<span class="fa fa-minus" style="color: white;margin: 12px 14px;"></span>
+														</span> 
+														<input name="schEday" id="schEday" type="date" class="form-control">
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    	<!-- schedule regist modal end -->
+    	
+    	<!-- schedule update modal start -->
+    	<div class="modal fade updateModal" id="scheduleUpdModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">스케줄 수정</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="registForm" action="" method="post">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-3 col-form-label">스케줄명</label>
+												<div class="col-sm-9">
+													<input name="schName" id="schName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-3 col-form-label">기간</label>
+												<div class="col-md-9">
+													<div class="input-group date">
+														<input name="schSday" id="schSday" type="date" class="form-control">
+														<span class="input-group-addon" style="background: #1FB5AD;width: 40px;"> 
+															<span class="fa fa-minus" style="color: white;margin: 12px 14px;"></span>
+														</span> 
+														<input name="schEday" id="schEday" type="date" class="form-control">
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    	<!-- schedule update modal end -->
+    </th:block>
     <!-- sub end -->
     
      <!-- script start -->
     <th:block layout:fragment="script">
     	<script th:inline="javascript">
-    	
+			function getCompanyList(){
+				window.location.href = '/contents/folder';
+			}
     	</script>
     </th:block>
     <!-- script end -->

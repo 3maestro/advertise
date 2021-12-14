@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.eltov.air.module.inside.system.user.mapper.UserLogMapper">
+<mapper namespace="com.eltov.air.module.inside.user.mapper.UserLogMapper">
 
 	
 	<insert id="registUserLog">
@@ -29,7 +29,7 @@
 		ORDER BY B.REG_DATE DESC
 	</select>
 	
-	<resultMap type="com.eltov.air.module.inside.system.user.DTO.UserLogDTO" id="userLogMap">
+	<resultMap type="com.eltov.air.module.inside.user.DTO.UserLogDTO" id="userLogMap">
 		<id		property="log_id" column="LOG_ID" />
 		<result property="brn_id" column="BRN_ID" />
 		<result property="user_id" column="USER_ID" />

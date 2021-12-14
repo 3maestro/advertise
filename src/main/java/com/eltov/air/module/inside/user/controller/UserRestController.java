@@ -1,4 +1,4 @@
-package com.eltov.air.module.inside.system.user.controller;
+package com.eltov.air.module.inside.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eltov.air.module.inside.system.user.DTO.UserDTO;
-import com.eltov.air.module.inside.system.user.service.UserService;
+import com.eltov.air.module.inside.user.DTO.UserDTO;
+import com.eltov.air.module.inside.user.service.UserService;
 
 @RestController
 @RequestMapping("/system/user")

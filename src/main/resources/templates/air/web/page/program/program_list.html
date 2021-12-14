@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+    <!-- custom style start -->
+    <th:block layout:fragment="style"></th:block>
+    <!-- custom style end -->
+		
+	<!-- contents영역  -->
+	<!-- 해당 부분을 가져가서 내용을 구현 -->
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left">
+					<div>
+						<span>장치 리스트</span><br>
+						<a th:href="@{/main/dashboard}">대쉬보드</a><br>
+						<a th:href="@{/main/default}">디폴트 페이지</a><br>
+						<a th:href="@{/element/list}">요소 리스트</a><br>
+					</div>
+				</div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<div class="container-fluid">
+						<!-- contents start -->
+						<div  class="tab-content">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">Program Search</div>
+										<div class="card-body">
+											<!-- deveice search start -->
+											<div class="programSearch row">
+												<div class="col-sm-8" >
+													<form class="searchForm" action="" >
+														<div class="position-relative row form-group">
+															<label for="" class="col-sm-1 col-form-label">형식</label>
+															<div class="col-sm-4">
+																<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+																	<label class="btn btn-pill btn-outline-secondary active"> 
+																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value=""> ALL
+																	</label>
+																	<label class="btn btn-pill btn-outline-secondary"> 
+																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value="EXE"> EXE
+																	</label>
+																	<label class="btn btn-pill btn-outline-secondary"> 
+																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value="CLIENT"> CLIENT
+																	</label>
+																	<label class="btn btn-pill btn-outline-secondary"> 
+																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value="ETC"> ETC
+																	</label>
+																</div>
+															</div>
+														
+															<label for="" class="col-sm-1 col-form-label">이름</label>
+															<div class="col-sm-4">
+																<input name="searchName" id="searchName" type="text" class="form-control">
+															</div>
+														</div>
+													</form>
+												</div>
+												
+												<div class="col-sm-4" >
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-focus" onclick="javascript:programSearchBtn();" ><i class="pe-7s-search btn-icon-wrapper"> </i>검색</button>
+												</div>
+											</div>
+											<!-- deveice search end -->
+										</div>
+									</div>
+								</div>
+							</div>
+						
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">
+											Program List
+										</div>
+										<div class="card-body">
+											<div class="programList row">
+												<div class="col-sm-12 col-md-12" >
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-success" style="float:right;" data-toggle="modal" data-target=".registModal"><i class="pe-7s-note2 btn-icon-wrapper" > </i>등록</button>
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-danger" style="float:right;" onclick="javascript:programDelBtn('');"><i class="pe-7s-trash btn-icon-wrapper"> </i>선택삭제</button>
+												</div>
+												<div class="col-sm-12 col-md-12" >
+													<table style="width: 100%; text-align:center;" id="programTable" class="table table-hover table-striped table-bordered">
+														<thead>
+															<tr>
+																<th style="width:4%;">No</th>
+																<th style="width:1%;">
+																	<div class="custom-checkbox custom-control">
+																		<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+																		&nbsp;&nbsp;&nbsp;<label class="custom-control-label" for="exampleCustomCheckbox3"></label>
+																	</div> 
+																</th>
+																<th style="width:6%;">타입</th>
+																<th style="width:18%;">프로그램명</th>
+																<th style="width:6%;">버전</th>
+																<th style="width:18%;">프로그램 경로</th>
+																<th style="width:18%;">최근 업데이트</th>
+																<th style="width:12%;">버전관리</th>
+																<th style="width:14%;">관리</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td>1</td>
+																<td>
+																	<div class="custom-checkbox custom-control">
+																		<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+																		&nbsp;&nbsp;&nbsp;<label class="custom-control-label" for="exampleCustomCheckbox3"></label>
+																	</div>
+																</td>
+																<td>ETC</td>
+																<td>MAIN001</td>
+																<td>1.0</td>
+																<td>/</td>
+																<td>2011-04-25 13:27:26 / 정상혁님</td>
+																<td>
+																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".programVerModal">버전 업데이트</button>
+																</td>
+																<td>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:programControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:programDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																</td>
+															</tr>
+															<tr>
+																<td>2</td>
+																<td>
+																	<div class="custom-checkbox custom-control">
+																		<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
+																		&nbsp;&nbsp;&nbsp;<label class="custom-control-label" for="exampleCustomCheckbox3"></label>
+																	</div>
+																</td>
+																<td>ETC</td>
+																<td>MAIN001</td>
+																<td>1.0</td>
+																<td>/</td>
+																<td>2011-04-25 13:27:26 / Admin</td>
+																<td>
+																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".programVerModal">버전 업데이트</button>
+																</td>
+																<td>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:programControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:programDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+											<!-- deveice list end -->
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- contents end -->
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <!-- sub start -->
+    <th:block layout:fragment="sub">
+    	<!-- regist start -->
+   		<div class="modal fade registModal" id="programRegModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">프로그램 등록</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="registForm" action="" method="post" id="programRegForm" name="programRegForm" enctype="multipart/form-data">
+											<div class="position-relative row form-group">
+												<label for="programSect" class="col-sm-3 col-form-label">형식</label>
+												<div class="col-sm-9">
+													<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+														<label class="btn btn-pill btn-outline-secondary active"> 
+															<input type="radio" name="programSect" id="programSectAll" autocomplete="off" value=""> ALL
+														</label>
+														<label class="btn btn-pill btn-outline-secondary"> 
+															<input type="radio" name="programSect" id="programSectExe" autocomplete="off" value="EXE"> EXE
+														</label>
+														<label class="btn btn-pill btn-outline-secondary"> 
+															<input type="radio" name="programSect" id="programSectClient" autocomplete="off" value="CLIENT"> CLIENT
+														</label>
+														<label class="btn btn-pill btn-outline-secondary"> 
+															<input type="radio" name="programSect" id="programSectEtc" autocomplete="off" value="ETC"> ETC
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programName" class="col-sm-3 col-form-label">프로그램명</label>
+												<div class="col-sm-9">
+													<input name="programName" id="programName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programWorkPath" class="col-sm-3 col-form-label">클라이언트 경로</label>
+												<div class="col-sm-9">
+													<input name="programWorkPath" id="programWorkPath" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programDesc" class="col-sm-3 col-form-label">설명</label>
+												<div class="col-sm-9">
+													<textarea name="programDesc" id="programDesc" class="form-control"></textarea>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programFile" class="col-sm-3 col-form-label">파일</label>
+												<div class="col-sm-9">
+													<input name="file" id="programFile" type="file" class="form-control-file"> 
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" id="saveBtn" onclick="regSaveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- regist end -->
+		
+		<!-- update start -->
+		<div class="modal fade updateModal" id="programUpdModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">프로그램 수정</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="registForm" action="" method="post" >
+											<div class="position-relative row form-group">
+												<label for="programSect" class="col-sm-3 col-form-label">형식</label>
+												<div class="col-sm-9">
+													<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+														<label class="btn btn-pill btn-outline-secondary active"> 
+															<input type="radio" name="programSect" id="programSectAll" autocomplete="off" value=""> ALL
+														</label>
+														<label class="btn btn-pill btn-outline-secondary"> 
+															<input type="radio" name="programSect" id="programSectExe" autocomplete="off" value="EXE"> EXE
+														</label>
+														<label class="btn btn-pill btn-outline-secondary"> 
+															<input type="radio" name="programSect" id="programSectClient" autocomplete="off" value="CLIENT"> CLIENT
+														</label>
+														<label class="btn btn-pill btn-outline-secondary"> 
+															<input type="radio" name="programSect" id="programSectEtc" autocomplete="off" value="ETC"> ETC
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programName" class="col-sm-3 col-form-label">프로그램명</label>
+												<div class="col-sm-9">
+													<input name="programName" id="programName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programWorkPath" class="col-sm-3 col-form-label">클라이언트 경로</label>
+												<div class="col-sm-9">
+													<input name="programWorkPath" id="programWorkPath" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programDesc" class="col-sm-3 col-form-label">설명</label>
+												<div class="col-sm-9">
+													<textarea name="programDesc" id="programDesc" class="form-control"></textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<h5 class="card-title">프로그램 버전 목록</h5>
+										<table class="mb-0 table table-hover">
+											<thead>
+												<tr>
+													<th>버전 사용</th>
+													<th>버전 설명</th>
+													<th>경로</th>
+													<th>유틸</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<th scope="row">
+														<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+															<label class="btn btn-pill btn-outline-secondary" onclick="javascript:chageVersion();"> 
+																<input type="radio" name="programVerUse" id="programVerUse" value="Y" > 1.0
+															</label>
+														</div>
+													</th>
+													<td>Mark</td>
+													<td>Otto</td>
+													<td>@mdo</td>
+												</tr>
+												<tr>
+													<th scope="row">
+														<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+															<label class="btn btn-pill btn-outline-secondary"> 
+																<input type="radio" name="programVerUse" id="programVerUse" value="Y1"> 1.1
+															</label>
+														</div>
+													</th>
+													<td>Jacob</td>
+													<td>Thornton</td>
+													<td>@fat</td>
+												</tr>
+												<tr>
+													<th scope="row">3</th>
+													<td>Larry</td>
+													<td>the Bird</td>
+													<td>@twitter</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!-- <div class="card-body">
+										<form class="registForm" action="" method="post" >
+											<div class="position-relative row form-group">
+												<label for="programSect" class="col-sm-3 col-form-label">버전 목록</label>
+												<div class="col-sm-9">
+													<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+														<label class="btn btn-pill btn-outline-secondary active"> 
+															<input type="radio" name="programVerUse" id="programVerUse" autocomplete="off" value="Y"> 사용
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programName" class="col-sm-3 col-form-label">프로그램명</label>
+												<div class="col-sm-9">
+													<input name="programName" id="programName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programWorkPath" class="col-sm-3 col-form-label">클라이언트 경로</label>
+												<div class="col-sm-9">
+													<input name="programWorkPath" id="programWorkPath" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programDesc" class="col-sm-3 col-form-label">설명</label>
+												<div class="col-sm-9">
+													<textarea name="programDesc" id="programDesc" class="form-control"></textarea>
+												</div>
+											</div>
+										</form>
+									</div> -->
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- update end -->
+		
+		<!-- all program control -->
+		<div class="modal fade programVerModal" id="programVerUpdModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">프로그램 버전 관리</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="programVerForm" action="" method="post" >
+											<div class="position-relative row form-group">
+												<label for="programSect" class="col-sm-3 col-form-label">형식</label>
+												<div class="col-sm-9">
+													<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+														<label class="btn btn-pill btn-outline-secondary active"> 
+															<input type="radio" name="programSect" id="programSectAll" autocomplete="off" value=""> ALL
+														</label>
+														<label class="btn btn-pill btn-outline-secondary"> 
+															<input type="radio" name="programSect" id="programSectExe" autocomplete="off" value="EXE"> EXE
+														</label>
+														<label class="btn btn-pill btn-outline-secondary"> 
+															<input type="radio" name="programSect" id="programSectClient" autocomplete="off" value="CLIENT"> CLIENT
+														</label>
+														<label class="btn btn-pill btn-outline-secondary"> 
+															<input type="radio" name="programSect" id="programSectEtc" autocomplete="off" value="ETC"> ETC
+														</label>
+													</div>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programName" class="col-sm-3 col-form-label">버전</label>
+												<div class="col-sm-9">
+													<input name="fileVer" id="fileVer" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programDesc" class="col-sm-3 col-form-label">버전 설명</label>
+												<div class="col-sm-9">
+													<textarea name="fileVerDesc" id="fileVerDesc" class="form-control"></textarea>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="programFile" class="col-sm-3 col-form-label">파일</label>
+												<div class="col-sm-9">
+													<input name="programFile" id="programFile" type="file" class="form-control-file"> 
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    <!-- sub end -->
+    
+     <!-- script start -->
+    <th:block layout:fragment="script">
+    	<script th:inline="javascript">
+			function regSaveBtn() {
+				//     			 var queryString = $("form[name=programRegForm]").serialize();
+				//     			 console.log(queryString);
+				console.log('regSaveBtn');
+				var form = $("form[name=programRegForm]")[0];
+				var formData = new FormData(form);
+				console.log(form);
+				console.log(formData);
+
+				$.ajax({
+					type : "post",
+					enctype : 'multipart/form-data',
+					url : '/program/regist',
+					data : formData,
+					dataType: 'json',
+					processData : false,
+					contentType : false,
+					cache : false,
+					success : function(data) {
+						console.log("success : ", data);
+					},
+					error : function(e) {
+						console.log("error : ", e);
+					}
+				});
+			}
+
+			function programControlBtn(id) {
+
+			}
+
+			// program delete
+			// ...
+			function programAllDelBtn() {
+			}
+
+			function programDelBtn(id) {
+			}
+
+			// transfer to server 
+			// ...
+			function saveBtn() {
+
+			}
+
+			$(document).ready(function() {
+			})
+
+			function chageVersion() {
+				if (confirm("버전을 변경하시겠습니까?\n선택된 버전으로 변경됩니다.") == true) {
+					window.location.reload();
+				} else {
+					//                 	window.location.reload();
+					return;
+				}
+			}
+		</script>
+    </th:block>
+    <!-- script end -->
+</html>
+
+

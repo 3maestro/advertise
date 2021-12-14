@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.eltov.air.module.inside.system.user.service.UserService;
+import com.eltov.air.module.inside.user.service.UserService;
 
 @Configuration
 // Spring Security 설정할 클래스라고 정의

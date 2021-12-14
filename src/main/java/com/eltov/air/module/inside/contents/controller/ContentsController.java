@@ -1,4 +1,4 @@
-package com.eltov.air.module.inside.contents;
+package com.eltov.air.module.inside.contents.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

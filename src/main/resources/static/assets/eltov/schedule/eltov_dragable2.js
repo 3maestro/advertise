@@ -47,22 +47,22 @@ function addEventInit(frameListElement, folderListElement){
 		}
 	}
 	
-//	if (folderContextsLength > 0) {
-//		for (i = 0; i < folderContextsLength; i++) {
-//			var context = folderContexts[i];
-//			context.draggable = true;
+	if (folderContextsLength > 0) {
+		for (i = 0; i < folderContextsLength; i++) {
+			var context = folderContexts[i];
+			context.draggable = true;
 			// add drag event : 광고 컨텐츠를 drag 할 수 있다.
-//			context.addEventListener("drag", function(e) {contextDragEvent(e, this);}, false);
+			context.addEventListener("drag", function(e) {contextDragEvent(e, this);}, false);
 			// add drag start : 광고 컨텐츠를 drag 하기 시작하면 해당 frame의 데이터를 담고 투명도를 설정 후 타겟 객체를 리턴.
 //			frame.addEventListener("dragstart", function(e) {frameDragStartEvent(e, this);}, false);
 			// add drag end : 광고 컨텐츠의 drag가 끝날때 투명도를 원위치 시키고 drop zone에 데이터를 넘겨준다.
 //			frame.addEventListener("dragend", function(e) {frameDragEndEvent(e, this);}, false);
-//			context.addEventListener("dragstart", function(e) {contextDragStartEvent(e, this);}, false);
+			context.addEventListener("dragstart", function(e) {contextDragStartEvent(e, this);}, false);
 			
 //			context.addEventListener("drop", function(e) {contextDropEvent(e, this);}, false);
-//			
-//		}
-//	}
+			
+		}
+	}
 	
 
 	// context 순서 변경
@@ -87,7 +87,6 @@ function addEventInit(frameListElement, folderListElement){
 	            }
 	        }).disableSelection();
 			
-//			$(this).droppable({});
 //			console.log($(this));
 //			$(this).sortable({
 //				// 드래그 앤 드롭 단위 css 선택자
@@ -102,23 +101,22 @@ function addEventInit(frameListElement, folderListElement){
 //			// 해당 클래스 하위의 텍스트 드래그를 막는다.
 //			$( ".dropZone" ).disableSelection();
 		})
-		//TODO
-//		$('.folderContext').each(function(){
-//			console.log('??');
-//	        $(this).droppable({
-//	            greedy: true,
-//	            drop:function(e,ui){
-////	            	e.stopPropagation();
-//	            	console.log($(this));
-//	            	$(this).insertBefore(makingElement(data));
-////	                setDropContents("CONTENTS",$(this),evt,ui);
-//	            },over : function(e,ui){
-//	                //$(this).css("border","1px solid #5882FA");
-//	            },out : function(e,ui){
-//	                //$(this).css("border","");
-//	            }
-//	        }).disableSelection();
-//	    });
+		
+		$('.folderContext').each(function(){
+			console.log('??');
+	        $(this).droppable({
+	            greedy: true,
+	            drop:function(e,ui){
+	            	e.stopPropagation();
+	            	$(this).insertBefore(makingElement(data));
+//	                setDropContents("CONTENTS",$(this),evt,ui);
+	            },over : function(e,ui){
+	                //$(this).css("border","1px solid #5882FA");
+	            },out : function(e,ui){
+	                //$(this).css("border","");
+	            }
+	        }).disableSelection();
+	    });
 	});
 	
 
@@ -211,24 +209,17 @@ function folderDropEvent(e, dropZone){
 	const jsonObj = e.dataTransfer.getData("text/plain");
 	const data = JSON.parse(jsonObj);
 	data.frameIndex = e.currentTarget.childElementCount;
-//	console.log(dropZone);
-//	console.log(e.target);
-//	console.log(e.currentTarget);
+	console.log(dropZone);
+	console.log(e.currentTarget);
 	element = makingElement(data);
-	if(e.target == dropZone){
-		// new
-		console.log('폴더 내에 컨텐츠 추가');
-		dropZone.appendChild(element);
-//		if(data.frameMode == 'ADD'){
+//	if(){
+		if(data.frameMode == 'ADD'){
 			// drop 된 frame 생성
 //		dropZone.insertBefore(element);
-//		}
-	}else{
-		// add
-//		e.stopPropagation();
-		console.log('컨텍스트 추가');
-//		changeElement(e, element);
-	}
+			dropZone.appendChild(element);
+			console.log('폴더 내에 컨텐츠 추가');
+		}
+//	}
 //	else{
 //		// 중간에 추가하기
 //		console.log('순서 변경 로직 구현');
@@ -240,7 +231,14 @@ function folderDropEvent(e, dropZone){
 	
 	// 서버로 전송 할 데이터 취합
 //	}
+	
 }
+
+//function contextDropEvent(e, context){
+//	// 중간에 추가하기
+//	console.log('??');
+//	e.stopPropagation();
+//}
 
 // 앞으로 생성되는 context 
 function makingElement(data){
@@ -281,7 +279,6 @@ function makingElement(data){
 	div1.appendChild(removeBtnSpan);
 	div.appendChild(div1);
 	
-	div.addEventListener("drop", function(e) {contextDropEvent(e, this);}, false);
 	// add drag : 폴더 내의 컨텐츠를 drag.
 //	div.addEventListener("drag", function(e) {contextDragEvent(e, this);}, false);
 	// add drag start : 폴더 내의 컨텐츠를 drag 하기 시작하면 해당 contents의 순서를 변경.
@@ -331,48 +328,7 @@ function contextDragEvent(e){
 //	console.log(target);
 }
 
-function changeElement(e, elemnet){
-	console.log('왜 안와');
-	console.log(elemnet);
-//	e.stopPropagation();
-	const folderContexts = document.getElementsByClassName('folderContext');
-    var folderContextsLength = folderContexts.length;
-    
-//    if (folderContextsLength > 0) {
-//		for (i = 0; i < folderContextsLength; i++) {
-//			var context = folderContexts[i];
-//			console.log(context);
-////			context.draggable = true;
-//			// add drag event : 광고 컨텐츠를 drag 할 수 있다.
-////			context.addEventListener("drag", function(e) {contextDragEvent(e, this);}, false);
-//			// add drag start : 광고 컨텐츠를 drag 하기 시작하면 해당 frame의 데이터를 담고 투명도를 설정 후 타겟 객체를 리턴.
-////			frame.addEventListener("dragstart", function(e) {frameDragStartEvent(e, this);}, false);
-//			// add drag end : 광고 컨텐츠의 drag가 끝날때 투명도를 원위치 시키고 drop zone에 데이터를 넘겨준다.
-////			frame.addEventListener("dragend", function(e) {frameDragEndEvent(e, this);}, false);
-////			context.addEventListener("dragstart", function(e) {contextDragStartEvent(e, this);}, false);
-//			
-//			context.addEventListener("drop", function(e) {contextDropEvent(e, this);}, false);
-////			
-//		}
-//    }
-
-//	$('.folderContext').each(function(){
-//		console.log($(this));
-//        $(this).droppable({
-//            greedy: true,
-//            drop:function(evt,ui){
-//            	console.log('?????????');
-//            	e.stopPropagation();
-//            	evt,ui.preventDefault();
-//            	$(this).insertBefore(elemnet);
-//            }
-//        ,over : function(evt,ui,ui){
-//                //$(this).css("border","1px solid #5882FA");
-//            },out : function(evt,ui,ui){
-//                //$(this).css("border","");
-//            }
-//        }).disableSelection();
-//    });
+function changeElement(data){
 //	$('.folderContext').sortable({
 //		zIndex: 9999,
 //		cursor: "grab",
@@ -407,22 +363,6 @@ function changeElement(e, elemnet){
 //		});
 //		$('#sortWrap').disableSelection();
 //	});
-		
-}
-    
-function contextDropEvent(e, context){
-	// 중간에 추가하기
-	console.log('??');
-	console.log(context);
-	e.stopPropagation();
-//	const jsonObj = e.dataTransfer.getData("text/plain");
-//	const data = JSON.parse(jsonObj);
-//	data.frameIndex = e.currentTarget.childElementCount;
-//	console.log(dropZone);
-//	console.log(e.target);
-//	console.log(e.currentTarget);
-//	element = makingElement(data);
-//	context.insertBefore(element);
 }
 
 function setReSortNumber(){

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.eltov.air.module.inside.system.user.mapper.UserMapper">
+<mapper namespace="com.eltov.air.module.inside.user.mapper.UserMapper">
 	<sql id="searchWhere">
 		<if test='sch.search_auth != ""'>
 		    AND #{sch.search_auth} = A.USER_AUTH
@@ -177,7 +177,7 @@
 			USER_ID = #{user_id}
 	</select>
 	
-	<resultMap type="com.eltov.air.module.inside.system.user.DTO.UserDTO"  id="userMap">
+	<resultMap type="com.eltov.air.module.inside.user.DTO.UserDTO"  id="userMap">
 		<id 	property="user_id" column="USER_ID" />
 		<result property="brn_id" column="BRN_ID" />
 		<result property="user_sect" column="USER_SECT" />

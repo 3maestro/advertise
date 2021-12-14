@@ -1,4 +1,4 @@
-package com.eltov.air.module.inside.system.user.DTO;
+package com.eltov.air.module.inside.user.DTO;
 
 import com.eltov.air.core.util.CommUtil;
 

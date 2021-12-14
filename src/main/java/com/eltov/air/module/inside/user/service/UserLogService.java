@@ -1,4 +1,4 @@
-package com.eltov.air.module.inside.system.user.service;
+package com.eltov.air.module.inside.user.service;
 
 import java.util.List;
 
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.eltov.air.core.code.ExceptionCode;
 import com.eltov.air.core.util.CommUtil;
-import com.eltov.air.module.inside.system.user.DTO.UserLogDTO;
-import com.eltov.air.module.inside.system.user.mapper.UserLogMapper;
+import com.eltov.air.module.inside.user.DTO.UserLogDTO;
+import com.eltov.air.module.inside.user.mapper.UserLogMapper;
 
 
 @Service

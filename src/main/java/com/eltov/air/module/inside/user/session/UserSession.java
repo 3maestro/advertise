@@ -1,4 +1,4 @@
-package com.eltov.air.module.inside.system.user.session;
+package com.eltov.air.module.inside.user.session;
 
 import java.io.Serializable;
 import java.util.Arrays;
@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import com.eltov.air.module.inside.system.user.DTO.UserDTO;
+import com.eltov.air.module.inside.user.DTO.UserDTO;
 
 public class UserSession extends User  implements Serializable {
 

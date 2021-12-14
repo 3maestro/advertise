@@ -1,4 +1,4 @@
-package com.eltov.air.module.inside.system.user.service;
+package com.eltov.air.module.inside.user.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +20,12 @@ import com.eltov.air.core.code.ExceptionCode;
 import com.eltov.air.core.config.CommConfig;
 import com.eltov.air.core.exception.ExceptionWrapper;
 import com.eltov.air.core.util.Pagination;
-import com.eltov.air.module.inside.system.user.DTO.UserDTO;
-import com.eltov.air.module.inside.system.user.DTO.UserLogDTO;
-import com.eltov.air.module.inside.system.user.DTO.UserPrincipalDTO;
-import com.eltov.air.module.inside.system.user.DTO.UserSearchDTO;
-import com.eltov.air.module.inside.system.user.mapper.UserMapper;
-import com.eltov.air.module.inside.system.user.session.UserSession;
+import com.eltov.air.module.inside.user.DTO.UserDTO;
+import com.eltov.air.module.inside.user.DTO.UserLogDTO;
+import com.eltov.air.module.inside.user.DTO.UserPrincipalDTO;
+import com.eltov.air.module.inside.user.DTO.UserSearchDTO;
+import com.eltov.air.module.inside.user.mapper.UserMapper;
+import com.eltov.air.module.inside.user.session.UserSession;
 
 @Service
 public class UserService implements UserDetailsService {

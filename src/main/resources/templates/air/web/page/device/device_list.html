@@ -81,6 +81,7 @@
 											<!-- deveice list start -->
 											<div class="deviceList row">
 												<div class="col-sm-12 col-md-12" >
+													<div class="mr-2 mb-2 btn-icon btn btn-secondary" style="float:left;"><i class="pe-7s-monitor btn-icon-wrapper" > </i>FHD 세로형 <span class="badge badge-pill badge-light">1080 * 1920</span></div>
 													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-success" style="float:right;" data-toggle="modal" data-target=".registModal" onclick="javascript:deviceControlBtn('');" ><i class="pe-7s-note2 btn-icon-wrapper" > </i>등록</button>
 													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-link" style="float:right;" data-toggle="modal" data-target=".settingModal" ><i class="pe-7s-config btn-icon-wrapper"> </i>설정</button>
 												</div>
@@ -88,16 +89,16 @@
 													<table style="width: 100%; text-align:center;" id="example" class="table table-hover table-striped table-bordered">
 														<thead>
 															<tr>
-																<th>No</th>
-																<th>상태</th>
-																<th>디바이스명</th>
-																<th>디바이스 코드</th>
-																<th>해상도</th>
-																<th>IP</th>
-																<th>최종 연결 일자</th>
-																<th>제어</th>
-																<th>스크린샷</th>
-																<th>관리</th>
+																<th style="width: 4%;">No</th>
+																<th style="width: 5%;">상태</th>
+																<th style="width: 10%;">디바이스명</th>
+																<th style="width: 9%;">디바이스 코드</th>
+<!-- 																<th style="width: 11%;">해상도</th> -->
+																<th style="width: 5%;">IP</th>
+																<th style="width: 16%;">최종 연결 일자</th>
+																<th style="width: 20%;">제어</th>
+																<th style="width: 7%;">스크린샷</th>
+																<th style="width: 14%;">관리</th>
 															</tr>
 														</thead>
 														<tbody>
@@ -106,18 +107,18 @@
 																<td><button type="button" class="btn btn btn-info" >ON</button></td>
 																<td>MAIN PC</td>
 																<td>MAIN001</td>
-																<td>UHD (3840 * 2160)</td>
+<!-- 																<td>UHD (3840 * 2160)</td> -->
 																<td>192.168.0.154</td>
-																<td>2011/04/25</td>
-																<td style="width:22%;">
+																<td>2011-04-25 15:22:13 / Admiaaaaan</td>
+																<td>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>														
 																</td>
-																<td style="width:7%;">
+																<td>
 																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".screenshotModal" onclick="javascript:showScreenShot('');">스크린샷</button>
 																</td>
-																<td style="width:14%;">
+																<td>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:deviceControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:deviceDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
 																</td>
@@ -127,18 +128,18 @@
 																<td><button type="button" class="btn btn btn-primary" >OFF</button></td>
 																<td>SUB1 PC</td>
 																<td>SUB001</td>
-																<td>FHD (1920 * 1080)</td>
+<!-- 																<td>FHD (1920 * 1080)</td> -->
 																<td>192.168.0.155</td>
-																<td>2011/07/25</td>
-																<td style="width:22%;">
+																<td>2011-04-25 15:22:13</td>
+																<td>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>														
 																</td>
-																<td style="width:7%;">
+																<td>
 																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".screenshotModal" onclick="javascript:showScreenShot('');">스크린샷</button>
 																</td>
-																<td style="width:14%;">
+																<td>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:deviceControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:deviceDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
 																</td>
@@ -148,18 +149,18 @@
 																<td><button type="button" class="btn btn btn-primary" >OFF</button></td>
 																<td>SUB2 PC</td>
 																<td>SUB002</td>
-																<td>FHD (1080 * 1920)</td>
+<!-- 																<td>FHD (1080 * 1920)</td> -->
 																<td>192.168.0.156</td>
-																<td>2009/01/12</td>
-																<td style="width:22%;">
+																<td>2011-04-25 15:22:13</td>
+																<td>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-refresh btn-icon-wrapper"> </i>새로고침</button>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-repeat btn-icon-wrapper"> </i>재시작</button>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-link" ><i class="pe-7s-plug btn-icon-wrapper"> </i>종료</button>														
 																</td>
-																<td style="width:7%;">
+																<td>
 																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".screenshotModal" onclick="javascript:showScreenShot('');">스크린샷</button>
 																</td>
-																<td style="width:14%;">
+																<td>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:deviceControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
 																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:deviceDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
 																</td>

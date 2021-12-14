@@ -1,4 +1,4 @@
-package com.eltov.air.module.inside.system.user.controller;
+package com.eltov.air.module.inside.user.controller;
 
 import java.util.List;
 import java.util.Locale;
@@ -28,11 +28,11 @@ import com.eltov.air.core.exception.ExceptionWrapper;
 import com.eltov.air.core.exception.ExceptionWrapperForAjax;
 import com.eltov.air.core.model.ResponseModel;
 import com.eltov.air.core.util.Pagination;
-import com.eltov.air.module.inside.system.user.DTO.UserDTO;
-import com.eltov.air.module.inside.system.user.DTO.UserLogDTO;
-import com.eltov.air.module.inside.system.user.DTO.UserSearchDTO;
-import com.eltov.air.module.inside.system.user.service.UserLogService;
-import com.eltov.air.module.inside.system.user.service.UserService;
+import com.eltov.air.module.inside.user.DTO.UserDTO;
+import com.eltov.air.module.inside.user.DTO.UserLogDTO;
+import com.eltov.air.module.inside.user.DTO.UserSearchDTO;
+import com.eltov.air.module.inside.user.service.UserLogService;
+import com.eltov.air.module.inside.user.service.UserService;
 
 @Controller
 @RequestMapping("/system/user")

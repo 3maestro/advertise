@@ -1,55 +1,46 @@
-<?xml version="1.0" encoding="UTF-8"?> 
-<Configuration > 
-	<!-- 해당 설정파일에서 사용하는 프로퍼티--> 
-	<Properties> 
-		<Property name="logNm">ssg_dp_daejeon_g</Property> 
-		<Property name="layoutPattern">%style{%d{yyyy/MM/dd HH:mm:ss,SSS}}{cyan} %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} [%C] %style{[%t]}{yellow}- %m%n -</Property>
-	</Properties> 
-	
-	<!-- LogEvent를 전달해주는 Appender--> 
-	<Appenders> 
-		<Console name="Console_Appender" target="SYSTEM_OUT"> 
-			<PatternLayout pattern="${layoutPattern}"/> 
-		</Console> 
-		<RollingFile name="File_Appender" fileName="/logs/${logNm}.log" filePattern="/logs/rolling/${logNm}_%d{yyyy-MM-dd}_%i.log.gz"> 
-			<PatternLayout pattern="${layoutPattern}"/> 
-			<Policies> 
-				<SizeBasedTriggeringPolicy size="200KB"/>
-				<TimeBasedTriggeringPolicy interval="1"/> 
-			</Policies> 
-			<DefaultRolloverStrategy max="3" fileIndex="min"/> 
-		</RollingFile>
-		<!-- DB Connection을 제공해줄 클래스와 메서드명 정의 -->
-		<!-- JDBCAppender가 EgovConnectionFactory.getDatabaseConnection() 메서드를 호출 -->
-		<!-- <ConnectionFactory class="egovframework.rte.fdl.logging.db.EgovConnectionFactory" method="getDatabaseConnection" /> -->
-		<!-- log event가 insert될 컬럼 설정, insert될 값은 PatternLayout의 pattern 사용 -->
-		<!-- <JDBC name="Db_Appender" tableName="TB_LOG">
-			<DataSource jndiName="java:/comp/env/jdbc/LoggingDataSource" />
-			<Column name="EVENT_DATE" isEventTimestamp="true" />
-			<Column name="LEVEL" pattern="%p" />
-			<Column name="LOGGER" pattern="%c" />
-			<Column name="MESSAGE" pattern="%m" />
-			<Column name="EXCEPTION" pattern="%ex{full}" />
-		</JDBC> -->
-	</Appenders> 
-	
-	<!-- 실제 Logger-->
-	<Loggers> 
-		<Logger name="org.springframework" level="ERROR" additivity="false"> 
-			<AppenderRef ref="Console_Appender" /> 
-			<AppenderRef ref="File_Appender"/> 
-<!-- 			<AppenderRef ref="Db_Appender"/>  -->
-		</Logger> 
-		<Root level="ERROR" additivity="false"> 
-			<AppenderRef ref="Console_Appender"/> 
-			<AppenderRef ref="File_Appender"/> 
-<!-- 			<AppenderRef ref="Db_Appender"/>  -->
-		</Root>
-		<!-- <Logger name="com" level="INFO" additivity="false"> 
-			<AppenderRef ref="Console_Appender" /> 
-			<AppenderRef ref="File_Appender"/> 
-		</Logger> 
-		  -->
-	</Loggers> 
-</Configuration>
+<?xml version="1.0" encoding="UTF-8"?>
 
+<!-- 이 설정파일이 로드될 때 발생하는 로그에 대한 레벨을 설정 -->
+<Configuration status="debug">
+	<Properties>
+		<Property name="debugLogDir">logtest</Property>
+		<Property name="layoutPattern">%d{yyyy-MM-dd hh:mm:ss} %5p [%c] %m%n</Property>
+	</Properties>
+	<Appenders>
+		 <!-- 콜솔 -->
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout pattern="${layoutPattern}"/>
+		</Console>
+		
+		<!-- 파일  -->
+		<RollingFile name ="RollingFile">
+            <FileName>C:/log/mylog.txt</FileName>
+            <FilePattern>C:/log/%d{yyyy-MM-dd-hh-mm}/mylog.zip</FilePattern>
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval = "1" modulate = "true"/>
+            </Policies>
+        </RollingFile>
+        
+        <RollingFile name ="RollingFileError">
+            <FileName>C:/log/mylog_error.txt</FileName>
+            <FilePattern>C:/log/%d{yyyy-MM-dd-hh-mm}/mylog_error.zip</FilePattern>
+            <PatternLayout>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %5p [%c] %m%n</Pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval = "1" modulate = "true"/>
+            </Policies>
+        </RollingFile>
+	</Appenders>
+	
+	<Loggers>
+		 <Root level="debug" additivity="true">
+            <AppenderRef ref="console"/>
+            <AppenderRef ref="RollingFile"/>
+            <AppenderRef ref="RollingFileError" level = "ERROR"/>
+        </Root>
+	</Loggers>
+</Configuration>

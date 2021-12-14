@@ -1,4 +1,4 @@
-package com.eltov.air.module.inside.system.user.mapper;
+package com.eltov.air.module.inside.user.mapper;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.eltov.air.core.util.Pagination;
-import com.eltov.air.module.inside.system.user.DTO.UserDTO;
-import com.eltov.air.module.inside.system.user.DTO.UserSearchDTO;
+import com.eltov.air.module.inside.user.DTO.UserDTO;
+import com.eltov.air.module.inside.user.DTO.UserSearchDTO;
 
 @Mapper
 public interface UserMapper {

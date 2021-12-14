@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.eltov.air.core.annotation.SessionUser;
-import com.eltov.air.module.inside.system.user.DTO.UserDTO;
+import com.eltov.air.module.inside.user.DTO.UserDTO;
 
 @Controller
 public class HomeController {

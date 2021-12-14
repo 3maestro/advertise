@@ -16,31 +16,68 @@
 	<description>com.eltov.air</description>
 	<properties>
 		<java.version>1.8</java.version>
+		<log4j2.version>2.15.0</log4j2.version>
 	</properties>
 	<dependencies>
-		<dependency>
+		<!-- <dependency>
 		    <groupId>org.springframework.boot</groupId>
 		    <artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 
-		<!-- Spring-Boot -->
+		Spring-Boot
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
-<!-- 			<exclusions>
+ 			<exclusions>
 			    <exclusion>
 			      <groupId>org.springframework.boot</groupId>
 			      <artifactId>spring-boot-starter-logging</artifactId>
 			    </exclusion>
+			</exclusions>
+		</dependency> -->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- <exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
 			</exclusions> -->
 		</dependency>
-	
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		
 		<!-- log4j2 의존성 추가 -->
-<!-- 		<dependency>
-        	<groupId>org.springframework.boot</groupId>
-        	<artifactId>spring-boot-starter-log4j2</artifactId>
-    	</dependency> -->
-    	
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-jcl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.logging.log4j</groupId>
+			<artifactId>log4j-slf4j-impl</artifactId>
+		</dependency>
 	
 		<!-- Spring boot 를 Tomcat에 올려서 사용 (내장 Tomcat 사용 안함) -->
 		<!-- <dependency>
@@ -98,14 +135,6 @@
 			<optional>true</optional>
 		</dependency>
 				
-		<!-- log4jdbc -->
-		<!-- <dependency>
-			<groupId>org.bgee.log4jdbc-log4j2</groupId>
-			<artifactId>log4jdbc-log4j2-jdbc4</artifactId>
-			<version>1.16</version>
-			<scope>runtime</scope>
-		</dependency> -->
-		
 		<!--Mybatis -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
