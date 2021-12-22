@@ -15,9 +15,10 @@ public class HomeController {
 	
 	@RequestMapping(value= {"/", "/dologin"}) //index.jsp(로그인폼)을 응답하는 매핑
 	public String getIndex(@SessionUser UserDTO userDto) { 
-
+		System.out.println(userDto + " <-userDto");
 		if(userDto == null) {
-			return "index";
+			System.out.println("dhkTsl?");
+			return "redirect:/main/index";
 		}else if(StringUtils.equals(userDto.getUser_auth(), "ADMIN")) {
 			return "redirect:/company/list";
 		}else if(StringUtils.equals(userDto.getUser_auth(), "MANAGER")) {

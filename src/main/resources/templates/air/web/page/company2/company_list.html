@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="../layout/default">
+		
+	<!-- custom style start -->	
+	<th:block layout:fragment="style">
+   		<style type="text/css">
+			.list-group li{
+				cursor:pointer;
+				display: inline-block;
+			}
+			
+			.list-group li:hover{
+                background-color: #dfdfdf;
+            }
+            
+            .scroll-area-sm {
+			    height: 250px;
+			    overflow-x: hidden;
+			}
+		</style>
+    </th:block>
+    <!-- custom style end -->
+		
+	<th:block layout:fragment="contents">
+    	<div class="app-inner-layout app-inner-layout-page">
+			<div class="app-inner-bar">
+				<div class="inner-bar-left col-md-3">
+					<!-- <ul class="nav">
+						<li class="nav-item"><a href="#" class="nav-link show-menu-btn"> <i class="fa fa-align-left mr-2"></i> <span class="hide-text-md">Show page menu</span>
+						</a> <a href="#" class="nav-link close-menu-btn"> <i class="fa fa-align-right mr-2"></i> <span class="hide-text-md">Close page menu</span>
+						</a></li>
+					</ul> -->
+					<div>
+						<span>업체 관리 페이지</span><br>
+						<a th:href="@{/main/dashboard}">대쉬보드</a><br>
+						<a th:href="@{/main/default}">디폴트 페이지</a><br>
+						<a th:href="@{/branch/list}">지점 페이지</a><br>
+						<a th:href="@{/component/default}">컴포넌트 페이지</a><br>
+					</div>
+				</div>
+				<div class="inner-bar-center col-md-8"></div>
+				<div class="inner-bar-right col-md-1">
+					
+				</div>
+			</div>
+			<div class="app-inner-layout__wrapper">
+				<div class="app-inner-layout__content">
+					<!-- contents start -->
+					<div class="container-fluid">
+						<div  class="tab-content">
+							<div class="row">
+								<div class="col-md-12">
+									<div class="card-hover-shadow-2x mb-3 card">
+										<div class="card-header">
+											Company List
+										</div>
+										<div class="card-body">
+											<div class="row">
+												<div class="col-md-12" style="margin-bottom: 15px;">
+													<button type="button" class="btn mr-2 md-2 btn-icon btn btn-success" style="float:right;" data-toggle="modal" data-target=".registModal" ><i class="pe-7s-note2 btn-icon-wrapper"> </i>등록</button>
+												</div>
+												<div class="col-md-12 col-lg-6 col-xl-4">
+													<div class="card-shadow-primary profile-responsive card-border mb-3 card">
+														<div class="dropdown-menu-header">
+															<div class="dropdown-menu-header-inner bg-danger">
+																<!-- 업체 배경 -->
+																<div class="menu-header-image" style="background-image: url('../assets/images/dropdown-header/abstract2.jpg')"></div>
+																<div class="menu-header-content btn-pane-right">
+																	<div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+																		<div class="avatar-icon">
+																			<!-- 업체 사진 -->
+																			<img src="../assets/images/avatars/10.jpg" alt="Avatar 5">
+																		</div>
+																	</div>
+																	<div>
+																		<h5 class="menu-header-title">롯데마트</h5>
+																		<h6 class="menu-header-subtitle">02-123-4567</h6>
+																	</div>
+																	<div class="menu-header-btn-pane">
+																		<div>
+																			<div role="group" class="btn-group text-center">
+																				<div class="nav">
+																					<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																					<button type="button" class="btn btn-icon  btn-dark" data-toggle="modal" data-target=".infoModal"><i class="pe-7s-info btn-icon-wrapper"> </i>정보</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<div class="scroll-area-sm">
+															<div class="scrollbar-container ps--active-y ps">
+																<ul class="list-group list-group-flush">
+																	<li class="list-group-item" onclick="javascript:enterBranch('1');">
+																		<div class="widget-content p-0">
+																			<div class="widget-content-wrapper">
+																				<div class="widget-content-left mr-3">
+																					<div class="icon-wrapper" style="width:100%">
+																						<div class="avatar-icon-wrapper avatar-icon-xl">
+																							<div class="avatar-icon">
+																								<!-- 지점 사진 -->
+																								<img src="../assets/images/avatars/1.jpg" alt="Avatar 5">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="widget-content-left">
+																					<div class="widget-heading">강남점</div>
+																					<div class="widget-subheading">02-777-8888</div>
+																				</div>
+																				<div class="widget-content-right">
+																					<div class="row" style="text-align: right;">
+																						<div class="col-sm-12 text-secondary">
+																							 <span style="font-size: 14px;font-weight: 700;">ALL 5</span>
+																						</div>
+																						<div class="col-sm-12 text-info">
+																							 <span style="font-size: 14px;font-weight: 700;">ON 3</span>
+																						</div>
+																						<div class="col-sm-12 text-primary">
+																							 <span style="font-size: 14px;font-weight: 700;">OFF 2</span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</li>
+																	<li class="list-group-item" onclick="javascript:enterBranch('2');">
+																		<div class="widget-content p-0">
+																			<div class="widget-content-wrapper">
+																				<div class="widget-content-left mr-3">
+																					<div class="icon-wrapper" style="width:100%">
+																						<div class="avatar-icon-wrapper avatar-icon-xl">
+																							<div class="avatar-icon">
+																								<!-- 지점 사진 -->
+																								<img src="../assets/images/avatars/2.jpg" alt="Avatar 5">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="widget-content-left">
+																					<div class="widget-heading">구로점</div>
+																					<div class="widget-subheading">02-333-5555</div>
+																				</div>
+																				<div class="widget-content-right">
+																					<div class="row" style="text-align: right;">
+																						<div class="col-sm-12 text-secondary">
+																							 <span style="font-size: 14px;font-weight: 700;">ALL 4</span>
+																						</div>
+																						<div class="col-sm-12 text-info">
+																							 <span style="font-size: 14px;font-weight: 700;">ON 2</span>
+																						</div>
+																						<div class="col-sm-12 text-primary">
+																							 <span style="font-size: 14px;font-weight: 700;">OFF 2</span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</li>
+																	<li class="list-group-item" onclick="javascript:enterBranch('3');">
+																		<div class="widget-content p-0">
+																			<div class="widget-content-wrapper">
+																				<div class="widget-content-left mr-3">
+																					<div class="icon-wrapper" style="width:100%">
+																						<div class="avatar-icon-wrapper avatar-icon-xl">
+																							<div class="avatar-icon">
+																								<!-- 지점 사진 -->
+																								<img src="../assets/images/avatars/3.jpg" alt="Avatar 5">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="widget-content-left">
+																					<div class="widget-heading">서울대 입구점</div>
+																					<div class="widget-subheading">02-666-9999</div>
+																				</div>
+																				<div class="widget-content-right">
+																					<div class="row" style="text-align: right;">
+																						<div class="col-sm-12 text-secondary">
+																							 <span style="font-size: 14px;font-weight: 700;">ALL 3</span>
+																						</div>
+																						<div class="col-sm-12 text-info">
+																							 <span style="font-size: 14px;font-weight: 700;">ON 2</span>
+																						</div>
+																						<div class="col-sm-12 text-primary">
+																							 <span style="font-size: 14px;font-weight: 700;">OFF 1</span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</li>
+																	<li class="list-group-item" onclick="javascript:enterBranch('4');">
+																		<div class="widget-content p-0">
+																			<div class="widget-content-wrapper">
+																				<div class="widget-content-left mr-3">
+																					<div class="icon-wrapper" style="width:100%">
+																						<div class="avatar-icon-wrapper avatar-icon-xl">
+																							<div class="avatar-icon">
+																								<!-- 지점 사진 -->
+																								<img src="../assets/images/avatars/4.jpg" alt="Avatar 5">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="widget-content-left">
+																					<div class="widget-heading">압구정점</div>
+																					<div class="widget-subheading">02-666-9999</div>
+																				</div>
+																				<div class="widget-content-right">
+																					<div class="row" style="text-align: right;">
+																						<div class="col-sm-12 text-secondary">
+																							 <span style="font-size: 14px;font-weight: 700;">ALL 3</span>
+																						</div>
+																						<div class="col-sm-12 text-info">
+																							 <span style="font-size: 14px;font-weight: 700;">ON 2</span>
+																						</div>
+																						<div class="col-sm-12 text-primary">
+																							 <span style="font-size: 14px;font-weight: 700;">OFF 1</span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</li>
+																	<li class="list-group-item" onclick="javascript:enterBranch('5');">
+																		<div class="widget-content p-0">
+																			<div class="widget-content-wrapper">
+																				<div class="widget-content-left mr-3">
+																					<div class="icon-wrapper" style="width:100%">
+																						<div class="avatar-icon-wrapper avatar-icon-xl">
+																							<div class="avatar-icon">
+																								<!-- 지점 사진 -->
+																								<img src="../assets/images/avatars/5.jpg" alt="Avatar 5">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="widget-content-left">
+																					<div class="widget-heading">신촌점</div>
+																					<div class="widget-subheading">02-666-9999</div>
+																				</div>
+																				<div class="widget-content-right">
+																					<div class="row" style="text-align: right;">
+																						<div class="col-sm-12 text-secondary">
+																							 <span style="font-size: 14px;font-weight: 700;">ALL 3</span>
+																						</div>
+																						<div class="col-sm-12 text-info">
+																							 <span style="font-size: 14px;font-weight: 700;">ON 2</span>
+																						</div>
+																						<div class="col-sm-12 text-primary">
+																							 <span style="font-size: 14px;font-weight: 700;">OFF 1</span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</li>
+																	<li class="list-group-item" onclick="javascript:enterBranch('6');">
+																		<div class="widget-content p-0">
+																			<div class="widget-content-wrapper">
+																				<div class="widget-content-left mr-3">
+																					<div class="icon-wrapper" style="width:100%">
+																						<div class="avatar-icon-wrapper avatar-icon-xl">
+																							<div class="avatar-icon">
+																								<!-- 지점 사진 -->
+																								<img src="../assets/images/avatars/6.jpg" alt="Avatar 5">
+																							</div>
+																						</div>
+																					</div>
+																				</div>
+																				<div class="widget-content-left">
+																					<div class="widget-heading">홍대점</div>
+																					<div class="widget-subheading">02-666-9999</div>
+																				</div>
+																				<div class="widget-content-right">
+																					<div class="row" style="text-align: right;">
+																						<div class="col-sm-12 text-secondary">
+																							 <span style="font-size: 14px;font-weight: 700;">ALL 3</span>
+																						</div>
+																						<div class="col-sm-12 text-info">
+																							 <span style="font-size: 14px;font-weight: 700;">ON 2</span>
+																						</div>
+																						<div class="col-sm-12 text-primary">
+																							 <span style="font-size: 14px;font-weight: 700;">OFF 1</span>
+																						</div>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</li>
+																</ul>
+																<div class="ps__rail-x" style="left: 0px; bottom: 0px;">
+																	<div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div>
+																</div>
+																<div class="ps__rail-y" style="top: 0px; height: 200px; right: 0px;">
+																	<div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 75px;"></div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-md-12 col-lg-6 col-xl-4">
+													<div class="card-shadow-primary profile-responsive card-border mb-3 card">
+														<div class="dropdown-menu-header">
+															<div class="dropdown-menu-header-inner bg-danger">
+																<!-- 업체 배경 -->
+																<div class="menu-header-image" style="background-image: url('../assets/images/dropdown-header/abstract3.jpg')"></div>
+																<div class="menu-header-content btn-pane-right">
+																	<div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+																		<div class="avatar-icon">
+																			<!-- 업체 사진 -->
+																			<img src="../assets/images/avatars/11.jpg" alt="Avatar 5">
+																		</div>
+																	</div>
+																	<div>
+																		<h5 class="menu-header-title">퍼플카우</h5>
+																		<h6 class="menu-header-subtitle">02-444-5678</h6>
+																	</div>
+																	<div class="menu-header-btn-pane">
+																		<div>
+																			<div role="group" class="btn-group text-center">
+																				<div class="nav">
+																					<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																					<button type="button" class="btn btn-icon  btn-dark" data-toggle="modal" data-target=".infoModal"><i class="pe-7s-info btn-icon-wrapper"> </i>정보</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<ul class="list-group list-group-flush">
+															<li class="list-group-item" onclick="javascript:enterBranch('4');">
+																<div class="widget-content p-0">
+																	<div class="widget-content-wrapper">
+																		<div class="widget-content-left mr-3">
+																			<div class="icon-wrapper" style="width:100%">
+																				<div class="avatar-icon-wrapper avatar-icon-xl">
+																					<div class="avatar-icon">
+																						<!-- 지점 사진 -->
+																						<img src="../assets/images/avatars/5.jpg" alt="Avatar 5">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="widget-content-left">
+																			<div class="widget-heading">PEYTO 빌딩</div>
+																			<div class="widget-subheading">02-554-7845</div>
+																		</div>
+																		<div class="widget-content-right">
+																			<div class="row" style="text-align: right;">
+																				<div class="col-sm-12 text-secondary">
+																					 <span style="font-size: 14px;font-weight: 700;">ALL 2</span>
+																				</div>
+																				<div class="col-sm-12 text-info">
+																					 <span style="font-size: 14px;font-weight: 700;">ON 2</span>
+																				</div>
+																				<div class="col-sm-12 text-primary">
+																					 <span style="font-size: 14px;font-weight: 700;">OFF 0</span>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+												
+												<div class="col-md-12 col-lg-6 col-xl-4">
+													<div class="card-shadow-primary profile-responsive card-border mb-3 card">
+														<div class="dropdown-menu-header">
+															<div class="dropdown-menu-header-inner bg-danger">
+																<!-- 업체 배경 -->
+																<div class="menu-header-image" style="background-image: url('../assets/images/dropdown-header/abstract5.jpg')"></div>
+																<div class="menu-header-content btn-pane-right">
+																	<div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+																		<div class="avatar-icon">
+																			<!-- 업체 사진 -->
+																			<img src="../assets/images/avatars/9.jpg" alt="Avatar 5">
+																		</div>
+																	</div>
+																	<div>
+																		<h5 class="menu-header-title">현대 퓨처넷</h5>
+																		<h6 class="menu-header-subtitle">02-548-7879</h6>
+																	</div>
+																	<div class="menu-header-btn-pane">
+																		<div>
+																			<div role="group" class="btn-group text-center">
+																				<div class="nav">
+																					<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																					<button type="button" class="btn btn-icon  btn-dark" data-toggle="modal" data-target=".infoModal"><i class="pe-7s-info btn-icon-wrapper"> </i>정보</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<ul class="list-group list-group-flush">
+															<li class="list-group-item" onclick="javascript:enterBranch('5');">
+																<div class="widget-content p-0">
+																	<div class="widget-content-wrapper">
+																		<div class="widget-content-left mr-3">
+																			<div class="icon-wrapper" style="width:100%">
+																				<div class="avatar-icon-wrapper avatar-icon-xl">
+																					<div class="avatar-icon">
+																						<!-- 지점 사진 -->
+																						<img src="../assets/images/avatars/7.jpg" alt="Avatar 5">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="widget-content-left">
+																			<div class="widget-heading">강남 마젤란 빌딩</div>
+																			<div class="widget-subheading">02-655-8984</div>
+																		</div>
+																		<div class="widget-content-right">
+																			<div class="row" style="text-align: right;">
+																				<div class="col-sm-12 text-secondary">
+																					 <span style="font-size: 14px;font-weight: 700;">ALL 2</span>
+																				</div>
+																				<div class="col-sm-12 text-info">
+																					 <span style="font-size: 14px;font-weight: 700;">ON 0</span>
+																				</div>
+																				<div class="col-sm-12 text-primary">
+																					 <span style="font-size: 14px;font-weight: 700;">OFF 2</span>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="col-md-12 col-lg-6 col-xl-4">
+													<div class="card-shadow-primary profile-responsive card-border mb-3 card">
+														<div class="dropdown-menu-header">
+															<div class="dropdown-menu-header-inner bg-danger">
+																<!-- 업체 배경 -->
+																<div class="menu-header-image" style="background-image: url('../assets/images/dropdown-header/abstract5.jpg')"></div>
+																<div class="menu-header-content btn-pane-right">
+																	<div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+																		<div class="avatar-icon">
+																			<!-- 업체 사진 -->
+																			<img src="../assets/images/avatars/9.jpg" alt="Avatar 5">
+																		</div>
+																	</div>
+																	<div>
+																		<h5 class="menu-header-title">현대 퓨처넷</h5>
+																		<h6 class="menu-header-subtitle">02-548-7879</h6>
+																	</div>
+																	<div class="menu-header-btn-pane">
+																		<div>
+																			<div role="group" class="btn-group text-center">
+																				<div class="nav">
+																					<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																					<button type="button" class="btn btn-icon  btn-dark" data-toggle="modal" data-target=".infoModal"><i class="pe-7s-info btn-icon-wrapper"> </i>정보</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<ul class="list-group list-group-flush">
+															<li class="list-group-item" onclick="javascript:enterBranch('5');">
+																<div class="widget-content p-0">
+																	<div class="widget-content-wrapper">
+																		<div class="widget-content-left mr-3">
+																			<div class="icon-wrapper" style="width:100%">
+																				<div class="avatar-icon-wrapper avatar-icon-xl">
+																					<div class="avatar-icon">
+																						<!-- 지점 사진 -->
+																						<img src="../assets/images/avatars/7.jpg" alt="Avatar 5">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="widget-content-left">
+																			<div class="widget-heading">강남 마젤란 빌딩</div>
+																			<div class="widget-subheading">02-655-8984</div>
+																		</div>
+																		<div class="widget-content-right">
+																			<div class="row" style="text-align: right;">
+																				<div class="col-sm-12 text-secondary">
+																					 <span style="font-size: 14px;font-weight: 700;">ALL 2</span>
+																				</div>
+																				<div class="col-sm-12 text-info">
+																					 <span style="font-size: 14px;font-weight: 700;">ON 0</span>
+																				</div>
+																				<div class="col-sm-12 text-primary">
+																					 <span style="font-size: 14px;font-weight: 700;">OFF 2</span>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+												<div class="col-md-12 col-lg-6 col-xl-4">
+													<div class="card-shadow-primary profile-responsive card-border mb-3 card">
+														<div class="dropdown-menu-header">
+															<div class="dropdown-menu-header-inner bg-danger">
+																<!-- 업체 배경 -->
+																<div class="menu-header-image" style="background-image: url('../assets/images/dropdown-header/abstract5.jpg')"></div>
+																<div class="menu-header-content btn-pane-right">
+																	<div class="avatar-icon-wrapper mr-2 avatar-icon-xl">
+																		<div class="avatar-icon">
+																			<!-- 업체 사진 -->
+																			<img src="../assets/images/avatars/9.jpg" alt="Avatar 5">
+																		</div>
+																	</div>
+																	<div>
+																		<h5 class="menu-header-title">현대 퓨처넷</h5>
+																		<h6 class="menu-header-subtitle">02-548-7879</h6>
+																	</div>
+																	<div class="menu-header-btn-pane">
+																		<div>
+																			<div role="group" class="btn-group text-center">
+																				<div class="nav">
+																					<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																					<button type="button" class="btn btn-icon  btn-dark" data-toggle="modal" data-target=".infoModal"><i class="pe-7s-info btn-icon-wrapper"> </i>정보</button>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+														<ul class="list-group list-group-flush">
+															<li class="list-group-item" onclick="javascript:enterBranch('5');">
+																<div class="widget-content p-0">
+																	<div class="widget-content-wrapper">
+																		<div class="widget-content-left mr-3">
+																			<div class="icon-wrapper" style="width:100%">
+																				<div class="avatar-icon-wrapper avatar-icon-xl">
+																					<div class="avatar-icon">
+																						<!-- 지점 사진 -->
+																						<img src="../assets/images/avatars/7.jpg" alt="Avatar 5">
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																		<div class="widget-content-left">
+																			<div class="widget-heading">강남 마젤란 빌딩</div>
+																			<div class="widget-subheading">02-655-8984</div>
+																		</div>
+																		<div class="widget-content-right">
+																			<div class="row" style="text-align: right;">
+																				<div class="col-sm-12 text-secondary">
+																					 <span style="font-size: 14px;font-weight: 700;">ALL 2</span>
+																				</div>
+																				<div class="col-sm-12 text-info">
+																					 <span style="font-size: 14px;font-weight: 700;">ON 0</span>
+																				</div>
+																				<div class="col-sm-12 text-primary">
+																					 <span style="font-size: 14px;font-weight: 700;">OFF 2</span>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- contents end -->
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+    </th:block>
+    
+    <th:block layout:fragment="sub">
+		<!-- modal contents 영역 -->
+		<!-- Large modal -->
+		<div class="modal fade registModal" id="companyRegModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">업체 등록</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="registForm" action="" method="post">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">업체명</label>
+												<div class="col-sm-10">
+													<input name="companyName" id="companyName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">업체코드</label>
+												<div class="col-sm-10">
+													<input name="companyCode" id="companyCode" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">대표번호</label>
+												<div class="col-sm-10">
+													<input name="companyPhone" id="companyPhone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="companyDesc" id="companyDesc" class="form-control"></textarea>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleFile" class="col-sm-2 col-form-label">이미지</label>
+												<div class="col-sm-10">
+													<input name="companyFile" id="companyFile" type="file" class="form-control-file"> 
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade show updateModal" id="companyUpdModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">업체 수정</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="updateForm" action="" method="post" enctype="multipart/form-data">
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">업체명</label>
+												<div class="col-sm-10">
+													<input name="companyName" id="companyName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">업체코드</label>
+												<div class="col-sm-10">
+													<input name="companyCode" id="companyCode" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">대표번호</label>
+												<div class="col-sm-10">
+													<input name="companyPhone" id="companyPhone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="companyDesc" id="companyDesc" class="form-control"></textarea>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleFile" class="col-sm-2 col-form-label">이미지</label>
+												<div class="col-sm-10">
+													<input name="companyFile" id="companyFile" type="file" class="form-control-file"> 
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+						<button type="button" class="btn mr-2 btn-icon btn btn-danger" style="float:right;" data-toggle="modal" data-target=".deleteModal"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade show infoModal" id="companyInfoModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header" >
+						<h5 class="modal-title" id="exampleModalLongTitle">업체 정보</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="row">
+							<div class="col-md-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<form class="infoForm" action="" >
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">업체명</label>
+												<div class="col-sm-10">
+													<input name="companyName" id="companyName" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">업체코드</label>
+												<div class="col-sm-10">
+													<input name="companyCode" id="companyCode" type="text" class="form-control">
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">대표번호</label>
+												<div class="col-sm-10">
+													<input name="companyPhone" id="companyPhone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="" class="col-sm-2 col-form-label">담당자 정보</label>
+												<div class="col-sm-10">
+													<input name="companyPhone" id="companyPhone" type="tel" class="form-control"></input>
+												</div>
+											</div>
+											<div class="position-relative row form-group">
+												<label for="exampleText" class="col-sm-2 col-form-label">설명</label>
+												<div class="col-sm-10">
+													<textarea name="companyDesc" id="companyDesc" class="form-control"></textarea>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn mr-2 btn-icon btn btn-secondary" data-dismiss="modal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
+						<button type="button" class="btn mr-2 btn-icon btn-dark" style="float:right;" onclick="javascript:enterCompanyDashboard('id');"><i class="lnr-enter btn-icon-wrapper"> </i>접속</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</th:block> 
+	
+	<th:block layout:fragment="script">
+		<script th:inline="javascript">
+
+			function saveBtn() {
+				const uploadFile = $('#companyFile')[0];
+				// 파일을 여러개 선택할 수 있으므로 files 라는 객체에 담긴다.
+				console.log('uploadFile: ', uploadFile.files)
+
+				if (uploadFile.files.length === 0) {
+					alert('파일은 선택해주세요');
+					return;
+				}
+
+				const formData = new FormData();
+				formData.append('companyName', $('#companyName').val());
+				formData.append('companyCode', $('#companyCode').val());
+				formData.append('companyPhome', $('#companyPhome').val());
+				formData.append('companyDesc', $('#companyDesc').val());
+				formData.append('file', uploadFile.files[0]);
+				
+				if(confirm('등록 하시겠습니까?') == true){
+					$.ajax({
+						type : 'POST',
+						url : '/company/regist',
+						processData : false,
+						contentType : false,
+						data : formData,
+						success : function(result){reqSucc(result)},
+						error : function(){reqErr()}
+					})
+				}else{
+			        return;
+			    }
+			}
+
+			function reqSucc(result){
+				console.log('message: ', result);
+				if(result.result === 'success'){
+					alert(result.result);
+					window.location.href = '/company/list';
+				}
+			}
+			
+			function reqErr(){
+				console.log('err:', err);
+			}
+			
+			$(document).ready(function() {
+
+			});
+			
+// 			function enterTheNext(companyId){
+// 				window.location.href = '/branch/list?companyId=' + companyId;
+// 			}
+			
+			function enterBranch(id){
+				console.log(id);
+// 				window.location.href = '/branch/list?brnId=' + id;
+				window.location.href = '/branch/list';
+			}
+			
+			function enterCompanyDashboard(id){
+				console.log(id);
+// 				window.location.href = '/company/dashboard?companyId=' + id;
+				window.location.href = '/company/dashboard';
+			}
+		</script>
+	</th:block> 
+</html>
+
+
+    
+	
+
+
+
+
+
+	

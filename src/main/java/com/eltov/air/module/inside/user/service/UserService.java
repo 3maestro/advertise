@@ -164,7 +164,7 @@ public class UserService implements UserDetailsService {
 	public void setRememberMeCookie(HttpServletResponse res, String idsaveYN, String userIdname) {
 		Cookie cookie = new Cookie("ck_adminname", userIdname);
 		if(idsaveYN.equals("Y")) {
-			cookie.setMaxAge(config.getGl_cookie_time());
+			cookie.setMaxAge(config.getGlCookieTime());
 			cookie.setPath("/");
 			cookie.setHttpOnly(true);
 			//cookie.setSecure(true);

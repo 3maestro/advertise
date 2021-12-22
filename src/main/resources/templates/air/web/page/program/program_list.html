@@ -35,22 +35,22 @@
 											<!-- deveice search start -->
 											<div class="programSearch row">
 												<div class="col-sm-8" >
-													<form class="searchForm" action="" >
+													<form class="searchForm" action="" id="searchForm">
 														<div class="position-relative row form-group">
-															<label for="" class="col-sm-1 col-form-label">형식</label>
+															<label for="" class="col-sm-1 col-form-label">확장자</label>
 															<div class="col-sm-4">
 																<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
 																	<label class="btn btn-pill btn-outline-secondary active"> 
-																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value=""> ALL
+																		<input type="radio" name="searchSect" autocomplete="off" value="" checked> ALL
 																	</label>
 																	<label class="btn btn-pill btn-outline-secondary"> 
-																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value="EXE"> EXE
+																		<input type="radio" name="searchSect" autocomplete="off" value="EXE"> EXE
 																	</label>
 																	<label class="btn btn-pill btn-outline-secondary"> 
-																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value="CLIENT"> CLIENT
+																		<input type="radio" name="searchSect" autocomplete="off" value="CLIENT"> CLIENT
 																	</label>
 																	<label class="btn btn-pill btn-outline-secondary"> 
-																		<input type="radio" name="searchType" id="searchType" autocomplete="off" value="ETC"> ETC
+																		<input type="radio" name="searchSect" autocomplete="off" value="ETC"> ETC
 																	</label>
 																</div>
 															</div>
@@ -64,7 +64,7 @@
 												</div>
 												
 												<div class="col-sm-4" >
-													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-focus" onclick="javascript:programSearchBtn();" ><i class="pe-7s-search btn-icon-wrapper"> </i>검색</button>
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-focus" onclick="javascript:searchBtn();" id="searchBtn" ><i class="pe-7s-search btn-icon-wrapper"> </i>검색</button>
 												</div>
 											</div>
 											<!-- deveice search end -->
@@ -83,7 +83,7 @@
 											<div class="programList row">
 												<div class="col-sm-12 col-md-12" >
 													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-success" style="float:right;" data-toggle="modal" data-target=".registModal"><i class="pe-7s-note2 btn-icon-wrapper" > </i>등록</button>
-													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-danger" style="float:right;" onclick="javascript:programDelBtn('');"><i class="pe-7s-trash btn-icon-wrapper"> </i>선택삭제</button>
+													<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-danger" style="float:right;" onclick="javascript:programDelBtn();"><i class="pe-7s-trash btn-icon-wrapper"> </i>선택삭제</button>
 												</div>
 												<div class="col-sm-12 col-md-12" >
 													<table style="width: 100%; text-align:center;" id="programTable" class="table table-hover table-striped table-bordered">
@@ -92,8 +92,8 @@
 																<th style="width:4%;">No</th>
 																<th style="width:1%;">
 																	<div class="custom-checkbox custom-control">
-																		<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
-																		&nbsp;&nbsp;&nbsp;<label class="custom-control-label" for="exampleCustomCheckbox3"></label>
+																		<input type="checkbox" id="selectAll" class="custom-control-input" value="" onclick='selectAll(this)'>
+																		&nbsp;&nbsp;&nbsp;<label class="custom-control-label" for="selectAll"></label>
 																	</div> 
 																</th>
 																<th style="width:6%;">타입</th>
@@ -106,46 +106,28 @@
 															</tr>
 														</thead>
 														<tbody>
-															<tr>
-																<td>1</td>
-																<td>
-																	<div class="custom-checkbox custom-control">
-																		<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
-																		&nbsp;&nbsp;&nbsp;<label class="custom-control-label" for="exampleCustomCheckbox3"></label>
-																	</div>
-																</td>
-																<td>ETC</td>
-																<td>MAIN001</td>
-																<td>1.0</td>
-																<td>/</td>
-																<td>2011-04-25 13:27:26 / 정상혁님</td>
-																<td>
-																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".programVerModal">버전 업데이트</button>
-																</td>
-																<td>
-																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:programControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
-																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:programDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
-																</td>
+															<tr th:if="${programs.size} == '0'">
+																<td colspan="9">데이터가 없습니다.</td>
 															</tr>
-															<tr>
-																<td>2</td>
+															<tr th:unless="${programs.size} == '0'" th:each="program, i : ${programs}">
+																<td th:text="${i.index+1}">1</td>
 																<td>
 																	<div class="custom-checkbox custom-control">
-																		<input type="checkbox" id="exampleCustomCheckbox3" class="custom-control-input">
-																		&nbsp;&nbsp;&nbsp;<label class="custom-control-label" for="exampleCustomCheckbox3"></label>
+																		<input type="checkbox" th:id="select + ${program.PROGRAM_ID}" class="custom-control-input" th:value="${program.PROGRAM_ID}" name="programSelect">
+																		&nbsp;&nbsp;&nbsp;<label class="custom-control-label" th:for="select + ${program.PROGRAM_ID}"></label>
 																	</div>
 																</td>
-																<td>ETC</td>
-																<td>MAIN001</td>
-																<td>1.0</td>
-																<td>/</td>
-																<td>2011-04-25 13:27:26 / Admin</td>
+																<td th:text="${program.PROGRAM_SECT}"></td>
+																<td th:text="${program.PROGRAM_NAME}">MAIN001</td>
+																<td th:text="${program.FILE_VER}">1.0</td>
+																<td th:text="${program.PROGRAM_WORKPATH}">/</td>
+																<td th:text="${program.UPD_DATE} + '/' + ${program.UPD_ID}">2011-04-25 13:27:26 / 정상혁님</td>
 																<td>
-																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".programVerModal">버전 업데이트</button>
+																	<button type="button" class="btn btn btn-alternate" data-toggle="modal" data-target=".programVerModal" th:onclick="|setProgramVerTarget('${program.PROGRAM_ID}')|">버전 업데이트</button>
 																</td>
 																<td>
-																	<button type="button" class="btn mr-2 btn-icon btn btn-warning" data-toggle="modal" data-target=".updateModal" onclick="javascript:programControlBtn('1');"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
-																	<button type="button" class="btn mr-2 btn-icon btn btn-danger" onclick="javascript:programDelBtn('1');"><i class="pe-7s-trash btn-icon-wrapper"> </i>삭제</button>
+																	<button type="button" class="btn mr-2 btn-icon btn-warning" data-toggle="modal" data-target=".updateModal" th:onclick="|programUpdViewBtn('${program.PROGRAM_ID}')|"><i class="pe-7s-tools btn-icon-wrapper"> </i>수정</button>
+																	<button type="button" class="btn btn-icon btn-light" th:onclick="|programDownload('${program.PROGRAM_ID}')|"><i class="pe-7s-download btn-icon-wrapper"> </i>다운</button>
 																</td>
 															</tr>
 														</tbody>
@@ -186,12 +168,9 @@
 											<div class="position-relative row form-group">
 												<label for="programSect" class="col-sm-3 col-form-label">형식</label>
 												<div class="col-sm-9">
-													<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
+													<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons" id="radioGroup">
 														<label class="btn btn-pill btn-outline-secondary active"> 
-															<input type="radio" name="programSect" id="programSectAll" autocomplete="off" value=""> ALL
-														</label>
-														<label class="btn btn-pill btn-outline-secondary"> 
-															<input type="radio" name="programSect" id="programSectExe" autocomplete="off" value="EXE"> EXE
+															<input type="radio" name="programSect" id="programSectExe" autocomplete="off" value="EXE" checked> EXE
 														</label>
 														<label class="btn btn-pill btn-outline-secondary"> 
 															<input type="radio" name="programSect" id="programSectClient" autocomplete="off" value="CLIENT"> CLIENT
@@ -256,14 +235,12 @@
 							<div class="col-md-12">
 								<div class="main-card mb-3 card">
 									<div class="card-body">
-										<form class="registForm" action="" method="post" >
+										<form class="updateForm" action="" method="post" id="programUpdForm" name="programUpdForm" >
+											<input type="hidden" name="programId" id="programId" value=""/>
 											<div class="position-relative row form-group">
 												<label for="programSect" class="col-sm-3 col-form-label">형식</label>
 												<div class="col-sm-9">
 													<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-														<label class="btn btn-pill btn-outline-secondary active"> 
-															<input type="radio" name="programSect" id="programSectAll" autocomplete="off" value=""> ALL
-														</label>
 														<label class="btn btn-pill btn-outline-secondary"> 
 															<input type="radio" name="programSect" id="programSectExe" autocomplete="off" value="EXE"> EXE
 														</label>
@@ -303,27 +280,27 @@
 								<div class="main-card mb-3 card">
 									<div class="card-body">
 										<h5 class="card-title">프로그램 버전 목록</h5>
-										<table class="mb-0 table table-hover">
+										<table class="mb-0 table table-hover" style="text-align:center;">
 											<thead>
 												<tr>
 													<th>버전 사용</th>
 													<th>버전 설명</th>
-													<th>경로</th>
+<!-- 													<th>경로</th> -->
 													<th>유틸</th>
 												</tr>
 											</thead>
-											<tbody>
+											<tbody id="programVerList">
 												<tr>
-													<th scope="row">
+													<th scope="row" width="12%">
 														<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
 															<label class="btn btn-pill btn-outline-secondary" onclick="javascript:chageVersion();"> 
 																<input type="radio" name="programVerUse" id="programVerUse" value="Y" > 1.0
 															</label>
 														</div>
 													</th>
-													<td>Mark</td>
-													<td>Otto</td>
-													<td>@mdo</td>
+													<td width="80%">Mark</td>
+<!-- 													<td width="30%">Otto</td> -->
+													<td width="8%"><button type="button" class="btn btn-icon btn-light"><i class="pe-7s-download btn-icon-wrapper" style="margin-right: 0rem;"></i></button></td>
 												</tr>
 												<tr>
 													<th scope="row">
@@ -346,45 +323,13 @@
 											</tbody>
 										</table>
 									</div>
-									<!-- <div class="card-body">
-										<form class="registForm" action="" method="post" >
-											<div class="position-relative row form-group">
-												<label for="programSect" class="col-sm-3 col-form-label">버전 목록</label>
-												<div class="col-sm-9">
-													<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-														<label class="btn btn-pill btn-outline-secondary active"> 
-															<input type="radio" name="programVerUse" id="programVerUse" autocomplete="off" value="Y"> 사용
-														</label>
-													</div>
-												</div>
-											</div>
-											<div class="position-relative row form-group">
-												<label for="programName" class="col-sm-3 col-form-label">프로그램명</label>
-												<div class="col-sm-9">
-													<input name="programName" id="programName" type="text" class="form-control">
-												</div>
-											</div>
-											<div class="position-relative row form-group">
-												<label for="programWorkPath" class="col-sm-3 col-form-label">클라이언트 경로</label>
-												<div class="col-sm-9">
-													<input name="programWorkPath" id="programWorkPath" type="text" class="form-control">
-												</div>
-											</div>
-											<div class="position-relative row form-group">
-												<label for="programDesc" class="col-sm-3 col-form-label">설명</label>
-												<div class="col-sm-9">
-													<textarea name="programDesc" id="programDesc" class="form-control"></textarea>
-												</div>
-											</div>
-										</form>
-									</div> -->
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
-						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" onclick="updSaveBtn()"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
 					</div>
 				</div>
 			</div>
@@ -406,26 +351,8 @@
 							<div class="col-md-12">
 								<div class="main-card mb-3 card">
 									<div class="card-body">
-										<form class="programVerForm" action="" method="post" >
-											<div class="position-relative row form-group">
-												<label for="programSect" class="col-sm-3 col-form-label">형식</label>
-												<div class="col-sm-9">
-													<div role="group" class="btn-group-lg btn-group btn-group-toggle" data-toggle="buttons">
-														<label class="btn btn-pill btn-outline-secondary active"> 
-															<input type="radio" name="programSect" id="programSectAll" autocomplete="off" value=""> ALL
-														</label>
-														<label class="btn btn-pill btn-outline-secondary"> 
-															<input type="radio" name="programSect" id="programSectExe" autocomplete="off" value="EXE"> EXE
-														</label>
-														<label class="btn btn-pill btn-outline-secondary"> 
-															<input type="radio" name="programSect" id="programSectClient" autocomplete="off" value="CLIENT"> CLIENT
-														</label>
-														<label class="btn btn-pill btn-outline-secondary"> 
-															<input type="radio" name="programSect" id="programSectEtc" autocomplete="off" value="ETC"> ETC
-														</label>
-													</div>
-												</div>
-											</div>
+										<form class="programVerForm" name="programVerUpdForm" id="programVerUpdForm" action="" method="post" enctype="multipart/form-data">
+											<input type="hidden" name="programId" id="programId"/>
 											<div class="position-relative row form-group">
 												<label for="programName" class="col-sm-3 col-form-label">버전</label>
 												<div class="col-sm-9">
@@ -441,7 +368,7 @@
 											<div class="position-relative row form-group">
 												<label for="programFile" class="col-sm-3 col-form-label">파일</label>
 												<div class="col-sm-9">
-													<input name="programFile" id="programFile" type="file" class="form-control-file"> 
+													<input name="file" id="programVerFile" type="file" class="form-control-file"> 
 												</div>
 											</div>
 										</form>
@@ -452,28 +379,41 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-secondary" data-dismiss="modal" id="closeModal"><i class="pe-7s-close btn-icon-wrapper"> </i>닫기</button>
-						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" data-toggle="modal" data-target=".saveModal"  id="saveBtn" onclick="saveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
+						<button type="button" class="btn mr-2 mb-2 btn-icon btn btn-info" style="float:right;" onclick="verSaveBtn();"><i class="pe-7s-cloud-upload btn-icon-wrapper"> </i>저장</button>
 					</div>
 				</div>
 			</div>
 		</div>
+		
+		<form name="frmdown" action="/program/download">
+			<input type="hidden" name="mode" value="PROGRAM">
+			<input type="hidden" name="downloadId" value="">
+			<input type="hidden" name="format" value="file">
+		</form>
     </th:block>
     <!-- sub end -->
     
      <!-- script start -->
     <th:block layout:fragment="script">
+    	<script defer src="../assets/eltov/modal/makingModal.js"></script>
     	<script th:inline="javascript">
-			function regSaveBtn() {
-				//     			 var queryString = $("form[name=programRegForm]").serialize();
-				//     			 console.log(queryString);
+	    	// program search
+			// ...
+    		function searchBtn(){
+				var searchForm = document.getElementById('searchForm');
+				searchForm.action = '/program/list';
+				searchForm.submit();
+			}
+    	
+	    	// program regist
+			// ...
+	    	function regSaveBtn() {
 				console.log('regSaveBtn');
 				var form = $("form[name=programRegForm]")[0];
 				var formData = new FormData(form);
-				console.log(form);
-				console.log(formData);
-
+	
 				$.ajax({
-					type : "post",
+					method: "post",
 					enctype : 'multipart/form-data',
 					url : '/program/regist',
 					data : formData,
@@ -481,42 +421,228 @@
 					processData : false,
 					contentType : false,
 					cache : false,
-					success : function(data) {
-						console.log("success : ", data);
+					success : function(result) {
+						console.log("success : ", result);
+						if (result.code == 'SUCC' ) {
+							alert(result.msg);
+							window.location.reload();
+	        			} else {
+	        				alert(result.msg);
+	        			}
 					},
 					error : function(e) {
 						console.log("error : ", e);
 					}
 				});
 			}
-
-			function programControlBtn(id) {
-
-			}
-
-			// program delete
+	
+	    	// update view
 			// ...
-			function programAllDelBtn() {
+			function programUpdViewBtn(id) {
+				
+				var programUpdModal = document.getElementById('programUpdModal');
+				var data = {
+					'programId': id
+				}
+				
+				$.ajax({
+					method: "GET",
+					url : '/program/update_view',
+					data : {programId : id},
+					dataType: 'json',
+					success : function(result) {
+						console.log("success : ", result);
+						console.log(programUpdModal);
+						Modal.drawModal(result, programUpdModal);
+					},
+					error : function(e) {
+						console.log("error : ", e);
+					}
+				});
 			}
-
-			function programDelBtn(id) {
-			}
-
-			// transfer to server 
+	    	
+	    	// program update
 			// ...
-			function saveBtn() {
-
-			}
-
-			$(document).ready(function() {
-			})
-
-			function chageVersion() {
+	    	function updSaveBtn(){
+	    		console.log('updSaveBtn');
+				var form = $("form[name=programUpdForm]")[0];
+				var formData = new FormData(form);
+				console.log(form.programName.valu);
+				console.log(formData);
+	
+				$.ajax({
+					method: "post",
+// 					enctype : 'multipart/form-data',
+					url : '/program/update',
+					data : formData,
+					dataType: 'json',
+					processData : false,
+					contentType : false,
+					cache : false,
+					success : function(result) {
+						console.log("success : ", result);
+						if (result.code == 'SUCC' ) {
+							alert(result.msg);
+							window.location.reload();
+	        			} else {
+	        				alert(result.msg);
+	        			}
+					},
+					error : function(e) {
+						console.log("error : ", e);
+					}
+				});
+	    	}
+	    	
+	    	// set the version to update
+			// ...
+	    	function setProgramVerTarget(id){
+	    		var verUpdForm = document.getElementById('programVerUpdForm');
+	    		verUpdForm.programId.value = id;
+	    	}
+	    	
+	    	// version update
+			// ...
+	    	function verSaveBtn(){
+	    		console.log('verSaveBtn');
+				var form = $("form[name=programVerUpdForm]")[0];
+				var formData = new FormData(form);
+	
+				$.ajax({
+					method: "post",
+					enctype : 'multipart/form-data',
+					url : '/program/ver_update',
+					data : formData,
+					dataType: 'json',
+					processData : false,
+					contentType : false,
+					cache : false,
+					success : function(result) {
+						console.log("success : ", result);
+						if (result.code == 'SUCC' ) {
+							alert(result.msg);
+							window.location.reload();
+	        			} else {
+	        				alert(result.msg);
+	        			}
+					},
+					error : function(e) {
+						console.log("error : ", e);
+					}
+				});
+	    	}
+	    	
+			// version change
+			// ...
+			function chageVersion(fileId, programId) {
+				console.log(fileId);
+				console.log(programId);
 				if (confirm("버전을 변경하시겠습니까?\n선택된 버전으로 변경됩니다.") == true) {
+					$.ajax({
+						method: "GET",
+						url : '/program/change_ver',
+						data : {fileId : fileId, programId : programId},
+						dataType: 'json',
+						success : function(result) {
+							console.log("success : ", result);
+							if (result.code == 'SUCC' ) {
+								alert(result.msg);
+								window.location.reload();
+		        			} else {
+		        				alert(result.msg);
+		        			}
+						},
+						error : function(e) {
+							console.log("error : ", e);
+						}
+					});
 					window.location.reload();
 				} else {
-					//                 	window.location.reload();
-					return;
+					window.location.reload();
+				}
+			}
+			
+			//전체 체크박스 선택, 해제
+			function selectAll(selectAll)  {
+			  const checkboxes = document.getElementsByName('programSelect');
+			  
+			  checkboxes.forEach((checkbox) => {
+			    checkbox.checked = selectAll.checked;
+			  })
+			}
+			
+			// program delete
+			// ...
+			function programDelBtn() {
+				var delIds = new Array;
+		        $('.custom-control-input').each(function(){
+		            if($(this).is(":checked") && $(this).val() != ''){
+		            	console.log($.trim($(this).val()));
+		            	delIds.push(Number($.trim($(this).val())));
+		            }
+		        });
+
+		        console.log(delIds + " <-delIdsdelIds");
+		        console.log(delIds.length + " <-delIdsdelIds");
+		        
+		        if(delIds.length == 0){
+		        	 alert("프로그램을 선택 하세요.");
+			            return;
+		        }
+				
+		        var data = JSON.stringify({'delIds' : delIds});
+		        
+		        if(confirm("삭제하시겠습니까?")){
+		        	$.ajax({
+						method: "post",
+						url : '/program/delete',
+						data : JSON.stringify(delIds),
+						dataType: 'json',
+						contentType: 'application/json',
+						cache : false,
+						success : function(result) {
+							console.log("success : ", result);
+							if (result.code == 'SUCC' ) {
+								alert(result.msg);
+								window.location.reload();
+		        			} else {
+		        				alert(result.msg);
+		        			}
+						},
+						error : function(e) {
+							console.log("error : ", e);
+						}
+					});
+		        }
+			}
+			
+			// program download
+			// ...
+			function programDownload(downloadId) {
+		        var f = document.frmdown;
+				if(confirm("해당 파일을 다운로드 하시겠습니까?")){
+		            f.downloadId.value = downloadId;
+		            f.submit();
+// 					$.ajax({
+// 						method: "post",
+// 						url : '/program/download',
+// 						data : JSON.stringify(downloadId),
+// 						dataType: 'json',
+// 						contentType: 'application/json',
+// 						cache : false,
+// 						success : function(result) {
+// 							console.log("success : ", result);
+// 							if (result.code == 'SUCC' ) {
+// 								alert(result.msg);
+// // 								window.location.reload();
+// 		        			} else {
+// 		        				alert(result.msg);
+// 		        			}
+// 						},
+// 						error : function(e) {
+// 							console.log("error : ", e);
+// 						}
+// 					});
 				}
 			}
 		</script>

@@ -12,7 +12,7 @@
 	<Appenders>
 		<!-- info log4j2 console setting start -->
 		<Console name="console" target="SYSTEM_OUT">
-			<PatternLayout pattern="${consoleLayoutPattern}"/>
+			<PatternLayout charset="UTF-8" pattern="${consoleLayoutPattern}"/>
 		</Console>
 		<!-- info log4j2 console setting start -->
 		
@@ -20,7 +20,7 @@
 		<RollingFile name="rollingInfoFile">
 			<FileName>${fileDir}/info/${date:yyyy}/${date:MM}/infoLog_${date:yyyy-MM-dd}.log</FileName>
 			<FilePattern>${fileDir}/info/backup/${date:yyyy}/${date:MM}/info_%d{yyyy-MM-dd}.log.zip</FilePattern>
-			<PatternLayout pattern="${fileLayoutPattern}"/>
+			<PatternLayout charset="UTF-8" pattern="${fileLayoutPattern}"/>
 			<!-- <PatternLayout>
 				<Pattern>${fileLayoutPattern}</Pattern>
 			</PatternLayout> -->
@@ -43,7 +43,7 @@
 		<RollingFile name="rollingWarnFile">
 			<FileName>${fileDir}/warn/${date:yyyy}/${date:MM}/warnLog_${date:yyyy-MM-dd}.log</FileName>
 			<FilePattern>${fileDir}/warn/backup/${date:yyyy}/${date:MM}/warn_%d{yyyy-MM-dd}.log.zip</FilePattern>
-			<PatternLayout pattern="${fileLayoutPattern}"/>
+			<PatternLayout charset="UTF-8" pattern="${fileLayoutPattern}"/>
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
 			</Policies>
@@ -55,7 +55,7 @@
 		<RollingFile name="rollingErrorFile">
 			<FileName>${fileDir}/error/${date:yyyy}/${date:MM}/errorLog_${date:yyyy-MM-dd}.log</FileName>
 			<FilePattern>${fileDir}/error/backup/${date:yyyy}/${date:MM}/error_%d{yyyy-MM-dd}.log.zip</FilePattern>
-			<PatternLayout pattern="${fileLayoutPattern}"/>
+			<PatternLayout charset="UTF-8" pattern="${fileLayoutPattern}"/>
 			<Policies>
 				<TimeBasedTriggeringPolicy interval="1" modulate="true"/>
 			</Policies>
@@ -76,15 +76,18 @@
 			<AppenderRef ref="rollingErrorFile" level="ERROR" />
 			<AppenderRef ref="console" />
 		</Logger> -->
-		<Logger name="org.springframework" level="ERROR" additivity="false"> 
-			<AppenderRef ref="Console_Appender" /> 
-			<AppenderRef ref="File_Appender"/> 
-<!-- 			<AppenderRef ref="Db_Appender"/>  -->
+		<Logger name="org.springframework" level="WARN" additivity="false"> 
+			<AppenderRef ref="console" />
+			<AppenderRef ref="rollingWarnFile" level="WARN" />
 		</Logger> 
+		<logger name="com.zaxxer.hikari" level="WARN" additivity = "false">
+			<AppenderRef ref="console" />
+			<AppenderRef ref="rollingWarnFile" level="WARN" />
+		</logger>
 		<Root level="info" additivity="false">
 			<AppenderRef ref="console" />
 			<AppenderRef ref="rollingInfoFile" level="INFO" />
-			<AppenderRef ref="rollingWarnFile" level="WARN" />
+			<!-- <AppenderRef ref="rollingWarnFile" level="WARN" /> -->
 			<AppenderRef ref="rollingErrorFile" level="ERROR" />
 			<!-- <AppenderRef ref="rollingInfoFile" level="INFO" /> -->
 			<!-- 

@@ -37,6 +37,11 @@ public class MainController {
 //		this.statsService = statsService;
 //	}
 	
+	@GetMapping("/index")
+	public String getIndex() {
+		return "index";
+	}
+	
 	//branch list를 보여주는 맵핑
 	@GetMapping("/dashboard")
 	public String getDashboard(BranchDTO branchDto) {

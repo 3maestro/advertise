@@ -28,11 +28,23 @@ spring:
     cache : false
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+config:
+  glUrlRoot: http://10.152.132.150
+  glPathRoot: D:/00_FTP_HOME/01_JAVA_HOME/ssh_dp_daejeon_g
+  glPathFileRoot: D:/10WEB_HOME/BOOT/PROJECT/eltovDID/src/main/resources/static
+  glPathProgram: /zcommonfiles/program
+  glSessionTime:  86400
+  glCookieTime: 604800
+  glFileLimit: 500000000
+  glFileLimitImg: 36000000
+  glFileLimitMov: 309715200
 logging:
   config: classpath:log4j2.xml
 ---
 spring:
-  profiles: dev
+  config: 
+    activate: 
+      on-profile: dev
   datasource:
     #driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     #jdbc-url: jdbc:log4jdbc:sqlserver://localhost:1433;DatabaseName=eltovdid
@@ -49,5 +61,13 @@ spring:
       enabled: true
     restart:
       enabled: true
+config:
+  glUrlRoot: http://192.168.0.154
+  glPathRoot: D:/10WEB_HOME/BOOT/PROJECT/eltovDID
+  glPathFileRoot: D:/10WEB_HOME/BOOT/PROJECT/eltovDID/src/main/resources/static
 logging:
   config: classpath:log4j2_dev.xml
+  file:
+    name: ${user.dir}/log/test.log  # 로깅 파일 위치이다.
+    max-history: 1 # 로그 파일 삭제 주기이다. 1일 이후 로그는 삭제한다.
+    max-size: 10MB  # 로그 파일 하나당 최대 파일 사이즈이다.

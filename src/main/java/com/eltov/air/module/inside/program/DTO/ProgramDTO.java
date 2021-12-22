@@ -1,6 +1,7 @@
 package com.eltov.air.module.inside.program.DTO;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import com.eltov.air.core.util.CommUtil;
 
@@ -8,16 +9,16 @@ public class ProgramDTO {
 	
 	private Integer programId;
 	private Integer brnId;
-	private String programSect ;
-	private String programType ;
-	private String programName ;
-	private String programArgument ;
-	private String programWorkPath ;
-	private String programDesc ;
-	private String dbStatus ;
-	private Integer regId ;
-	private Integer updId ;
-	private Integer delId ;
+	private String programSect;
+	private String programType;
+	private String programName;
+	private String programArgument;
+	private String programWorkPath;
+	private String programDesc;
+	private String dbStatus;
+	private Integer regId;
+	private Integer updId;
+	private Integer delId;
 	private Timestamp regDate;
 	private Timestamp updDate;
 	private Timestamp delDate;
@@ -26,41 +27,43 @@ public class ProgramDTO {
 	private String lastVer;
 	private String lastUpdater;
 	
+	private List<ProgramFileDTO> programFileList;
+	
 	public Integer getProgramId() {
 		return CommUtil.getChkNull(programId);
 	}
 	public Integer getBrnId() {
-		return brnId;
+		return CommUtil.getChkNull(brnId);
 	}
 	public String getProgramSect() {
-		return programSect;
+		return CommUtil.getChkNull(programSect);
 	}
 	public String getProgramType() {
-		return programType;
+		return CommUtil.getChkNull(programType);
 	}
 	public String getProgramName() {
-		return programName;
+		return CommUtil.getChkNull(programName);
 	}
 	public String getProgramArgument() {
-		return programArgument;
+		return CommUtil.getChkNull(programArgument);
 	}
 	public String getProgramWorkPath() {
-		return programWorkPath;
+		return CommUtil.getChkNull(programWorkPath);
 	}
 	public String getProgramDesc() {
-		return programDesc;
+		return CommUtil.getChkNull(programDesc);
 	}
 	public String getDbStatus() {
-		return dbStatus;
+		return CommUtil.getChkNull(dbStatus);
 	}
 	public Integer getRegId() {
-		return regId;
+		return CommUtil.getChkNull(regId);
 	}
 	public Integer getUpdId() {
-		return updId;
+		return CommUtil.getChkNull(updId);
 	}
 	public Integer getDelId() {
-		return delId;
+		return CommUtil.getChkNull(delId);
 	}
 	public Timestamp getRegDate() {
 		return regDate;
@@ -80,7 +83,10 @@ public class ProgramDTO {
 	public String getLastUpdater() {
 		return lastUpdater;
 	}
-	
+	public List<ProgramFileDTO> getProgramFileList() {
+		return programFileList;
+	}
+
 	public void setProgramId(Integer programId) {
 		this.programId = programId;
 	}
@@ -135,7 +141,9 @@ public class ProgramDTO {
 	public void setLastUpdater(String lastUpdater) {
 		this.lastUpdater = lastUpdater;
 	}
-
+	public void setProgramFileList(List<ProgramFileDTO> programFileList) {
+		this.programFileList = programFileList;
+	}
 	public ProgramDTO(){}
 
 	

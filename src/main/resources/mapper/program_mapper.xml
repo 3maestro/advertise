@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.eltov.air.module.inside.program.mapper.ProgramMapper">
+
+	<sql id="searchWhere">
+		<if test='search.searchSect != ""'>
+			AND p.PROGRAM_SECT = #{search.searchSect}
+		</if>
+		<if test='search.searchName != ""'>
+			AND p.PROGRAM_NAME LIKE '%' + #{search.searchName} + '%'
+		</if>
+	</sql>
+	
+	<select id="getPrograms" resultType="hashmap">
+		SELECT 
+			P.PROGRAM_ID, P.BRN_ID, P.PROGRAM_NAME, P.PROGRAM_SECT, P.PROGRAM_WORKPATH, 
+			P.PROGRAM_DESC, P.REG_ID, P.UPD_ID, P.DB_STATUS, P.REG_DATE, P.UPD_DATE,
+			PF.FILE_ID, PF.FILE_SECT, PF.FILE_TYPE, PF.FILE_NAME, PF.FILE_REALNAME, PF.FILE_VER,
+			PF.USE_YN, PF.FILE_VER_DESC, PF.FILE_SIZE, PF.FILE_EXT, PF.FILE_PATH
+		FROM 
+		    TB_PROGRAM AS P
+		LEFT OUTER JOIN
+			TB_PROGRAM_FILE AS PF
+		ON
+			P.PROGRAM_ID = PF.PROGRAM_ID
+		WHERE
+		    P.DB_STATUS = 'A'
+			AND PF.DB_STATUS = 'A'
+			AND P.BRN_ID = #{brnId}
+			AND PF.USE_YN = 'Y'
+        <include refid="searchWhere"/>
+	</select>
+
+	<insert id="registProgramDB">
+	<!-- 	<selectKey keyProperty="pg.programId" resultType="int" order="AFTER">
+			SELECT PROGRAM_ID FROM TB_PROGRAM
+		</selectKey> -->
+		INSERT INTO TB_PROGRAM(
+        	BRN_ID, PROGRAM_NAME, PROGRAM_SECT, PROGRAM_WORKPATH, PROGRAM_DESC, 
+        	REG_ID, UPD_ID, DB_STATUS, REG_DATE, UPD_DATE
+        )VALUES(
+        	#{pg.brnId}, #{pg.programName}, #{pg.programSect}, #{pg.programWorkPath}, #{pg.programDesc}, 
+        	#{pg.regId}, #{pg.updId}, 'A', GETDATE(), GETDATE()
+        )
+		<selectKey keyProperty="pg.programId" resultType="Integer" order="AFTER">
+			SELECT IDENT_CURRENT('TB_PROGRAM')
+		</selectKey>
+	</insert>
+	
+	<insert id="registProgramFileDB"> 
+		INSERT INTO TB_PROGRAM_FILE(
+			PROGRAM_ID, FILE_SECT, FILE_TYPE, FILE_NAME, FILE_REALNAME, FILE_VER,
+			USE_YN, FILE_SIZE, FILE_EXT, FILE_PATH, DB_STATUS, REG_DATE, UPD_DATE
+		)VALUES(
+			#{file.programId}, #{file.fileSect}, #{file.fileType}, #{file.fileName}, #{file.fileRealname}, #{file.fileVer},
+			'Y', #{file.fileSize}, #{file.fileExt}, #{file.filePath}, 'A', GETDATE(), GETDATE()  
+		)
+		
+	</insert>
+	
+	<select id="getProgramToUpdate" resultType="com.eltov.air.module.inside.program.DTO.ProgramDTO">
+		SELECT 
+			P.PROGRAM_ID, P.BRN_ID, P.PROGRAM_NAME, P.PROGRAM_SECT, P.PROGRAM_WORKPATH, 
+			P.PROGRAM_DESC, P.REG_ID, P.UPD_ID, P.DB_STATUS, P.REG_DATE, P.UPD_DATE
+		FROM 
+		    TB_PROGRAM AS P
+		WHERE
+		    P.DB_STATUS = 'A'
+			AND P.PROGRAM_ID = #{pg.programId}
+			AND P.BRN_ID = #{pg.brnId}
+	</select>
+	
+	<select id="getProgramToUpdateFile" resultType="hashmap">
+		SELECT 
+			PF.FILE_ID, PF.FILE_SECT, PF.FILE_TYPE, PF.FILE_NAME, PF.FILE_REALNAME, PF.FILE_VER,
+			PF.USE_YN, PF.FILE_VER_DESC, PF.USE_YN, PF.FILE_SIZE, PF.FILE_EXT, PF.FILE_PATH
+		FROM 
+			TB_PROGRAM_FILE AS PF
+		WHERE
+			PF.DB_STATUS = 'A'
+			AND PF.PROGRAM_ID = #{pg.programId}
+	</select>
+	
+	<update id="updateProgramDB">
+		UPDATE
+			TB_PROGRAM
+		SET
+			PROGRAM_SECT = #{pg.programSect},
+			PROGRAM_NAME = #{pg.programName},
+			PROGRAM_WORKPATH = #{pg.programWorkPath},
+			PROGRAM_DESC = #{pg.programDesc},
+			UPD_ID = #{pg.updId},
+			UPD_DATE = GETDATE()
+		WHERE
+			PROGRAM_ID = #{pg.programId}
+			AND DB_STATUS = 'A'
+			AND BRN_ID = #{pg.brnId}
+	</update>
+	
+	<update id="setProgramVerUseN">
+		UPDATE
+			TB_PROGRAM_FILE
+		SET
+			USE_YN = 'N'
+		WHERE
+			PROGRAM_ID = #{programId} 
+	</update>
+	
+	<insert id="updateProgramVerDB">
+		INSERT INTO TB_PROGRAM_FILE(
+			PROGRAM_ID, FILE_SECT, FILE_TYPE, FILE_NAME, FILE_REALNAME, FILE_VER, FILE_VER_DESC, 
+			USE_YN, FILE_SIZE, FILE_EXT, FILE_PATH, DB_STATUS, REG_DATE, UPD_DATE
+		)VALUES(
+			#{file.programId}, #{file.fileSect}, #{file.fileType}, #{file.fileName}, #{file.fileRealname}, #{file.fileVer}, #{file.fileVerDesc},
+			'Y', #{file.fileSize}, #{file.fileExt}, #{file.filePath}, 'A', GETDATE(), GETDATE()  
+		)
+	</insert>
+	
+	<update id="changeProgramVer">
+		UPDATE
+			TB_PROGRAM_FILE
+		SET
+			USE_YN = 'Y'
+		WHERE
+			FILE_ID = #{fileId} 
+	</update>
+	
+	<update id="deleteProgramDB">
+		UPDATE
+			TB_PROGRAM
+		SET
+			DB_STATUS = 'A'
+		WHERE
+			PROGRAM_ID = #{programId}
+			AND BRN_ID = #{brnId}
+	</update>
+	
+	<select id="getProgramFileToDelete" resultType="com.eltov.air.module.inside.program.DTO.ProgramFileDTO">
+		<!-- 
+		SELECT 
+			PF.PROGRAM_ID, PF.FILE_VER,
+			PF.USE_YN, PF.FILE_VER_DESC
+		FROM 
+			TB_PROGRAM_FILE AS PF
+		WHERE
+			PF.DB_STATUS = 'A'
+			AND PF.PROGRAM_ID = #{programId} -->
+		<!-- SELECT 
+			PF.PROGRAM_ID, PF.FILE_ID, PF.FILE_SECT, PF.FILE_TYPE, 
+			PF.FILE_NAME, PF.FILE_REALNAME, PF.FILE_VER,
+			PF.USE_YN, PF.FILE_VER_DESC, PF.FILE_SIZE, PF.FILE_EXT, PF.FILE_PATH
+		FROM 
+			TB_PROGRAM_FILE AS PF
+		WHERE
+			PF.DB_STATUS = 'A'
+			AND P.BRN_ID = #{brnId}
+			AND PF.PROGRAM_ID = #{programId} -->
+		SELECT 
+			PF.PROGRAM_ID, PF.FILE_ID, PF.FILE_SECT, PF.FILE_TYPE, 
+			PF.FILE_NAME, PF.FILE_REALNAME, PF.FILE_VER,
+			PF.USE_YN, PF.FILE_VER_DESC, PF.FILE_SIZE, PF.FILE_EXT, PF.FILE_PATH
+		FROM 
+			TB_PROGRAM AS P
+		LEFT OUTER JOIN
+			TB_PROGRAM_FILE AS PF
+		ON
+			P.PROGRAM_ID = PF.PROGRAM_ID
+		WHERE
+			PF.DB_STATUS = 'A'
+			AND P.BRN_ID = #{brnId}
+			AND PF.PROGRAM_ID = #{programId}
+	</select>
+	
+	<delete id="deleteProgramFileDB">
+		DELETE TB_PROGRAM_FILE WHERE FILE_ID = #{file.fileId}
+	</delete>
+	
+	<select id="getProgramFileToDownload" resultType="com.eltov.air.module.inside.program.DTO.ProgramFileDTO">
+		SELECT 
+			PF.FILE_ID, PF.PROGRAM_ID, PF.FILE_SECT, PF.FILE_TYPE, 
+			PF.FILE_NAME, PF.FILE_REALNAME, PF.FILE_VER,
+			PF.USE_YN, PF.FILE_VER_DESC, PF.FILE_SIZE, PF.FILE_EXT, PF.FILE_PATH
+		FROM 
+			TB_PROGRAM AS P
+		LEFT OUTER JOIN
+			TB_PROGRAM_FILE AS PF
+		ON
+			P.PROGRAM_ID = PF.PROGRAM_ID
+		WHERE
+			PF.DB_STATUS = 'A'
+			AND PF.USE_YN = 'Y'
+			AND P.BRN_ID = #{brnId}
+			AND PF.PROGRAM_ID = #{programId}
+	</select>
+	<!-- <resultMap type="com.eltov.air.module.inside.program.DTO.ProgramDTO" id="programMap">
+		<result property="programId" 		column="PROGRAM_ID" />
+		<result property="brnId" 			column="BRN_ID" />
+		<result property="programSect" 		column="PROGRAM_SECT" />
+		<result property="programType" 		column="PROGRAM_TYPE" />
+		<result property="programName" 		column="PROGRAM_NAME" />
+		<result property="programArgument" 	column="PROGRAM_ARGUMENT" />
+		<result property="programWorkPath" 	column="PROGRAM_WORKPATH" />
+		<result property="programDesc" 		column="PROGRAM_DESC" />
+		<result property="dbStatus" 		column="DB_STATUS" />
+		<result property="regId" 			column="REG_ID" />
+		<result property="updId" 			column="UPD_ID" />
+		<result property="delId" 			column="DEL_ID" />
+		<result property="regDate" 			column="REG_DATE" />
+		<result property="updDate" 			column="UPD_DATE" />
+		<result property="delDate" 			column="DEL_DATE" />
+	</resultMap>
+
+	<resultMap type="com.eltov.air.module.inside.program.DTO.ProgramFileDTO" id="programFileMap">
+		<result property="fileId" 			column="FILE_ID" />
+		<result property="programId" 		column="PROGRAM_ID" />
+		<result property="fileSect" 		column="FILE_SECT" />
+		<result property="fileType" 		column="FILE_TYPE" />
+		<result property="fileName" 		column="FILE_NAME" />
+		<result property="fileRealname" 	column="FILE_REALNAME" />
+		<result property="fileVer" 			column="FILE_VER" />
+		<result property="fileVerDesc" 		column="FILE_VER_DESC" />
+		<result property="fileSize" 		column="FILE_SIZE" />
+		<result property="fileExt" 			column="FILE_EXT" />
+		<result property="useYn" 			column="USE_YN" />
+		<result property="filePath" 		column="FILE_PATH" />
+		<result property="dbStatus" 		column="DB_STATUS" />
+		<result property="regDate" 			column="REG_DATE" />
+		<result property="updDate" 			column="UPD_DATE" />
+		<result property="delDate" 			column="DEL_DATE" />
+	</resultMap> -->
+
+</mapper>
